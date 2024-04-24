@@ -1,5 +1,4 @@
-import MainNavbar from './ui/MainNavbar';
-import TenLatestScreenings from './ui/TenLatestScreenings';
+import TenLatestScreenings from './ui/TenLatestScreenings.jsx';
 
 export default function Home() {
   return <TenLatestScreenings />;
