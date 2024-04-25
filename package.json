@@ -9,14 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@nextui-org/react": "^2.3.5",
-    "@nextui-org/system": "^2.1.2",
-    "@nextui-org/theme": "^2.2.2",
-    "framer-motion": "^11.1.7",
-    "next": "14.2.2",
-=======
->>>>>>> parent of 9a423d5 (added prettier and typescript)
     "react": "^18",
     "react-dom": "^18",
     "next": "14.2.2"
