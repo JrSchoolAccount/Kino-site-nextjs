@@ -1,17 +1,10 @@
-'use client';
 
-import React, { useState } from 'react';
 import { getSpecificScreenings } from '../lib/utils';
 
-type Screening = {
-  id: number;
-  start_time: string;
-};
+
 
 const TestComponent = () => {
-  const [specificScreenings, setSpecificScreenings] = useState<Screening[]>(
-    getSpecificScreenings(1).data
-  );
+  const specificScreenings = getSpecificScreenings(1).data;
 
   return (
     <div>
