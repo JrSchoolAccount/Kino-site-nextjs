@@ -1,5 +1,5 @@
 
-import { getSpecificScreenings } from '../lib/utils';
+import { getSpecificScreenings } from '../../lib/data';
 
 
 
