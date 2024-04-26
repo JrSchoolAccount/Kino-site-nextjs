@@ -1,11 +1,9 @@
 import MainNavbar from './ui/MainNavbar';
 
-
 export default function Home() {
   return (
-    <div>
-      <MainNavbar />
-      
+    <div className='m-20'>
+      <strong>Välkommen till Biograf Regna!</strong>
     </div>
   );
 }
