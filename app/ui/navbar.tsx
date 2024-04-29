@@ -14,9 +14,15 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Image from "next/image";
+import Link from '@mui/material/Link';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const links = [
+  { name: 'Om oss', href: '/om-oss'},
+  { name: 'Aktuella visningar', href: '/aktuella-vinsningar'},
+  { name: 'Filmer', href: '/filmer'},
+  { name: 'Biljetter', href: '/biljetter'},
+];
+const settings = ['Mina biljetter', 'inställningar', 'Logout'];
 
 export default function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -70,9 +76,9 @@ export default function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {links.map((link) => (
+                <MenuItem key={`${link.name}-${link.href}`} onClick={handleCloseNavMenu}>
+                  <Link underline="none" color='inherit' key={link.name} href={link.href} >{link.name}</Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -81,23 +87,24 @@ export default function ResponsiveAppBar() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              display: 'flex',
               flexGrow: 1,
             }}
           >
             <Image width='140' height='50' src='/logo.png' alt='Biograf Regna' />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {links.map((link) => (
               <Button
-                key={page}
+                href={link.href}
+                key={link.name}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {link.name}
               </Button>
             ))}
           </Box>
