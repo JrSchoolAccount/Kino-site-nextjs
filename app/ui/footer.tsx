@@ -47,17 +47,17 @@ export default function Footer() {
           <ul className='flex gap-6 justify-center'>
             <li>
               <a href=''>
-                <GitHubIcon></GitHubIcon>
+                <GitHubIcon className='size-8'></GitHubIcon>
               </a>
             </li>
             <li>
               <a href=''>
-                <FacebookIcon></FacebookIcon>
+                <FacebookIcon className='size-8'></FacebookIcon>
               </a>
             </li>
             <li>
               <a href=''>
-                <InstagramIcon></InstagramIcon>
+                <InstagramIcon className='size-8'></InstagramIcon>
               </a>
             </li>
           </ul>
