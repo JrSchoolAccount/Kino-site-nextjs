@@ -1,8 +1,10 @@
-import { Providers } from './providers';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import MainNavbar from './ui/MainNavbar';
+import ResponsiveAppBar from './ui/navbar';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './lib/theme';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,8 +16,12 @@ export default function RootLayout({
   return (
     <html lang='en' className='dark'>
       <body>
-        <MainNavbar />
-        <Providers>{children}</Providers>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+            <ResponsiveAppBar />
+            {children}
+          </ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
