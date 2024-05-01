@@ -1,4 +1,4 @@
-import MainNavbar from './ui/MainNavbar';
+import MainNavbar from './ui/navbar';
 
 export default function Home() {
   return (

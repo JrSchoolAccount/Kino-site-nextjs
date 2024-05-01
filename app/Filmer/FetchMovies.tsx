@@ -14,7 +14,7 @@ async function getMovies() {
   return modifiedArr;
 }
 
-export default async function MovieList() {
+export async function LoadMovies() {
   const movies = await getMovies();
 
   return (
@@ -28,6 +28,45 @@ export default async function MovieList() {
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+export async function getMovie(id: number) {
+  const res = await fetch(API_BASE + '/movies/' + id);
+  const payload = await res.json();
+  if (!payload.data) {
+    throw new Error('Movie not found');
+  }
+
+  return {
+    id: payload.data.id,
+    ...payload.data.attributes,
+  };
+}
+
+interface Movie {
+  id: number;
+  title: string;
+  intro: string;
+  image: {
+    url: string;
+  };
+}
+interface Props {
+  id: number;
+}
+
+export async function LoadMovie({ id }: Props): Promise<React.ReactNode> {
+  const movie = await getMovie(id);
+
+  const { title, intro, image } = movie.attributes;
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{intro}</p>
+      <img src={image.url} />
     </div>
   );
 }
