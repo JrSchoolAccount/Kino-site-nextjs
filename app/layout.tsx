@@ -1,7 +1,10 @@
-import {Providers} from "./providers";
-import type { Metadata } from "next";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import type { Metadata } from 'next';
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ResponsiveAppBar from './ui/navbar';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './lib/theme'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +17,12 @@ export default function RootLayout({children}: { children: React.ReactNode }) {
   return (
     <html lang="en" className='dark'>
       <body>
-        <Providers>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+          <ResponsiveAppBar />
           {children}
-        </Providers>
+          </ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );
