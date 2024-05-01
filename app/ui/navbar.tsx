@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,20 +13,24 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import Image from "next/image";
+import Image from 'next/image';
 import Link from '@mui/material/Link';
 
 const links = [
-  { name: 'Om oss', href: '/om-oss'},
-  { name: 'Aktuella visningar', href: '/aktuella-vinsningar'},
-  { name: 'Filmer', href: '/filmer'},
-  { name: 'Biljetter', href: '/biljetter'},
+  { name: 'Om oss', href: '/om-oss' },
+  { name: 'Aktuella visningar', href: '/aktuella-visningar' },
+  { name: 'Filmer', href: '/filmer' },
+  { name: 'Biljetter', href: '/biljetter' },
 ];
 const settings = ['Mina biljetter', 'inställningar', 'Logout'];
 
 export default function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null
+  );
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null
+  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -44,22 +48,22 @@ export default function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
+    <AppBar position='static'>
+      <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color='inherit'
             >
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
@@ -77,24 +81,39 @@ export default function ResponsiveAppBar() {
               }}
             >
               {links.map((link) => (
-                <MenuItem key={`${link.name}-${link.href}`} onClick={handleCloseNavMenu}>
-                  <Link underline="none" color='inherit' key={link.name} href={link.href} >{link.name}</Link>
+                <MenuItem
+                  key={`${link.name}-${link.href}`}
+                  onClick={handleCloseNavMenu}
+                >
+                  <Link
+                    underline='none'
+                    color='inherit'
+                    key={link.name}
+                    href={link.href}
+                  >
+                    {link.name}
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
           <Typography
-            variant="h5"
+            variant='h5'
             noWrap
-            component="a"
-            href="/"
+            component='a'
+            href='/'
             sx={{
               mr: 2,
               display: 'flex',
               flexGrow: 1,
             }}
           >
-            <Image width='140' height='50' src='/logo.png' alt='Biograf Regna' />
+            <Image
+              width='140'
+              height='50'
+              src='/logo.png'
+              alt='Biograf Regna'
+            />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {links.map((link) => (
@@ -110,14 +129,14 @@ export default function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Jon Doe" src="/2.jpg" />
+                <Avatar alt='Jon Doe' src='/2.jpg' />
               </IconButton>
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: 'top',
@@ -133,7 +152,7 @@ export default function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography textAlign='center'>{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>

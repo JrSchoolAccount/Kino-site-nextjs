@@ -22,7 +22,7 @@ export default async function MovieList() {
       <ul>
         {movies.map((movie: any) => (
           <li key={movie.id}>
-            <Link href={`/movie/${movie.id}`}>
+            <Link href={`/filmer/${movie.id}`}>
               <p className='text-base hover:text-blue-500'>{movie.title}</p>
             </Link>
           </li>
