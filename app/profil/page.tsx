@@ -1,5 +1,7 @@
-export default function Login() {
+import Login from '../ui/login';
+
+export default function Profile() {
     return (
-        <div></div>
+        <Login></Login>
     );
   }
