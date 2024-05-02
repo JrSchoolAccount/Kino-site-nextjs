@@ -1,5 +1,5 @@
-import TenLatestScreenings from './ui/TenLatestScreenings.jsx';
+import TenUpcomingScreenings from './ui/TenUpcomingScreenings';
 
 export default function Home() {
-  return <TenLatestScreenings />;
+  return <TenUpcomingScreenings />;
 }

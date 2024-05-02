@@ -1,11 +1,6 @@
-export const mockedScreenings: {
-  id: number;
-  title: string;
-  intro: string;
-  image: string;
-  start_time: string;
-  room: string;
-}[] = [
+import { Screening } from "./definitions";
+
+export const mockedScreenings: Screening[] = [
   {
     id: 1,
     title: 'The Room',

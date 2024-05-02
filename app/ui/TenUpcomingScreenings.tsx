@@ -1,16 +1,19 @@
-import {fetchTenUpcomingScreenings} from '../lib/data.js';
+import {fetchTenUpcomingScreenings} from '../lib/data';
+import { Screening } from '../lib/definitions';
+import { mockedScreenings } from '../lib/mockedScreenings';
+import { FC } from 'react';
 
-export default async function TenLatestScreenings() {
+const TenUpcomingScreenings: FC = () => {
   // Creates an array that sorts each screening into an object corresponding to the date of the screening, to be used as headline for representing screenings in the DOM
-  const tenUpcomingScreenings = await fetchTenUpcomingScreenings();
+  const tenUpcomingScreenings = fetchTenUpcomingScreenings(mockedScreenings);
   function createSortedScreeningsArray() {
-    const dateCategories = new Set();
+    const dateCategories = new Set<string>();
     
     tenUpcomingScreenings.forEach((screening) => {
       dateCategories.add(screening.start_time.slice(0, 10));
     });
 
-    const sortedScreeningsArray = [];
+    const sortedScreeningsArray: {screening_date: string, screening_info: Screening[]}[] = [];
     dateCategories.forEach((date) => {
       sortedScreeningsArray.push({ screening_date: date, screening_info: [] });
     });
@@ -46,3 +49,5 @@ export default async function TenLatestScreenings() {
     </div>
   );
 }
+
+export default TenUpcomingScreenings;
