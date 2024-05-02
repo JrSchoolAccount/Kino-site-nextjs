@@ -1,9 +1,6 @@
-
 import { getSpecificScreenings } from '../../lib/data';
 
-
-
-const TestComponent = () => {
+const UpcomingScreening = () => {
   const specificScreenings = getSpecificScreenings(1).data;
 
   return (
@@ -18,4 +15,4 @@ const TestComponent = () => {
   );
 };
 
-export default TestComponent;
+export default UpcomingScreening;
