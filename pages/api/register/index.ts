@@ -15,11 +15,14 @@ export default async function handler(
   await connectMongo();
 
   if (req.method === 'POST') {
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
-    const salt = await bcrypt.genSalt(10)
-    const hashPassword = await bcrypt.hash(password, salt);
+    const name: string = req.body.name;
+    const email: string = req.body.email;
+    const password: string = req.body.password;
+    let salt: string | undefined, hashPassword: string | undefined;
+
+    try {
+      salt = await bcrypt.genSalt(10)
+      hashPassword= await bcrypt.hash(password, salt);
 
     const newUser = new User({
       name,
@@ -27,7 +30,7 @@ export default async function handler(
       password: hashPassword,
     })
 
-    try {
+    
       await newUser.save();
 
       res.status(201).json({ message: 'User created successfully' });
