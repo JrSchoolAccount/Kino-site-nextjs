@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { styled } from '@mui/system';
 import Image from 'next/image';
 
+
 const SlideContainer = styled('div')({
   display: 'none',
   '&.active': {

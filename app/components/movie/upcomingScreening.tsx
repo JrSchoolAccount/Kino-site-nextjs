@@ -2,6 +2,7 @@ import { getSpecificScreenings } from '../../lib/data';
 
 const UpcomingScreening = () => {
   const specificScreenings = getSpecificScreenings(1).data;
+  
 
   return (
     <div>
@@ -16,3 +17,5 @@ const UpcomingScreening = () => {
 };
 
 export default UpcomingScreening;
+
+
