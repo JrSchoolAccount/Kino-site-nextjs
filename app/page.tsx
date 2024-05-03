@@ -1,4 +1,3 @@
-
 import MovieCarousel from "./components/movieCarousel";
 
 

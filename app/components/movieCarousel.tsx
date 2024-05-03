@@ -4,13 +4,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Container, Typography } from "@mui/material";
+import {Settings }from '../lib/definitions';
 
 
 
 
 
 const MovieCarousel = () => {
-    const settings = {
+    const settings: Settings = {
       dots: true,
       speed: 700,
       slidesToShow: 5,
