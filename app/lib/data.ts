@@ -1,14 +1,8 @@
 import {
     SpecificScreeningsResponse,
 } from './definitions'
-import mongoose from 'mongoose';
-import movieSchema from './schema';
-import screeningsSchema from './schema';
 
-const URL: string = process.env.DB_URL ?? '';
 
-mongoose.connect(URL).catch((error) => {
-  throw new Error(error)}); 
 
 export function getSpecificScreenings(id: number): SpecificScreeningsResponse {
     const screenings = [
@@ -24,16 +18,5 @@ export function getSpecificScreenings(id: number): SpecificScreeningsResponse {
     return { data: specificScreenings };
   }
 
-  export default async function fetchMovies() {
-    try {
-      
-      const movies = await movieSchema.find();
-      console.log('Movies', movies);
-      return movies; 
-      
-    } catch (error) {
-      console.error('Error fetching movies:', error);
-      throw error; 
-    }
-  }
+  
 
