@@ -26,7 +26,7 @@ export default function SignIn() {
   };
 
   return (
-      <Container component="main" maxWidth="xs">
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <Box
           sx={{
@@ -39,42 +39,42 @@ export default function SignIn() {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component='h1' variant='h5'>
             Logga in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
-              id="email"
-              label="E-post"
-              name="email"
-              autoComplete="email"
+              id='email'
+              label='E-post'
+              name='email'
+              autoComplete='email'
               autoFocus
             />
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
-              name="password"
-              label="Lösenord"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              name='password'
+              label='Lösenord'
+              type='password'
+              id='password'
+              autoComplete='current-password'
             />
             <Button
-              type="submit"
+              type='submit'
               fullWidth
-              variant="contained"
+              variant='contained'
               sx={{ mt: 3, mb: 2 }}
             >
               Logga in
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/profil/registrera" variant="body2">
-                  {"Inte medlem? Registrera dig!"}
+                <Link href='/profil/registrera' variant='body2'>
+                  {'Inte medlem? Registrera dig!'}
                 </Link>
               </Grid>
             </Grid>
