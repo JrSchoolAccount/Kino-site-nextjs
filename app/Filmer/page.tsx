@@ -1,9 +1,10 @@
-import { LoadMovies } from './FetchMovies';
+'use client';
+import { LoadMovies } from './MoviesList';
 
-export default function Filmer() {
+export default function MovieList() {
   return (
-    <div className='text-center m-20'>
-      <h2 className='my-5 text-2xl'>Filmer</h2>
+    <div>
+      <h2>Filmer</h2>
       <LoadMovies />
     </div>
   );

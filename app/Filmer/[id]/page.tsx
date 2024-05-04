@@ -1,32 +1,17 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { getMovie } from '../FetchMovies';
+import { MovieDetails } from './MovieDetails';
 
-
-export default function Film() {
-  const [movie, setMovie] = useState();
-  const router = useRouter();
-  const { id } = router.query;
-
-  useEffect(() => {
-    if (typeof id === 'string') {
-      getMovie(parseInt(id))
-        .then(setMovie)
-        .catch(() => router.push('/404'));
-    }
-  }, [id]);
-
-  if (!movie) {
-    return <p>Loading...</p>;
-  }
+export default async function MoviePage({ params }: { params: { id: any } }) {
+  const movie = await MovieDetails(params.id);
 
   return (
-      <div className='text-center m-20'>
-        <Link href='/Filmer'>
-          <p className=''>Tillbaka till filmer</p>
-        </Link>
-        <div></div>
+    <>
+      <Link href='/filmer'>
+        <p className=''>Tillbaka till filmer</p>
+      </Link>
+      <div>
+        <h2>{movie}</h2>
       </div>
+    </>
   );
 }
