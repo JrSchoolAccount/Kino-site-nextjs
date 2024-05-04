@@ -81,7 +81,7 @@ export default function Page() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            pl: 3,
+            pl: 2,
             '@media (min-width: 768px)': {
               pl: 4,
               margin: '0.5em 10% 2em 0%',
