@@ -73,7 +73,7 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href='/profil/registrera' variant='body2'>
+                <Link href='/registrera' variant='body2'>
                   {'Inte medlem? Registrera dig!'}
                 </Link>
               </Grid>
