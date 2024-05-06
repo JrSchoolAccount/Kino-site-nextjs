@@ -29,7 +29,7 @@ export default function Footer() {
           <Grid item xs={12} md={8}>
             <Grid container spacing={4}>
               <Grid item xs={12} md={4}>
-                <Typography variant='h6' color='primary' gutterBottom>
+                <Typography variant='h6' color='' gutterBottom>
                   Öppettider
                 </Typography>
                 <Typography variant='body2' color='text.secondary'>
@@ -43,7 +43,7 @@ export default function Footer() {
                 </Typography>
               </Grid>
               <Grid item xs={12} md={4}>
-                <Typography variant='h6' color='primary' gutterBottom>
+                <Typography variant='h6' color='' gutterBottom>
                   Adress
                 </Typography>
                 <Typography variant='body2' color='text.secondary'>
@@ -52,7 +52,7 @@ export default function Footer() {
               </Grid>
 
               <Grid item xs={12} md={4}>
-                <Typography variant='h6' color='primary' gutterBottom>
+                <Typography variant='h6' color='' gutterBottom>
                   Kontakt
                 </Typography>
                 <Typography variant='body2' color='text.secondary'>
