@@ -6,10 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 import { Container, Typography } from "@mui/material";
 import {Settings }from '../lib/definitions';
 
-
-
-
-
 const MovieCarousel = () => {
     const settings: Settings = {
       dots: true,
@@ -21,9 +17,6 @@ const MovieCarousel = () => {
       autoplaySpeed: 1000,
     };
   
-    
-    
-
     return (
         <Container maxWidth="md" style={{backgroundColor: "green", marginTop: "500px" }}>
           
@@ -65,6 +58,5 @@ const MovieCarousel = () => {
         </Container>
       );
     };
-    
   
   export default MovieCarousel;
