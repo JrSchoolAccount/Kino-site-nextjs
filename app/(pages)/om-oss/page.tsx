@@ -1,10 +1,10 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from '@mui/material';
 
 export default function Page() {
   return (
     <Box
       sx={{
-        backgroundColor: 'rgb(50, 50, 50)',
+        backgroundColor: '',
         fontFamily: 'Montserrat, sans-serif',
         m: 0,
         textAlign: 'center',
@@ -12,25 +12,25 @@ export default function Page() {
       }}
     >
       <Typography
-        variant="h3"
+        variant='h3'
         sx={{
           fontSize: { xs: '1.7em ', sm: '2.3em', lg: '3em' },
-          color: '#b1bdb2',
+          color: '',
           mb: 8,
-          textShadow: '0px 0px 7px rgba(0, 0, 0, 0.7)'
+          textShadow: '0px 0px 7px rgba(0, 0, 0, 0.7)',
         }}
       >
         Om oss
       </Typography>
       <Typography
-        variant="h5"
+        variant='h5'
         sx={{
           mt: 6,
           mb: 4,
           mx: { xs: 5, lg: 1.5 },
           fontSize: { xs: '1.3em ', sm: '1.8em', lg: '2.3em' },
-          color: '#b1bdb2',
-          textShadow: '0px 0px 5px rgba(0, 0, 0, 0.8)'
+          color: '',
+          textShadow: '0px 0px 5px rgba(0, 0, 0, 0.8)',
         }}
       >
         Bio Grådask - "Det är vi som sätter Regn i Regna"
@@ -38,7 +38,7 @@ export default function Page() {
       <Typography
         sx={{
           textAlign: 'left',
-          color: '#b1bdb2',
+          color: '',
           textShadow: '0px 0px 3px rgba(0, 0, 0, 0.7)',
           mx: { xs: '15%', md: '20%', xl: '34.5%' },
           my: 0.5,
@@ -56,16 +56,17 @@ export default function Page() {
       </Typography>
 
       <Typography
-        variant="h5"
+        variant='h5'
         sx={{
           mt: 6,
           mb: 4,
           mx: { xs: 5, lg: 1.5 },
           fontSize: { xs: '1.3em ', sm: '1.8em', lg: '2.3em' },
-          color: '#b1bdb2',
-          textShadow: '0px 0px 5px rgba(0, 0, 0, 0.8)'
+          color: '',
+          textShadow: '0px 0px 5px rgba(0, 0, 0, 0.8)',
         }}
-      >Hitta hit
+      >
+        Hitta hit
       </Typography>
       <Container
         sx={{
@@ -102,31 +103,32 @@ export default function Page() {
               height: '50vw',
               minHeight: '250px',
               maxHeight: '450px',
-              border: 'none'
+              border: 'none',
             }}
-            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Regnag%C3%A5rden%2047,%20640%2010%20H%C3%B6gsj%C3%B6+(Bio%20Gr%C3%A5dask)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+            src='https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Regnag%C3%A5rden%2047,%20640%2010%20H%C3%B6gsj%C3%B6+(Bio%20Gr%C3%A5dask)&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed'
             allowFullScreen
           ></iframe>
         </Box>
       </Container>
 
       <Typography
-        variant="h5"
+        variant='h5'
         sx={{
           mt: 6,
           mb: 4,
           mx: { xs: 5, lg: 1.5 },
           fontSize: { xs: '1.3em ', sm: '1.8em', lg: '2.3em' },
-          color: '#b1bdb2',
-          textShadow: '0px 0px 5px rgba(0, 0, 0, 0.8)'
+          color: '',
+          textShadow: '0px 0px 5px rgba(0, 0, 0, 0.8)',
         }}
-      >Öppettider
+      >
+        Öppettider
       </Typography>
 
       <Typography
         sx={{
           textAlign: 'left',
-          color: '#b1bdb2',
+          color: '',
           textShadow: '0px 0px 3px rgba(0, 0, 0, 0.7)',
           mx: { xs: '15%', md: '20%', xl: '34.5%' },
           my: 0.5,
@@ -139,21 +141,23 @@ export default function Page() {
       </Typography>
 
       <Typography
-        variant="h5"
+        variant='h5'
         sx={{
           mt: 6,
           mb: 4,
           mx: { xs: 5, lg: 1.5 },
           fontSize: { xs: '1.3em ', sm: '1.8em', lg: '2.3em' },
-          color: '#b1bdb2',
-          textShadow: '0px 0px 5px rgba(0, 0, 0, 0.8)'
+          color: '',
+          textShadow: '0px 0px 5px rgba(0, 0, 0, 0.8)',
         }}
-      >Kontakta oss </Typography>
+      >
+        Kontakta oss{' '}
+      </Typography>
 
       <Typography
         sx={{
           textAlign: 'left',
-          color: '#b1bdb2',
+          color: '',
           textShadow: '0px 0px 3px rgba(0, 0, 0, 0.7)',
           mx: { xs: '15%', md: '20%', xl: '34.5%' },
           my: 0.5,
@@ -171,6 +175,5 @@ export default function Page() {
         egentligen om filmen som pågår.
       </Typography>
     </Box>
-
-  )
+  );
 }
