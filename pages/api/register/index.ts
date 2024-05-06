@@ -18,11 +18,10 @@ export default async function handler(
     const name: string = req.body.name;
     const email: string = req.body.email;
     const password: string = req.body.password;
-    let salt: string | undefined, hashPassword: string | undefined;
 
     try {
-      salt = await bcrypt.genSalt(10)
-      hashPassword= await bcrypt.hash(password, salt);
+      const salt = await bcrypt.genSalt(10)
+      const hashPassword= await bcrypt.hash(password, salt);
 
     const newUser = new User({
       name,
