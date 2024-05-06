@@ -3,7 +3,6 @@ import { getSpecificScreenings } from '../../lib/data';
 const UpcomingScreening = () => {
   const specificScreenings = getSpecificScreenings(1).data;
   
-
   return (
     <div>
       <h1>Enskilda visningar</h1>
@@ -17,5 +16,3 @@ const UpcomingScreening = () => {
 };
 
 export default UpcomingScreening;
-
-
