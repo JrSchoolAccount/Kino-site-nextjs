@@ -7,7 +7,7 @@ export type SpecificScreeningsResponse = {
     data: Screenings[];
   };
 
-export type Settings = {
+export type carouselSettings = {
     dots: boolean;
     speed: number;
     slidesToShow: number;
