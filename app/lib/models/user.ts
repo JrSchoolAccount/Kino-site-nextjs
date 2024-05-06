@@ -13,5 +13,5 @@ const UserSchema = new mongoose.Schema<TUser> (
         password: String
     }
 );
-const User = mongoose.models.User || mongoose.model('Users', UserSchema);
+const User = mongoose.models.Users || mongoose.model('Users', UserSchema);
 export default User;
