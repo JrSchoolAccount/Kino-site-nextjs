@@ -1,17 +1,17 @@
 import mongoose from 'mongoose';
 
-export type TUser = {
+export type User = {
     name: string;
     email: string;
     password: string;
 };
 
-const UserSchema = new mongoose.Schema<TUser> (
+const UserSchema = new mongoose.Schema<User> (
     {
         name: String,
         email: String,
         password: String
     }
 );
-const User = mongoose.models.Users || mongoose.model('Users', UserSchema);
-export default User;
+const UserModel = mongoose.models.Users || mongoose.model('Users', UserSchema);
+export default UserModel;

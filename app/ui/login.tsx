@@ -5,25 +5,19 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
+import { useFormState, useFormStatus } from 'react-dom';
+import { authenticate } from '@/app/lib/actions';
 
 
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
   return (
       <Container component='main' maxWidth='xs'>
@@ -42,7 +36,7 @@ export default function SignIn() {
           <Typography component='h1' variant='h5'>
             Logga in
           </Typography>
-          <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component='form' action={dispatch} noValidate sx={{ mt: 1 }}>
             <TextField
               margin='normal'
               required
@@ -63,14 +57,19 @@ export default function SignIn() {
               id='password'
               autoComplete='current-password'
             />
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Logga in
-            </Button>
+            <LoginButton />
+              <div
+            className="flex h-8 items-end space-x-1"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {errorMessage && (
+              <>
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+                <p className="text-sm text-red-500">{errorMessage}</p>
+              </>
+            )}
+          </div>
             <Grid container>
               <Grid item>
                 <Link href='/registrera' variant='body2'>
@@ -82,4 +81,19 @@ export default function SignIn() {
         </Box>
       </Container>
   );
+}
+
+function LoginButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button
+    aria-disabled={pending}
+    type='submit'
+    fullWidth
+    variant='contained'
+    sx={{ mt: 3, mb: 2 }} >
+    Logga in
+    </Button>
+  )
 }
