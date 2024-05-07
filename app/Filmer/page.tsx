@@ -1,10 +1,10 @@
-import { ClientMoviesList } from './MovieList';
+import MovieList from './MovieList';
 
-export default function RenderMovieList() {
+export default function MoviesPage() {
   return (
     <div>
       <h2>Filmer</h2>
-      <ClientMoviesList />
+      <MovieList />
     </div>
   );
 }

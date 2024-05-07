@@ -1,6 +1,7 @@
-'use client';
 import Link from 'next/link';
-import MovieList from './MovieList.server';
+import { getMovies } from '../lib/fetchMovies';
+
+/*
 interface Movie {
   id: number;
   title: string;
@@ -25,10 +26,26 @@ export const MovieCard = ({ movie, onMovieClick }: MovieCardProps) => {
     </div>
   );
 };
+*/
 
-export function ClientMoviesList() {
-  return <MovieList />;
+export default async function MovieList() {
+  const movies = await getMovies();
+
+  return (
+    <div>
+      <ul>
+        {movies.map((movie: any) => (
+          <li key={movie.id}>
+            <Link href={`/filmer/${movie.id}`}>
+              <h3>{movie.title}</h3>
+              <img src={movie.image.url} width={80} alt={movie.title} />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-//<img src={movie.image.url} width={100} alt={movie.title} />
+//
 //href={`/filmer/${movie.title.replace(/\s/g, '_').toLowerCase()}`}
