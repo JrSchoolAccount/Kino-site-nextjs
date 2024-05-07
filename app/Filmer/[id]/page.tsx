@@ -1,21 +1,18 @@
 import Link from 'next/link';
-import { MovieDetails } from './MovieDetails';
+import { fetchMovie } from '../../lib/fetchMovies';
 
-export default async function MoviePage({
-  params,
-}: {
-  params: { id: number };
-}) {
-  const movie = await MovieDetails(params.id);
-
+export default async function MovieDetails({ params }: any) {
+  const id: number = params.id;
+  const movie = await fetchMovie(params.id);
   return (
     <>
       <Link href='/filmer'>
-        <p className=''>Tillbaka till filmer</p>
+        <p>Tillbaka till filmer</p>
       </Link>
-      <div>
-        <h2>{movie}</h2>
-      </div>
+      <h2>Film ID: {id}</h2>
+      <h2>{movie.title}</h2>
+      <img src={movie.image.url} width={200} alt={movie.title} />
+      <p>{movie.intro.slice(0, 60)}...</p>
     </>
   );
 }

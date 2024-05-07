@@ -1,8 +1,12 @@
 const API_BASE = 'https://plankton-app-xhkom.ondigitalocean.app/api';
 
-// Fetch all movies from CMS API
-export async function getMovies() {
-  const res = await fetch(API_BASE + '/movies/');
+// Fetch all movies
+export default async function fetchMovies() {
+  const res = await fetch(API_BASE + '/movies/', {
+    next: {
+      revalidate: 30,
+    },
+  });
   const payload = await res.json();
   const movieList = payload.data.map((obj: any) => {
     return {
@@ -14,8 +18,8 @@ export async function getMovies() {
   return movieList;
 }
 
-// Fetch one movie based of the id from CMS API
-export async function getMovie(id: number) {
+// Fetch a specific movie
+export async function fetchMovie(id: number) {
   const res = await fetch(API_BASE + '/movies/' + id);
   const movie = await res.json();
   //console.log(movie);

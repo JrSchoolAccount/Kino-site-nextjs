@@ -1,6 +1,6 @@
 import MovieList from './MovieList';
 
-export default function MoviesPage() {
+export default function MovieListPage() {
   return (
     <div>
       <h2>Filmer</h2>
