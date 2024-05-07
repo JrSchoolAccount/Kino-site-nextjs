@@ -1,6 +1,6 @@
 import { getMovie } from '@/app/lib/fetchMovies';
 
-export async function MovieDetails(id: any) {
+export async function MovieDetails(id: number) {
   const movie = await getMovie(id);
 
   return (

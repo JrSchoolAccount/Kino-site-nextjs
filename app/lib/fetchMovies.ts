@@ -15,7 +15,7 @@ export async function getMovies() {
 }
 
 // Fetch one movie based of the id from CMS API
-export async function getMovie(id: string) {
+export async function getMovie(id: number) {
   const res = await fetch(API_BASE + '/movies/' + id);
   const movie = await res.json();
   //console.log(movie);

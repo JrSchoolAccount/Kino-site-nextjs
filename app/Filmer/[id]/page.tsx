@@ -1,7 +1,11 @@
 import Link from 'next/link';
 import { MovieDetails } from './MovieDetails';
 
-export default async function MoviePage({ params }: { params: { id: any } }) {
+export default async function MoviePage({
+  params,
+}: {
+  params: { id: number };
+}) {
   const movie = await MovieDetails(params.id);
 
   return (
