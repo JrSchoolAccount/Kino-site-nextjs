@@ -1,8 +1,4 @@
 import { SpecificScreeningsResponse } from './definitions';
-import connectMongo from './connectMongodb';
-import Screening from './models';
-import { NextResponse } from 'next/server';
-import mongoose from 'mongoose';
 
 export function getSpecificScreenings(id: number): SpecificScreeningsResponse {
   const screenings = [
@@ -16,17 +12,4 @@ export function getSpecificScreenings(id: number): SpecificScreeningsResponse {
     return new Date(screening.start_time).getTime() >= currentTime;
   });
   return { data: specificScreenings };
-}
-
-export async function fetchUpcomingScreeningsOnStartpage(date: String) {
-  await connectMongo();
-  try {
-    const screenings = await Screening.find({
-      date: { $regex: `^${date}` },
-    });
-    return screenings;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch screenings.');
-  }
 }

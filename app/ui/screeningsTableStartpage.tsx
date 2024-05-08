@@ -5,8 +5,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button, Typography } from '@mui/material';
-import DatePickerStartpage from './datePickerStartpage';
-import { fetchUpcomingScreeningsOnStartpage } from '../lib/data';
 import * as React from 'react';
 import { useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -14,49 +12,25 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/de';
+import { Screening } from '../lib/definitions';
 
-function createData(
-  name: string,
-  saloon: string,
-  time: string,
-  duration: string
-) {
-  return { name, saloon, time, duration };
-}
+export default function ScreeningsTableStartpage() {
+  const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(dayjs(new Date()));
 
-const rows = [
-  createData('Inception', 'Stora dasket', '17:00', '120 min'),
-  createData('Titanic', 'Lilla grå', '17:00', '92 min'),
-  createData('Lord of the Rings', 'Stora dasket', '19:30', '131 min'),
-  createData('Beavis & Butthead', 'Lilla grå', '20:00', '94 min'),
-  createData('Braveheart', 'Lilla grå', '21:00', '100 min'),
-  createData('Mr. Bean Firar Jul', 'Stora dasket', '21:00', '22 min'),
-];
+  const [screenings, setScreenings] = useState<Screening[]>([]);
 
-
-export default async function ScreeningsTableStartpage() {
-  const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(
-    dayjs(new Date())
-  );
-  console.log(selectedDate?.format().slice(0, 10));
-  
-  // const [todaysScreenings, setTodaysScreenings] = React.useState(
-    //   selectedDate?.format().slice(0, 10)
-    // );
-    
-    // const fetchedScreenings = await fetchUpcomingScreeningsOnStartpage(selectedDate!.format().slice(0, 10)); // Check this, should I avoid non-null assertion here?
-    // console.log('fetched screenings: ', fetchedScreenings);
-    
-    const todaysScreenings: {
-      name: string;
-      saloon: string;
-      time: string;
-      duration: string;
-    }[] = [];
-
-    // 
-  
-
+  const fetchScreenings = async (URL: string) => {
+    const res = await fetch(URL);
+    const screenings = await res.json();
+    return screenings;
+  };
+  React.useEffect(() => {
+    fetchScreenings(
+      `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date().toLocaleTimeString().slice(0, 5)}`
+    ).then((screenings) => {
+      setScreenings(screenings);
+    });
+  }, []);
 
   return (
     <TableContainer
@@ -71,18 +45,30 @@ export default async function ScreeningsTableStartpage() {
       component={Paper}
     >
       <Box sx={{ display: 'flex' }}>
-        <Typography
-          variant='h3'
-          sx={{ fontSize: 25, marginRight: 10, marginTop: 3 }}
-        >
+        <Typography variant='h3' sx={{ fontSize: 25, marginRight: 10, marginTop: 3 }}>
           Kommande visningar
         </Typography>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='de'>
           <DatePicker
+            disablePast
             label={'Välj ett datum'}
             views={['year', 'month', 'day']}
             value={selectedDate}
-            onChange={(newValue) => setSelectedDate(newValue)}
+            onChange={(newValue) => {
+              if (newValue) {
+                setSelectedDate(newValue);
+                const newDate = newValue!.format().slice(0, 10);
+                if (newDate == new Date().toISOString().slice(0, 10)) {
+                  fetchScreenings(`/api/screenings?date=${newValue.format().slice(0, 16)}`).then((screenings) => {
+                    setScreenings(screenings);
+                  });
+                } else {
+                  fetchScreenings(`/api/screenings?date=${newValue.format().slice(0, 10)}`).then((screenings) => {
+                    setScreenings(screenings);
+                  });
+                }
+              }
+            }}
             sx={{ marginBottom: 2 }}
           />
         </LocalizationProvider>
@@ -90,19 +76,16 @@ export default async function ScreeningsTableStartpage() {
 
       <Table sx={{ minWidth: 650 }} aria-label='simple table'>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
+          {screenings.map((screening, index) => (
+            <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component='th' scope='row' sx={{ fontSize: 17 }}>
-                {row.time}
+                {screening.date.slice(11, 16)}
               </TableCell>
-              <TableCell align='left' sx={{ fontSize: 17 }}>
-                {row.name}
+              <TableCell align='left' sx={{ fontSize: 17, maxWidth: 200 }}>
+                {screening.movie}
               </TableCell>
-              <TableCell align='left'>{row.saloon}</TableCell>
-              <TableCell align='left'>{row.duration}</TableCell>
+              <TableCell align='left'>{screening.saloon}</TableCell>
+              <TableCell align='left'>{screening.runtime} min</TableCell>
               <TableCell align='left'>
                 {
                   <Button size='small' variant='outlined'>

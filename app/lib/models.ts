@@ -1,9 +1,5 @@
 import mongoose, { Document, Schema } from 'mongoose';
-export type Screening = {
-  movie: string;
-  saloon: string;
-  date: string;
-};
+import type { Screening } from './definitions';
 
 const screeningSchema: Schema = new mongoose.Schema<Screening>({
   movie: String,
@@ -16,3 +12,4 @@ const Screening =
   mongoose.model('screening', screeningSchema, 'screenings');
 
 export default Screening;
+
