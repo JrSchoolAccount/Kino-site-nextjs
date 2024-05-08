@@ -16,14 +16,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 
 export default function Footer() {
   return (
-    <Box
-      bgcolor='background.default'
-      py={4}
-      px={2}
-      position='fixed'
-      bottom='0'
-      width='100%'
-    >
+    <Box bgcolor='background.default' py={4} px={2} width='100%' mt={5}>
       <Container maxWidth='lg'>
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
