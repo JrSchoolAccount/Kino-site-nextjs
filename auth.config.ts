@@ -1,5 +1,5 @@
 import type { NextAuthConfig } from 'next-auth';
- 
+
 export const authConfig = {
   pages: {
     signIn: '/login',
@@ -7,7 +7,7 @@ export const authConfig = {
   callbacks: {
     authorized({ auth }) {
       const isLoggedIn = !!auth?.user;
-      
+
       return isLoggedIn;
     },
   },
