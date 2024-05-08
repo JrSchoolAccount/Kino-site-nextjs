@@ -22,6 +22,7 @@ const links = [
   { name: 'Filmer', href: '/filmer' },
   { name: 'Biljetter', href: '/biljetter' },
 ];
+const settings = ['Mina biljetter', 'inställningar', 'Logout'];
 
 export default function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -128,17 +129,11 @@ export default function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {session ? ( // Check if user is logged in
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="user avatar" src="/2.jpg" />
-                </IconButton>
-              </Tooltip>
-            ) : (
-              <Button href="/login" color="inherit">
-                Login
-              </Button>
-            )}
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Jon Doe" src="/2.jpg" />
+              </IconButton>
+            </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -155,14 +150,11 @@ export default function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem key="Bokningar" onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Bokningar</Typography>
-              </MenuItem>
-              {session && (
-                <MenuItem key="Logga ut" onClick={() => signOut()}>
-                  <Typography textAlign="center">Logga ut</Typography>
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              )}
+              ))}
             </Menu>
           </Box>
         </Toolbar>
