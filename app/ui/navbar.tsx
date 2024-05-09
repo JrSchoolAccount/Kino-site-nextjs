@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,56 +13,31 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import Image from "next/image";
+import Image from 'next/image';
 import Link from '@mui/material/Link';
-import SearchIcon from '@mui/icons-material/Search';
-import InputBase from '@mui/material/InputBase';
-import { styled, alpha } from '@mui/material/styles';
+import { TextField } from '@mui/material';
+import { Stack } from '@mui/material';
+import { Autocomplete } from '@mui/material';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
+interface Film {
+  title: string;
+  year: number;
+}
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
+const top100Films: Film[] = [
+  { title: 'The Shawshank Redemption', year: 1994 },
+  { title: 'The Shawshank Redemption', year: 1994 },
+  { title: 'The Shawshank Redemption', year: 1994 },
+  { title: 'The Shawshank Redemption', year: 1994 },
+  { title: 'The Shawshank Redemption', year: 1994 },
+  { title: 'The Shawshank Redemption', year: 1994 },
+];
 
 const links = [
-  { name: 'Om oss', href: '/om-oss'},
-  { name: 'Aktuella visningar', href: '/aktuella-vinsningar'},
-  { name: 'Filmer', href: '/filmer'},
-  { name: 'Biljetter', href: '/biljetter'},
+  { name: 'Om oss', href: '/om-oss' },
+  { name: 'Aktuella visningar', href: '/aktuella-vinsningar' },
+  { name: 'Filmer', href: '/filmer' },
+  { name: 'Biljetter', href: '/biljetter' },
 ];
 const settings = ['Mina biljetter', 'inställningar', 'Logout'];
 
@@ -120,7 +95,9 @@ export default function ResponsiveAppBar() {
             >
               {links.map((link) => (
                 <MenuItem key={`${link.name}-${link.href}`} onClick={handleCloseNavMenu}>
-                  <Link underline="none" color='inherit' key={link.name} href={link.href} >{link.name}</Link>
+                  <Link underline="none" color="inherit" key={link.name} href={link.href}>
+                    {link.name}
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -136,7 +113,7 @@ export default function ResponsiveAppBar() {
               flexGrow: 1,
             }}
           >
-            <Image width='140' height='50' src='/logo.png' alt='Biograf Regna' />
+            <Image width="140" height="50" src="/logo.png" alt="Biograf Regna" />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {links.map((link) => (
@@ -150,15 +127,24 @@ export default function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
+          <Stack spacing={5} sx={{ width: 300, marginRight: 5 }}>
+            <Autocomplete
+              freeSolo
+              id="movieSearch"
+              disableClearable
+              options={top100Films.map((option) => option.title)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Search input"
+                  InputProps={{
+                    ...params.InputProps,
+                    type: 'search',
+                  }}
+                />
+              )}
             />
-          </Search>
+          </Stack>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
