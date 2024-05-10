@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   await connectMongo();
   try {
     const allMovies = await Movie.find();
-    console.log('All movies:', allMovies);
+  
 
     return NextResponse.json({ movies: allMovies });
   } catch (err: any) {

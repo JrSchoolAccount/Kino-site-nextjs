@@ -18,20 +18,8 @@ import Link from '@mui/material/Link';
 import { TextField } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Autocomplete } from '@mui/material';
+import { useState, useEffect } from 'react';
 
-interface Film {
-  title: string;
-  year: number;
-}
-
-const top100Films: Film[] = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Shawshank Redemption', year: 1994 },
-];
 
 const links = [
   { name: 'Om oss', href: '/om-oss' },
@@ -44,6 +32,26 @@ const settings = ['Mina biljetter', 'inställningar', 'Logout'];
 export default function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [movies, setMovies] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch('/api/movies');
+        const data = await response.json();
+        if (Array.isArray(data.movies)) {
+          const titles = data.movies.map((movie: any) => movie.title); 
+          setMovies(titles);
+        } else {
+          console.error('Data received from API does not contain an array of movies:', data);
+        }
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
+    };
+  
+    fetchMovies(); 
+  }, []);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -132,7 +140,7 @@ export default function ResponsiveAppBar() {
               freeSolo
               id="movieSearch"
               disableClearable
-              options={top100Films.map((option) => option.title)}
+              options={movies}
               renderInput={(params) => (
                 <TextField
                   {...params}
