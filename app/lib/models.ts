@@ -9,7 +9,7 @@ const screeningSchema: Schema = new mongoose.Schema<Screening>({
 
 const Screening =
   mongoose.models.Screening ||
-  mongoose.model('screening', screeningSchema, 'screenings');
+  mongoose.model('Screening', screeningSchema, 'screenings');
 
 export default Screening;
 
