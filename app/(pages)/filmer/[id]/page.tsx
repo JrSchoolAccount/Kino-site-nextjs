@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { fetchMovie } from '../../lib/fetchMovies';
+import { fetchMovie } from '../../../lib/fetchMovies';
 
 export default async function MovieDetails({ params }: any) {
   const id: number = params.id;

@@ -1,5 +1,3 @@
-import MainNavbar from './ui/navbar';
-
 export default function Home() {
   return (
     <div className='text-center m-20'>

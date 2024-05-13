@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import fetchMovies from '../lib/fetchMovies';
+import fetchMovies from '../../lib/fetchMovies';
 
 export default async function MovieList() {
   const movies = await fetchMovies();
