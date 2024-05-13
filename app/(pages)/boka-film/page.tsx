@@ -3,7 +3,7 @@ import BookingForm from '@/app/components/BookingForm';
 
 const BookMoviePage: React.FC = () => {
   const router = useRouter();
-  const { movieTitle, movieTime } = router.query;
+  const { id, movieTitle, movieTime } = router.query;
 
   return (
     <div>
@@ -12,6 +12,7 @@ const BookMoviePage: React.FC = () => {
       <BookingForm
         movieTitle={movieTitle as string}
         movieTime={new Date(movieTime as string)}
+        screeningId={id as string}
       />
     </div>
   );

@@ -19,7 +19,6 @@ export type carouselSettings = {
 
 //This type is based on the info in our database, at some point we should fix so we don't have both Screenings and Screening as types if it doesn't fill a purpose
 export type Screening = {
-  _id: number;
   movie: string;
   saloon: string;
   date: string;

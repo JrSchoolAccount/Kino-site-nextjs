@@ -7,21 +7,26 @@ export async function GET(request: NextRequest) {
   try {
     const date = request.nextUrl.searchParams.get('date');
 
-    if (date == null) throw new Error("null date"); // Look at this
+    if (date == null) throw new Error('null date'); // Look at this
 
     console.log(date);
     const screenings = await Screening.aggregate([
-      { $match : { date: {
-        $regex: `^${date.slice(0, 10)}`,
-        $gte: date.slice(11, 16), }}},
-      { $sort : { date: 1 }},
+      {
+        $match: {
+          date: {
+            $regex: `^${date.slice(0, 10)}`,
+            $gte: date.slice(11, 16),
+          },
+        },
+      },
+      { $sort: { date: 1 } },
       {
         $lookup: {
-          from: "movies",
-          localField: "movie",
-          foreignField: "title",
-          as: "Without_array"
-        }
+          from: 'movies',
+          localField: 'movie',
+          foreignField: 'title',
+          as: 'Without_array',
+        },
       },
       {
         $project: {
@@ -29,10 +34,10 @@ export async function GET(request: NextRequest) {
           saloon: 1,
           date: 1,
           runtime: {
-            $first: "$Without_array.runtime"
-          }
-        }
-      }
+            $first: '$Without_array.runtime',
+          },
+        },
+      },
     ]);
     return NextResponse.json(screenings);
   } catch (err: any) {

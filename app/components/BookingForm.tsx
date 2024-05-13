@@ -4,9 +4,14 @@ import { TextField, Typography, Button } from '@mui/material';
 interface BookingFormProps {
   movieTitle: string;
   movieTime: Date;
+  screeningId: string;
 }
 
-const BookingForm: React.FC<BookingFormProps> = ({ movieTitle, movieTime }) => {
+const BookingForm: React.FC<BookingFormProps> = ({
+  movieTitle,
+  movieTime,
+  screeningId,
+}) => {
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
 
@@ -25,7 +30,13 @@ const BookingForm: React.FC<BookingFormProps> = ({ movieTitle, movieTime }) => {
       const response = await fetch('/api/booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, fullName, movieTitle, movieTime }),
+        body: JSON.stringify({
+          email,
+          fullName,
+          movieTitle,
+          movieTime,
+          screeningId,
+        }),
       });
 
       if (!response.ok) {
@@ -62,6 +73,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ movieTitle, movieTime }) => {
         onChange={handleFullNameChange}
         margin='normal'
       />
+      <input type='hidden' name='screeningId' value={screeningId} />
       <Button type='submit' variant='contained' color='primary'>
         Boka
       </Button>

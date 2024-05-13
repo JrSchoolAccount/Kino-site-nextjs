@@ -9,13 +9,11 @@ export default async function handler(
   if (req.method !== 'POST') {
     return res.status(405).end();
   }
-
+  await connectMongo();
   try {
-    const connection = await connectMongo();
+    const { email, fullName, movieTitle, movieTime, screeningId } = req.body;
 
-    const { email, fullName, movieTitle, movieTime } = req.body;
-
-    if (!email || !fullName || !movieTitle || !movieTime) {
+    if (!email || !fullName || !movieTitle || !movieTime || !screeningId) {
       return res
         .status(400)
         .json({ error: 'Email, full name, title and time required.' });
@@ -26,6 +24,7 @@ export default async function handler(
       fullName,
       movieTitle,
       movieTime: new Date(movieTime),
+      screeningId,
     });
 
     await booking.save();

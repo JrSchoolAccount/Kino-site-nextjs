@@ -1,21 +1,27 @@
-import mongoose, { Schema, Document, mongo } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
-export interface BookingDocument extends Document {
+interface Booking {
   email: string;
   fullName: string;
   movieTitle: string;
   movieTime: Date;
+  screeningId: mongoose.Types.ObjectId;
 }
 
-const bookingSchema: Schema = new Schema({
+const bookingSchema: Schema<Booking> = new mongoose.Schema({
   email: { type: String, required: true },
   fullName: { type: String, required: true },
   movieTitle: { type: String, required: true },
   movieTime: { type: Date, required: true },
+  screeningId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Screening',
+    required: true,
+  },
 });
 
-const Booking =
+const BookingModel =
   mongoose.models.Booking ||
-  mongoose.model<BookingDocument>('Booking', bookingSchema);
+  mongoose.model<Booking & Document>('Booking', bookingSchema);
 
-export default Booking;
+export default BookingModel;

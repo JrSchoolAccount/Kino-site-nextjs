@@ -24,6 +24,7 @@ export default function ScreeningsTableStartpage() {
   const fetchScreenings = async (URL: string) => {
     const res = await fetch(URL);
     const screenings = await res.json();
+    console.log('screenings' + screenings);
     return screenings;
   };
   React.useEffect(() => {
@@ -102,11 +103,9 @@ export default function ScreeningsTableStartpage() {
               <TableCell align='left'>{screening.runtime} min</TableCell>
               <TableCell align='left'>
                 {
-                  <Link href={`/boka-film?id=${screening._id}`}>
-                    <Button size='small' variant='outlined'>
-                      boka
-                    </Button>
-                  </Link>
+                  <Button size='small' variant='outlined'>
+                    boka
+                  </Button>
                 }
               </TableCell>
             </TableRow>
