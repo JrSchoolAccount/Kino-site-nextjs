@@ -36,7 +36,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ movieTitle, movieTime }) => {
       setFullName('');
       alert('Booking submitted successfully');
     } catch (error) {
-      console.error('Error submitting booking:', error.message);
+      console.error('Error submitting booking:');
       alert('Failed to submit booking. Please try again.');
     }
   };

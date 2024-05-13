@@ -4,7 +4,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, Link } from '@mui/material';
 import * as React from 'react';
 import { useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -15,7 +15,9 @@ import 'dayjs/locale/de';
 import { Screening } from '../lib/definitions';
 
 export default function ScreeningsTableStartpage() {
-  const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(dayjs(new Date()));
+  const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(
+    dayjs(new Date())
+  );
 
   const [screenings, setScreenings] = useState<Screening[]>([]);
 
@@ -26,7 +28,9 @@ export default function ScreeningsTableStartpage() {
   };
   React.useEffect(() => {
     fetchScreenings(
-      `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date().toLocaleTimeString().slice(0, 5)}`
+      `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date()
+        .toLocaleTimeString()
+        .slice(0, 5)}`
     ).then((screenings) => {
       setScreenings(screenings);
     });
@@ -45,7 +49,10 @@ export default function ScreeningsTableStartpage() {
       component={Paper}
     >
       <Box sx={{ display: 'flex' }}>
-        <Typography variant='h3' sx={{ fontSize: 25, marginRight: 10, marginTop: 3 }}>
+        <Typography
+          variant='h3'
+          sx={{ fontSize: 25, marginRight: 10, marginTop: 3 }}
+        >
           Kommande visningar
         </Typography>
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='de'>
@@ -59,11 +66,15 @@ export default function ScreeningsTableStartpage() {
                 setSelectedDate(newValue);
                 const newDate = newValue!.format().slice(0, 10);
                 if (newDate == new Date().toISOString().slice(0, 10)) {
-                  fetchScreenings(`/api/screenings?date=${newValue.format().slice(0, 16)}`).then((screenings) => {
+                  fetchScreenings(
+                    `/api/screenings?date=${newValue.format().slice(0, 16)}`
+                  ).then((screenings) => {
                     setScreenings(screenings);
                   });
                 } else {
-                  fetchScreenings(`/api/screenings?date=${newValue.format().slice(0, 10)}`).then((screenings) => {
+                  fetchScreenings(
+                    `/api/screenings?date=${newValue.format().slice(0, 10)}`
+                  ).then((screenings) => {
                     setScreenings(screenings);
                   });
                 }
@@ -77,7 +88,10 @@ export default function ScreeningsTableStartpage() {
       <Table sx={{ minWidth: 650 }} aria-label='simple table'>
         <TableBody>
           {screenings.map((screening, index) => (
-            <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            <TableRow
+              key={index}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
               <TableCell component='th' scope='row' sx={{ fontSize: 17 }}>
                 {screening.date.slice(11, 16)}
               </TableCell>
@@ -88,9 +102,11 @@ export default function ScreeningsTableStartpage() {
               <TableCell align='left'>{screening.runtime} min</TableCell>
               <TableCell align='left'>
                 {
-                  <Button size='small' variant='outlined'>
-                    boka
-                  </Button>
+                  <Link href={`/boka-film?id=${screening._id}`}>
+                    <Button size='small' variant='outlined'>
+                      boka
+                    </Button>
+                  </Link>
                 }
               </TableCell>
             </TableRow>

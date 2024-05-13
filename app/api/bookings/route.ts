@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import connectMongo from '../lib/connectMongodb';
-import Booking from '../models/Booking';
+import connectMongo from '../../lib/connectMongodb';
+import Booking from '../../models/Booking';
 
 export default async function handler(
   req: NextApiRequest,
@@ -31,7 +31,7 @@ export default async function handler(
     await booking.save();
     res.status(201).json({ message: 'Booking submitted succesfully', booking });
   } catch {
-    console.error('Error submitting booking:', error);
+    console.error('Error submitting booking:');
     res.status(500).json({ error: 'Failed to submit booking' });
   }
 }

@@ -1,5 +1,3 @@
-'use client';
-
 import { useRouter } from 'next/router';
 import BookingForm from '@/app/components/BookingForm';
 
@@ -13,7 +11,7 @@ const BookMoviePage: React.FC = () => {
       <h2>Time: {movieTime}</h2>
       <BookingForm
         movieTitle={movieTitle as string}
-        movieTime={movieTime as string}
+        movieTime={new Date(movieTime as string)}
       />
     </div>
   );

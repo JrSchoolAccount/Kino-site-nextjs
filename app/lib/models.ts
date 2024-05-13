@@ -12,4 +12,3 @@ const Screening =
   mongoose.model('Screening', screeningSchema, 'screenings');
 
 export default Screening;
-

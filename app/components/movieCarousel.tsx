@@ -18,8 +18,11 @@ const MovieCarousel = () => {
   };
 
   return (
-    <Container maxWidth="md" style={{ backgroundColor: 'green', marginTop: '500px' }}>
-      <Typography variant="h2" align="center" gutterBottom>
+    <Container
+      maxWidth='md'
+      style={{ backgroundColor: 'green', marginTop: '500px' }}
+    >
+      <Typography variant='h2' align='center' gutterBottom>
         Aktuella Filmer
       </Typography>
       <Slider {...settings}>
