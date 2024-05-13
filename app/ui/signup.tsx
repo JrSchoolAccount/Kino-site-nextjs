@@ -15,13 +15,32 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 export default function SignUp() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+    const formData = new FormData(event.currentTarget);
+    const formObject: { [key: string]: string } = {};
+    formData.forEach((value, key) => {
+      formObject[key] = value as string;
     });
+
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formObject),
+      });
+
+      if (response.ok) {
+        window.location.href = '/login';
+      } else {
+        const data = await response.json();
+        console.error('Signup failed:', data.message);
+      }
+    } catch (error) {
+      console.error('Error occurred during signup:', error);
+    }
   };
 
   return (
@@ -43,25 +62,15 @@ export default function SignUp() {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 autoComplete="given-name"
-                name="firstName"
+                name="Name"
                 required
                 fullWidth
-                id="firstName"
-                label="Förnamn"
+                id="Name"
+                label="Namn"
                 autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="Efternamn"
-                name="lastName"
-                autoComplete="family-name"
               />
             </Grid>
             <Grid item xs={12}>
@@ -83,13 +92,6 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="new-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                required
-                control={<Checkbox value="GDPR" color="primary" />}
-                label="Godkänn lagring av information enligt GDPR"
               />
             </Grid>
           </Grid>

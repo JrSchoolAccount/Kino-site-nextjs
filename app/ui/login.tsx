@@ -12,11 +12,60 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
+import { SigninFormSchema } from '@/app/lib/definitions';
 import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/lib/actions';
+
+type FormState =
+  | {
+      errors?: {
+        email?: string[];
+        password?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
+
+const initialState: FormState = {
+  errors: {},
+};
 
 export default function SignIn() {
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  const [formState, setFormState] = useFormState(
+    (prevState) => ({ ...prevState, ...initialState }),
+    initialState,
+  );
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      const formData = new FormData(event.currentTarget);
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
+      const validatedForm = SigninFormSchema.parse({ email, password });
+      console.log('Form data:', validatedForm);
+
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        window.location.href = '/';
+      } else {
+        const data = await response.json();
+        console.error('login failed:', data.message);
+      }
+    } catch (error) {
+      console.error('Error occurred during login:', error);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -35,7 +84,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Logga in
         </Typography>
-        <Box component="form" action={dispatch} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
@@ -45,6 +94,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -55,20 +105,9 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <LoginButton />
-          <div
-            className="flex h-8 items-end space-x-1"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {errorMessage && (
-              <>
-                <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-                <p className="text-sm text-red-500">{errorMessage}</p>
-              </>
-            )}
-          </div>
           <Grid container>
             <Grid item>
               <Link href="/registrera" variant="body2">

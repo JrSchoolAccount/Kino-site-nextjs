@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import connectMongo from '@/app/lib/connectMongodb';
 import User from '@/app/lib/models/user';
 import bcrypt from 'bcrypt';
-import { signIn } from '@/auth';
 
 type ResponseData = {
   message: string;
@@ -15,24 +14,25 @@ export default async function handler(
   await connectMongo();
 
   if (req.method === 'POST') {
-    const name: string = req.body.name;
     const email: string = req.body.email;
     const password: string = req.body.password;
 
     try {
-      const salt = await bcrypt.genSalt(10);
-      const hashPassword = await bcrypt.hash(password, salt);
+      const user = await User.findOne({ email });
 
-      const newUser = new User({
-        name,
-        email,
-        password: hashPassword,
-      });
+      if (user) {
+        const isMatch = await bcrypt.compare(password, user.password);
 
-      await newUser.save();
-
-      res.redirect(307, '/login');
+        if (isMatch) {
+          res.status(200).json({ message: 'Passwords match' });
+        } else {
+          res.status(400).json({ message: 'Passwords do not match' });
+        }
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
     } catch (error) {
+      console.error('Error comparing password:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
   } else {
