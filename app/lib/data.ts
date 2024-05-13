@@ -1,6 +1,4 @@
-import {
-    SpecificScreeningsResponse,
-} from './definitions'
+import { SpecificScreeningsResponse } from './definitions';
 
 export function getSpecificScreenings(id: number): SpecificScreeningsResponse {
     const screenings = [
