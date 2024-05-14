@@ -19,7 +19,7 @@ import { TextField } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Autocomplete } from '@mui/material';
 import { useState, useEffect } from 'react';
-
+import { Movie } from '../lib/definitions';
 
 const links = [
   { name: 'Om oss', href: '/om-oss' },
@@ -32,7 +32,7 @@ const settings = ['Mina biljetter', 'inställningar', 'Logout'];
 export default function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  const [movies, setMovies] = useState<string[]>([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -40,8 +40,12 @@ export default function ResponsiveAppBar() {
         const response = await fetch('/api/movies');
         const data = await response.json();
         if (Array.isArray(data.movies)) {
-          const titles = data.movies.map((movie: any) => movie.title); 
-          setMovies(titles);
+          const movieData = data.movies.map((movie: any) => ({
+            title: movie.title,
+            id: movie._id,
+          }));
+          setMovies(movieData);
+          console.log('Movie data:', movieData);
         } else {
           console.error('Data received from API does not contain an array of movies:', data);
         }
@@ -49,8 +53,8 @@ export default function ResponsiveAppBar() {
         console.error('Error fetching movies:', error);
       }
     };
-  
-    fetchMovies(); 
+
+    fetchMovies();
   }, []);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -141,6 +145,12 @@ export default function ResponsiveAppBar() {
               id="movieSearch"
               disableClearable
               options={movies}
+              getOptionLabel={(option) => {
+                if (typeof option === 'string') {
+                  return option;
+                }
+                return option.title;
+              }}
               renderInput={(params) => (
                 <TextField
                   {...params}
