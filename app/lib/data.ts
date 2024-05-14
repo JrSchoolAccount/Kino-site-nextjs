@@ -1,6 +1,4 @@
-import {
-    SpecificScreeningsResponse,
-} from './definitions'
+import { SpecificScreeningsResponse } from './definitions';
 
 export function getSpecificScreenings(id: number): SpecificScreeningsResponse {
     const screenings = [
@@ -9,7 +7,6 @@ export function getSpecificScreenings(id: number): SpecificScreeningsResponse {
       { id: 3, start_time: '2024-05-27T10:00:00Z' },
     ];
     const currentTime = new Date().getTime();
-  
     const specificScreenings = screenings.filter((screening) => {
       return new Date(screening.start_time).getTime() >= currentTime;
     });
