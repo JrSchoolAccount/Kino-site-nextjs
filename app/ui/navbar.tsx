@@ -43,9 +43,9 @@ export default function ResponsiveAppBar() {
           const movieData = data.movies.map((movie: any) => ({
             title: movie.title,
             id: movie._id,
+            link: `/movies/${movie._id}`,
           }));
           setMovies(movieData);
-          console.log('Movie data:', movieData);
         } else {
           console.error('Data received from API does not contain an array of movies:', data);
         }
@@ -70,6 +70,13 @@ export default function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleSearchSelect = (value: Movie | string | null) => {
+    if (value && typeof value !== 'string') {
+      return `/movies/${value.id}`;
+    }
+    return '';
   };
 
   return (
@@ -141,6 +148,7 @@ export default function ResponsiveAppBar() {
           </Box>
           <Stack spacing={5} sx={{ width: 300, marginRight: 5 }}>
             <Autocomplete
+              key="movieSearchAutocomplete"
               freeSolo
               id="movieSearch"
               disableClearable
@@ -150,6 +158,12 @@ export default function ResponsiveAppBar() {
                   return option;
                 }
                 return option.title;
+              }}
+              onChange={(event, value) => {
+                const movieUrl = handleSearchSelect(value);
+                if (movieUrl) {
+                  window.location.href = movieUrl;
+                }
               }}
               renderInput={(params) => (
                 <TextField

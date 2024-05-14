@@ -8,6 +8,7 @@ export type SpecificScreeningsResponse = {
 };
 
 export type Movie = {
+  id: string;
   fullplot: string;
   imdb: {
     rating: number;
