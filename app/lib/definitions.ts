@@ -36,3 +36,10 @@ export const SigninFormSchema = z.object({
     .string()
     .min(6, { message: 'Password must be at least 6 characters long.' }),
 });
+
+export type SessionPayload = {
+  userId: string;
+  email: string;
+  expires: Date;
+  role: 'admin' | 'user';
+};

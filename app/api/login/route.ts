@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectMongo from '@/app/lib/connectMongodb';
 import User from '@/app/lib/models/user';
+import { createSession } from '@/app/lib/session';
 import bcrypt from 'bcrypt';
 
 export async function POST(req: Request) {
@@ -18,6 +19,8 @@ export async function POST(req: Request) {
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (isMatch) {
+        await createSession(user.id);
+
         return NextResponse.json(
           { message: 'Password match' },
           { status: 200 },
