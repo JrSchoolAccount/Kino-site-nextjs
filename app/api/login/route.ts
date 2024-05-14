@@ -3,10 +3,6 @@ import connectMongo from '@/app/lib/connectMongodb';
 import User from '@/app/lib/models/user';
 import bcrypt from 'bcrypt';
 
-type ResponseData = {
-  message: string;
-};
-
 export async function POST(req: Request) {
   await connectMongo();
 
