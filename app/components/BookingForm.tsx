@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Typography, Button, Box, Stack } from '@mui/material';
 import { styled } from '@mui/system';
+import { useRouter } from 'next/router';
 
 interface BookingFormProps {
   movieTitle: string;
@@ -19,6 +20,17 @@ const BookingForm: React.FC<BookingFormProps> = ({
 }) => {
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
+  const router = useRouter();
+
+  const isValidEmail = (email: string) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
+  const isValidFullName = (fullName: string) => {
+    const parts = fullName.split(' ');
+    return parts.length >= 2;
+  };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -28,8 +40,22 @@ const BookingForm: React.FC<BookingFormProps> = ({
     setFullName(e.target.value);
   };
 
+  const handleCancel = () => {
+    router.push('/');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isValidEmail(email)) {
+      alert('Please enter a valid email');
+      return;
+    }
+
+    if (!isValidFullName(fullName)) {
+      alert('Please enter your full name');
+      return;
+    }
 
     try {
       const response = await fetch('/api/booking', {
@@ -51,6 +77,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
       setEmail('');
       setFullName('');
       alert('Booking submitted successfully');
+      router.push('/');
     } catch (error) {
       console.error('Error submitting booking:');
       alert('Failed to submit booking. Please try again.');
@@ -93,6 +120,14 @@ const BookingForm: React.FC<BookingFormProps> = ({
           >
             Boka
           </SubmitButton>
+          <Button
+            variant='contained'
+            color='secondary'
+            onClick={handleCancel}
+            sx={{ mt: 2, ml: 2, width: '30%' }}
+          >
+            Cancel
+          </Button>
         </Box>
       </Stack>
     </Box>

@@ -10,6 +10,7 @@ export default async function handler(
     return res.status(405).end();
   }
   await connectMongo();
+
   try {
     const { email, fullName, movieTitle, movieTime, screeningId } = req.body;
 
@@ -23,7 +24,7 @@ export default async function handler(
       email,
       fullName,
       movieTitle,
-      movieTime: new Date(movieTime).toLocaleString(),
+      movieTime: new Date(movieTime).toISOString(),
       screeningId,
     });
 
