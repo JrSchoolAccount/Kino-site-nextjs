@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { TextField, Typography, Button } from '@mui/material';
+import { TextField, Typography, Button, Box, Stack } from '@mui/material';
+import { styled } from '@mui/system';
 
 interface BookingFormProps {
   movieTitle: string;
   movieTime: Date;
   screeningId: string;
 }
+
+const SubmitButton = styled(Button)(({ theme }) => ({
+  marginTop: theme.spacing(2),
+}));
 
 const BookingForm: React.FC<BookingFormProps> = ({
   movieTitle,
@@ -53,31 +58,44 @@ const BookingForm: React.FC<BookingFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Box
+      component='form'
+      onSubmit={handleSubmit}
+      sx={{ mt: 2, maxWidth: 500, mx: 'auto' }}
+    >
       <Typography variant='h6' gutterBottom>
         Boka biljetter för {movieTitle}
       </Typography>
-      <TextField
-        label='Email'
-        variant='outlined'
-        fullWidth
-        value={email}
-        onChange={handleEmailChange}
-        margin='normal'
-      />
-      <TextField
-        label='Full Name'
-        variant='outlined'
-        fullWidth
-        value={fullName}
-        onChange={handleFullNameChange}
-        margin='normal'
-      />
-      <input type='hidden' name='screeningId' value={screeningId} />
-      <Button type='submit' variant='contained' color='primary'>
-        Boka
-      </Button>
-    </form>
+      <Typography>Datum: {movieTime.toString()}</Typography>
+      <Stack spacing={2}>
+        <TextField
+          label='Email'
+          variant='outlined'
+          fullWidth
+          value={email}
+          onChange={handleEmailChange}
+          sx={{ mt: 50 }}
+        />
+        <TextField
+          label='Full Name'
+          variant='outlined'
+          fullWidth
+          value={fullName}
+          onChange={handleFullNameChange}
+        />
+        <input type='hidden' name='screeningId' value={screeningId} />
+        <Box display='flex' justifyContent='center'>
+          <SubmitButton
+            type='submit'
+            variant='contained'
+            color='primary'
+            sx={{ mt: 2, width: '30%' }}
+          >
+            Boka
+          </SubmitButton>
+        </Box>
+      </Stack>
+    </Box>
   );
 };
 

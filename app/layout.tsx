@@ -14,7 +14,11 @@ export const metadata: Metadata = {
   description: 'Kolla på film i Regna',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang='en' className='dark'>
       <body>

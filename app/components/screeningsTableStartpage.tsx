@@ -56,7 +56,7 @@ export default function ScreeningsTableStartpage() {
         >
           Kommande visningar
         </Typography>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='de'>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='sv'>
           <DatePicker
             disablePast
             label={'Välj ett datum'}
@@ -102,11 +102,17 @@ export default function ScreeningsTableStartpage() {
               <TableCell align='left'>{screening.saloon}</TableCell>
               <TableCell align='left'>{screening.runtime} min</TableCell>
               <TableCell align='left'>
-                {
+                <Link
+                  href={`/boka-film/page?screeningId=${encodeURIComponent(
+                    screening._id
+                  )}&movieTitle=${encodeURIComponent(
+                    screening.movie
+                  )}&movieTime=${encodeURIComponent(screening.date)}`}
+                >
                   <Button size='small' variant='outlined'>
                     boka
                   </Button>
-                }
+                </Link>
               </TableCell>
             </TableRow>
           ))}

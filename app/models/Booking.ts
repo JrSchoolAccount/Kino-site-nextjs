@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-interface Booking {
+interface Booking extends Document {
   email: string;
   fullName: string;
   movieTitle: string;
@@ -22,6 +22,6 @@ const bookingSchema: Schema<Booking> = new mongoose.Schema({
 
 const BookingModel =
   mongoose.models.Booking ||
-  mongoose.model<Booking & Document>('Booking', bookingSchema);
+  mongoose.model<Booking & Document>('Booking', bookingSchema, 'bookings');
 
 export default BookingModel;
