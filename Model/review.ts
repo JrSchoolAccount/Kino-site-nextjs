@@ -13,7 +13,7 @@ const reviewSchema = new mongoose.Schema<IReview>({
   rating: { type: Number, required: true },
   comment: { type: String, required: true },
 });
-// connection to Database name:Kino, Collection name:reviews
+// connection to Database name:kinoDB, Collection name:reviews
 let Review: Model<IReview>;
 if (mongoose.models.Review) {
   // If the model already exists, use it directly.
@@ -23,6 +23,6 @@ if (mongoose.models.Review) {
   // If the 'Review' model does not exist, create it using the schema.
   // This is done only once to avoid duplication and errors on hot reloads or multiple compilations.
 
-  Review = mongoose.model<IReview>('Review', reviewSchema);
+  Review = mongoose.model<IReview>('Review', reviewSchema, 'reviews');
 }
 export default Review;
