@@ -11,34 +11,19 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 import { SigninFormSchema } from '@/app/lib/definitions';
-import { useFormState, useFormStatus } from 'react-dom';
-
-type FormState =
-  | {
-      errors?: {
-        email?: string[];
-        password?: string[];
-      };
-      message?: string;
-    }
-  | undefined;
-
-const initialState: FormState = {
-  errors: {},
-};
+import { useFormStatus } from 'react-dom';
 
 export default function SignIn() {
-  const [formState, setFormState] = useFormState(
-    (prevState) => ({ ...prevState, ...initialState }),
-    initialState,
-  );
   const [email, setEmail] = React.useState('');
+  const [emailError, setEmailError] = React.useState(false);
   const [password, setPassword] = React.useState('');
+  const [passwordError, setPasswordError] = React.useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setEmailError(false);
+    setPasswordError(false);
 
     try {
       const formData = new FormData(event.currentTarget);
@@ -60,6 +45,13 @@ export default function SignIn() {
         window.location.href = '/';
       } else {
         const data = await response.json();
+
+        if (response.status === 404) {
+          setEmailError(true);
+        } else if (response.status === 400) {
+          setPasswordError(true);
+        }
+
         console.error('login failed:', data.message);
       }
     } catch (error) {
@@ -84,7 +76,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Logga in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
@@ -92,9 +84,18 @@ export default function SignIn() {
             id="email"
             label="E-post"
             name="email"
+            value={email}
+            error={emailError}
             autoComplete="email"
             autoFocus
             onChange={(e) => setEmail(e.target.value)}
+            helperText={
+              emailError ? 'Ingen användare hittad, vänligen försök igen.' : ''
+            }
+            inputProps={{
+              pattern: '^[^@]+@[^@.]+\\.[^@.]+$',
+              title: 'Ange din e-postadress (exempel@exempel.com).',
+            }}
           />
           <TextField
             margin="normal"
@@ -104,8 +105,17 @@ export default function SignIn() {
             label="Lösenord"
             type="password"
             id="password"
+            value={password}
+            error={passwordError}
             autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
+            helperText={
+              passwordError ? 'Fel lösenord, vänligen försök igen.' : ''
+            }
+            inputProps={{
+              pattern: '^.{6,}$',
+              title: 'Minst 6 tecken krävs.',
+            }}
           />
           <LoginButton />
           <Grid container>

@@ -24,9 +24,9 @@ export default async function handler(
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (isMatch) {
-          res.status(200).json({ message: 'Passwords match' });
+          res.status(200).json({ message: 'Password match' });
         } else {
-          res.status(400).json({ message: 'Passwords do not match' });
+          res.status(400).json({ message: 'Password does not match' });
         }
       } else {
         res.status(404).json({ message: 'User not found' });

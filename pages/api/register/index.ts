@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import connectMongo from '@/app/lib/connectMongodb';
 import User from '@/app/lib/models/user';
 import bcrypt from 'bcrypt';
-import { signIn } from '@/auth';
 
 type ResponseData = {
   message: string;
