@@ -30,9 +30,6 @@ export default function SignIn() {
       const email = formData.get('email') as string;
       const password = formData.get('password') as string;
 
-      const validatedForm = SigninFormSchema.parse({ email, password });
-      console.log('Form data:', validatedForm);
-
       const response = await fetch('/api/login', {
         method: 'POST',
         headers: {

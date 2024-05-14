@@ -13,21 +13,25 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 export default function SignUp() {
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const formObject: { [key: string]: string } = {};
-    formData.forEach((value, key) => {
-      formObject[key] = value as string;
-    });
 
     try {
+      const formData = new FormData(event.currentTarget);
+      const name = formData.get('name') as string;
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
       const response = await fetch('/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formObject),
+        body: JSON.stringify({ name, email, password }),
       });
 
       if (response.ok) {
@@ -58,17 +62,24 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Ny medlem
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 autoComplete="given-name"
                 name="Name"
+                value={name}
                 required
                 fullWidth
                 id="Name"
                 label="Namn"
+                placeholder="förnamn efternamn"
                 autoFocus
+                onChange={(e) => setName(e.target.value)}
+                inputProps={{
+                  pattern: '^\\S+\\s+\\S+$',
+                  title: 'Ange för- & efternamn (förnamn efternamn).',
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -76,9 +87,16 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="email"
+                value={email}
                 label="E-post"
                 name="email"
+                placeholder="exempel@exempel.com"
                 autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
+                inputProps={{
+                  pattern: '^[^@]+@[^@.]+\\.[^@.]+$',
+                  title: 'Ange giltig e-postadress (exempel@exempel.com).',
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -86,10 +104,17 @@ export default function SignUp() {
                 required
                 fullWidth
                 name="password"
+                value={password}
                 label="Lösenord"
+                placeholder="Minst 6 tecken"
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                onChange={(e) => setPassword(e.target.value)}
+                inputProps={{
+                  pattern: '^.{6,}$',
+                  title: 'Minst 6 tecken krävs.',
+                }}
               />
             </Grid>
           </Grid>
