@@ -23,4 +23,5 @@ export type Screening = {
   saloon: string;
   date: string;
   runtime?: string;
+  movie_id?: string;
 };
