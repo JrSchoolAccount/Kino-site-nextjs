@@ -15,14 +15,15 @@ import Image from 'next/image';
 import Link from '@mui/material/Link';
 import { Login, Logout } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
-import { usePathname } from 'next/navigation';
-import { Router } from 'next/router';
+import { usePathname, useRouter } from 'next/navigation';
+import { NextResponse } from 'next/server';
 
 const links = [
   { name: 'Om oss', href: '/om-oss' },
   { name: 'Aktuella visningar', href: '/aktuella-vinsningar' },
   { name: 'Filmer', href: '/filmer' },
   { name: 'Biljetter', href: '/biljetter' },
+  { name: 'Mina bokningar', href: '/profil' },
 ];
 
 export default function ResponsiveAppBar() {
@@ -38,7 +39,8 @@ export default function ResponsiveAppBar() {
     setAnchorElNav(null);
   };
 
-  const pathname = usePathname();
+  const router = useRouter();
+  const pathname: string = usePathname();
   const isProfilePage = pathname === '/profil';
 
   const handleLogout = async () => {
@@ -48,7 +50,7 @@ export default function ResponsiveAppBar() {
       });
 
       if (response.ok) {
-        window.location.href = '/';
+        await router.push('/');
       } else {
         console.error('Failed to logout:', response.statusText);
       }
