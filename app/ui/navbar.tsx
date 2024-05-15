@@ -33,6 +33,8 @@ export default function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -152,13 +154,24 @@ export default function ResponsiveAppBar() {
               freeSolo
               id="movieSearch"
               disableClearable
-              options={movies}
+              options={isFocused ? filteredMovies : []}
               getOptionLabel={(option) => {
                 if (typeof option === 'string') {
                   return option;
                 }
                 return option.title;
               }}
+              onInputChange={(event, newInputValue) => {
+                const filtered = movies.filter((movie) =>
+                  movie.title.toLowerCase().includes(newInputValue.toLowerCase())
+                );
+                setFilteredMovies(filtered);
+              }}
+              onBlur={() => {
+                setIsFocused(false);
+                setFilteredMovies([]);
+              }}
+              onFocus={() => setIsFocused(true)}
               onChange={(event, value) => {
                 const movieUrl = handleSearchSelect(value);
                 if (movieUrl) {
@@ -168,7 +181,7 @@ export default function ResponsiveAppBar() {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Search input"
+                  label="Sök film.."
                   InputProps={{
                     ...params.InputProps,
                     type: 'search',
