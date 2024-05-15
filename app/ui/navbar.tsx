@@ -162,10 +162,14 @@ export default function ResponsiveAppBar() {
                 return option.title;
               }}
               onInputChange={(event, newInputValue) => {
-                const filtered = movies.filter((movie) =>
-                  movie.title.toLowerCase().includes(newInputValue.toLowerCase())
-                );
-                setFilteredMovies(filtered);
+                if (newInputValue === '') {
+                  setFilteredMovies([]);
+                } else {
+                  const filtered = movies.filter((movie) =>
+                    movie.title.toLowerCase().includes(newInputValue.toLowerCase())
+                  );
+                  setFilteredMovies(filtered);
+                }
               }}
               onBlur={() => {
                 setIsFocused(false);
