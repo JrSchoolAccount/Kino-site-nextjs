@@ -142,16 +142,24 @@ export default function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             {!isProfilePage ? (
-              <Tooltip title="Logga in">
-                <Button
-                  color="secondary"
-                  variant="outlined"
-                  href="/login"
-                  startIcon={<Login />}
-                >
-                  Logga in
-                </Button>
-              </Tooltip>
+              <Box>
+                <Tooltip title="Logga in">
+                  <Button
+                    size="small"
+                    color="secondary"
+                    variant="outlined"
+                    href="/login"
+                    startIcon={<Login />}
+                  >
+                    Logga in
+                  </Button>
+                </Tooltip>
+                <Tooltip title="Registrera">
+                  <Button size="small" variant="outlined" href="/registrera">
+                    Registrera
+                  </Button>
+                </Tooltip>
+              </Box>
             ) : (
               <Tooltip title="Logga ut">
                 <Button
