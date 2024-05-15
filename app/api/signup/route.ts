@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import connectMongo from '@/app/lib/connectMongodb';
 import User from '@/app/lib/models/user';
 import bcrypt from 'bcrypt';
-import { request } from 'http';
 
 export async function POST(req: Request) {
   await connectMongo();

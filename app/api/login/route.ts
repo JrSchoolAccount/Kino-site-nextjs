@@ -19,7 +19,7 @@ export async function POST(req: Request) {
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (isMatch) {
-        await createSession(user.id);
+        await createSession(user.id, user.email);
 
         return NextResponse.json(
           { message: 'Password match' },

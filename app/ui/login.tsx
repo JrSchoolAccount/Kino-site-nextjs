@@ -11,7 +11,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { SigninFormSchema } from '@/app/lib/definitions';
 import { useFormStatus } from 'react-dom';
 
 export default function SignIn() {

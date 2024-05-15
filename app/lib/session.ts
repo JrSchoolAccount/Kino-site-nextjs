@@ -1,5 +1,4 @@
 import 'server-only';
-
 import { cookies } from 'next/headers';
 import { SignJWT, jwtVerify } from 'jose';
 import { SessionPayload } from '@/app/lib/definitions';
@@ -7,9 +6,9 @@ import { SessionPayload } from '@/app/lib/definitions';
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
-export async function createSession(userId: string) {
+export async function createSession(userId: string, email: string) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  const session = await encrypt({ userId, expiresAt });
+  const session = await encrypt({ userId, expiresAt, email });
 
   cookies().set('session', session, {
     httpOnly: true,
@@ -47,7 +46,7 @@ export async function updateSession() {
     return null;
   }
 
-  const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  const expires = new Date(Date.now() + 15 * 60 * 1000);
   cookies().set('session', session, {
     httpOnly: true,
     secure: true,

@@ -39,7 +39,6 @@ export const SigninFormSchema = z.object({
 
 export type SessionPayload = {
   userId: string;
+  expiresAt: Date;
   email: string;
-  expires: Date;
-  role: 'admin' | 'user';
 };
