@@ -45,7 +45,6 @@ export default function ResponsiveAppBar() {
           const movieData = data.movies.map((movie: any) => ({
             title: movie.title,
             id: movie._id,
-            link: `/movies/${movie._id}`,
           }));
           setMovies(movieData);
         } else {
@@ -76,7 +75,7 @@ export default function ResponsiveAppBar() {
 
   const handleSearchSelect = (value: Movie | string | null) => {
     if (value && typeof value !== 'string') {
-      return `/movies/${value.id}`;
+      return `/filmer/${value.id}`;
     }
     return '';
   };
