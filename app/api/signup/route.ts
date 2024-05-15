@@ -24,9 +24,9 @@ export async function POST(req: Request) {
 
     await newUser.save();
 
-    const loginUrl = new URL('/login', req.url);
+    const profileUrl = new URL('/profil', req.url);
 
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(profileUrl);
   } catch (error) {
     return NextResponse.json(
       { message: 'Internal server error' },

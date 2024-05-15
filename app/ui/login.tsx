@@ -115,9 +115,9 @@ export default function SignIn() {
           />
           <LoginButton />
           <Grid container>
-            <Grid item>
+            <Grid item sx={{ mb: 2 }}>
               <Link href="/registrera" variant="body2">
-                {'Inte medlem? Registrera dig!'}
+                {'Inte medlem? Bli medlem!'}
               </Link>
             </Grid>
           </Grid>

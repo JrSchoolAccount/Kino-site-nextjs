@@ -9,26 +9,24 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Image from 'next/image';
 import Link from '@mui/material/Link';
-import { Login } from '@mui/icons-material';
+import { Login, Logout } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
+import { usePathname } from 'next/navigation';
 
 const links = [
   { name: 'Om oss', href: '/om-oss' },
   { name: 'Aktuella visningar', href: '/aktuella-vinsningar' },
   { name: 'Filmer', href: '/filmer' },
   { name: 'Biljetter', href: '/biljetter' },
+  { name: 'Mina bokningar', href: '/profil' },
 ];
 
 export default function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null,
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   );
 
@@ -39,6 +37,9 @@ export default function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const pathname = usePathname();
+  const isProfilePage = pathname === '/profil';
 
   return (
     <AppBar position="static">
@@ -122,14 +123,29 @@ export default function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Logga in">
-              <IconButton href="/login">
-                <Login />
-              </IconButton>
-            </Tooltip>
-            <IconButton sx={{ p: 0 }}>
-              <Avatar alt="Jon Doe" src="/2.jpg" />
-            </IconButton>
+            {!isProfilePage ? (
+              <Tooltip title="Logga in">
+                <Button
+                  color="secondary"
+                  variant="outlined"
+                  href="/login"
+                  startIcon={<Login />}
+                >
+                  Logga in
+                </Button>
+              </Tooltip>
+            ) : (
+              <Tooltip title="Logga ut">
+                <Button
+                  color="secondary"
+                  variant="outlined"
+                  href="/logout"
+                  startIcon={<Logout />}
+                >
+                  Logga ut
+                </Button>
+              </Tooltip>
+            )}
           </Box>
         </Toolbar>
       </Container>
