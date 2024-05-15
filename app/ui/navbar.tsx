@@ -16,13 +16,13 @@ import Link from '@mui/material/Link';
 import { Login, Logout } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
 import { usePathname } from 'next/navigation';
+import { Router } from 'next/router';
 
 const links = [
   { name: 'Om oss', href: '/om-oss' },
   { name: 'Aktuella visningar', href: '/aktuella-vinsningar' },
   { name: 'Filmer', href: '/filmer' },
   { name: 'Biljetter', href: '/biljetter' },
-  { name: 'Mina bokningar', href: '/profil' },
 ];
 
 export default function ResponsiveAppBar() {
@@ -40,6 +40,22 @@ export default function ResponsiveAppBar() {
 
   const pathname = usePathname();
   const isProfilePage = pathname === '/profil';
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch('/api/logout', {
+        method: 'POST',
+      });
+
+      if (response.ok) {
+        window.location.href = '/';
+      } else {
+        console.error('Failed to logout:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error occurred during logout:', error);
+    }
+  };
 
   return (
     <AppBar position="static">
@@ -139,7 +155,7 @@ export default function ResponsiveAppBar() {
                 <Button
                   color="secondary"
                   variant="outlined"
-                  href="/logout"
+                  onClick={handleLogout}
                   startIcon={<Logout />}
                 >
                   Logga ut
