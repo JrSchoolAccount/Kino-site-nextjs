@@ -67,18 +67,19 @@ export default function SignUp() {
             <Grid item xs={12}>
               <TextField
                 autoComplete="given-name"
-                name="Name"
+                name="name"
                 value={name}
                 required
                 fullWidth
-                id="Name"
+                id="name"
                 label="Namn"
                 placeholder="förnamn efternamn"
                 autoFocus
                 onChange={(e) => setName(e.target.value)}
                 inputProps={{
-                  pattern: '^\\S+\\s+\\S+$',
-                  title: 'Ange för- & efternamn (förnamn efternamn).',
+                  pattern: '^[a-zA-Z]{2,}\\s+[a-zA-Z]{2,}$',
+                  title:
+                    'Ange för- & efternamn (minst 2 tecken för varje namn, separerade med ett mellanslag).',
                 }}
               />
             </Grid>
