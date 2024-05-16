@@ -18,7 +18,7 @@ import Link from '@mui/material/Link';
 import { TextField } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Autocomplete } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Movie } from '../lib/definitions';
 
 const links = [
@@ -36,8 +36,17 @@ export default function ResponsiveAppBar() {
   const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
   const [isFocused, setIsFocused] = useState(false);
 
-  useEffect(() => {
-    const fetchMovies = async () => {
+  const handleSearchInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    const trimmedValue = value.trim();
+    if (trimmedValue === '') {
+      setFilteredMovies([]);
+      return;
+    }
+
+    const filtered = movies.filter((movie) => movie.title.toLowerCase().includes(value.toLowerCase()));
+    setFilteredMovies(filtered);
+    if (value.trim() !== '') {
       try {
         const response = await fetch('/api/movies');
         const data = await response.json();
@@ -53,10 +62,15 @@ export default function ResponsiveAppBar() {
       } catch (error) {
         console.error('Error fetching movies:', error);
       }
-    };
+    }
+  };
 
-    fetchMovies();
-  }, []);
+  const handleSearchSelect = (value: Movie | string | null) => {
+    if (value && typeof value !== 'string') {
+      return `/filmer/${value.id}`;
+    }
+    return '';
+  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -71,13 +85,6 @@ export default function ResponsiveAppBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-
-  const handleSearchSelect = (value: Movie | string | null) => {
-    if (value && typeof value !== 'string') {
-      return `/filmer/${value.id}`;
-    }
-    return '';
   };
 
   return (
@@ -170,10 +177,6 @@ export default function ResponsiveAppBar() {
                   setFilteredMovies(filtered);
                 }
               }}
-              onBlur={() => {
-                setIsFocused(false);
-                setFilteredMovies([]);
-              }}
               onFocus={() => setIsFocused(true)}
               onChange={(event, value) => {
                 const movieUrl = handleSearchSelect(value);
@@ -188,6 +191,7 @@ export default function ResponsiveAppBar() {
                   InputProps={{
                     ...params.InputProps,
                     type: 'search',
+                    onChange: handleSearchInputChange,
                   }}
                 />
               )}
