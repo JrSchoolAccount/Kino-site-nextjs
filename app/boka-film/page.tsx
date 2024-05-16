@@ -11,6 +11,8 @@ const BookMoviePage: React.FC = () => {
   const movieTime = searchParams.get('movieTime');
   const poster = searchParams.get('poster');
 
+  console.log(movieTime);
+
   if (!screeningId || !movieTitle || !movieTime) {
     return <div>Loading...</div>;
   }

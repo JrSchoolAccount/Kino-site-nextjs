@@ -111,7 +111,7 @@ export default function ScreeningsTableStartpage() {
                     query: {
                       screeningId: screening._id,
                       movieTitle: screening.movie,
-                      movieTime: screening.date,
+                      movieTime: new Date(screening.date).toISOString(),
                       poster: screening.poster,
                     },
                   }}

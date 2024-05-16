@@ -29,10 +29,14 @@ const BookingForm: React.FC<BookingFormProps> = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formattedTime = () => {
-    const dayOfMonth = movieTime.getDate().toString().padStart(2, '0');
-    const month = (movieTime.getMonth() + 1).toString().padStart(2, '');
-    const hours = movieTime.getHours().toString().padStart(2, '0');
-    const minutes = movieTime.getMinutes().toString().padStart(2, '0');
+    const localMovieTime = new Date(movieTime);
+    const dayOfMonth = localMovieTime.getUTCDate().toString().padStart(2, '0');
+    const month = (localMovieTime.getUTCMonth() + 1)
+      .toString()
+      .padStart(2, '0');
+    const hours = localMovieTime.getUTCHours().toString().padStart(2, '0');
+    const minutes = localMovieTime.getUTCMinutes().toString().padStart(2, '0');
+
     return `${dayOfMonth}/${month} ${hours}:${minutes}`;
   };
 
@@ -58,12 +62,12 @@ const BookingForm: React.FC<BookingFormProps> = ({
     e.preventDefault();
 
     if (!isValidEmail(email)) {
-      alert('Please enter a valid email');
+      alert('Skriv in en giltig e-postadress');
       return;
     }
 
     if (!isValidFullName(fullName)) {
-      alert('Please enter your full name');
+      alert('Skriv in ditt fullständiga namn (två ord)');
       return;
     }
 
@@ -150,7 +154,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
           sx={{ mt: 50 }}
         />
         <TextField
-          label='Ditt namn'
+          label='För- och efternamn'
           variant='outlined'
           fullWidth
           value={fullName}
