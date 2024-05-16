@@ -1,5 +1,20 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import type { Screening } from './definitions';
+import type { Movie, Screening } from './definitions';
+
+const movieSchema: Schema = new mongoose.Schema<Movie>({
+  fullplot: String,
+  imdb: {
+    rating: Number,
+  },
+  year: Number,
+  plot: String,
+  title: String,
+  poster: String,
+  released: Date,
+  runtime: Number,
+});
+
+const Movie = mongoose.models.Movie || mongoose.model('Movie', movieSchema, 'movies');
 
 const screeningSchema: Schema = new mongoose.Schema<Screening>({
   movie: String,
@@ -13,3 +28,4 @@ const ScreeningModel =
 
 export default ScreeningModel;
 
+export { Movie, Screening };

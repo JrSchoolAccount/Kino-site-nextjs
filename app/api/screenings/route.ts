@@ -10,7 +10,9 @@ export async function GET(request: NextRequest) {
     if (date == null) throw new Error('null date'); // Look at this
 
     console.log(date);
+
     const screenings = await ScreeningModel.aggregate([
+
       {
         $match: {
           date: {
@@ -36,7 +38,9 @@ export async function GET(request: NextRequest) {
           runtime: {
             $first: '$Without_array.runtime',
           },
+
           movie_id: { $toString: { $first: '$Without_array._id' } },
+
         },
       },
     ]);
