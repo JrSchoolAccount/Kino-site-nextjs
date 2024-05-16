@@ -53,7 +53,12 @@ const MovieCarousel = () => {
   return (
     <Container maxWidth="lg" style={{ marginTop: '100px', marginBottom: '100px' }}>
       <Typography
-        sx={{ textShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)', marginBottom: '20px', fontWeight: 'bold' }}
+        sx={{
+          fontSize: '45px',
+          textShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+          marginBottom: '20px',
+          fontWeight: 'bold',
+        }}
         variant="h2"
         align="center"
         gutterBottom
