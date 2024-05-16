@@ -38,7 +38,7 @@ export default function SignIn() {
       });
 
       if (response.ok) {
-        window.location.href = '/';
+        window.location.href = '/profil';
       } else {
         const data = await response.json();
 
