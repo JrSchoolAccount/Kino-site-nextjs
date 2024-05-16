@@ -1,5 +1,5 @@
 import connectMongo from '@/app/lib/connectMongodb';
-import { Screening } from '@/app/lib/models';
+import ScreeningModel from '@/app/lib/models';
 import { NextResponse, NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -10,7 +10,9 @@ export async function GET(request: NextRequest) {
     if (date == null) throw new Error('null date'); // Look at this
 
     console.log(date);
-    const screenings = await Screening.aggregate([
+
+    const screenings = await ScreeningModel.aggregate([
+
       {
         $match: {
           date: {
@@ -36,9 +38,13 @@ export async function GET(request: NextRequest) {
           runtime: {
             $first: '$Without_array.runtime',
           },
+
+          movie_id: { $toString: { $first: '$Without_array._id' } },
+
         },
       },
     ]);
+    console.log(screenings);
     return NextResponse.json(screenings);
   } catch (err: any) {
     return NextResponse.json({ error: err.message });

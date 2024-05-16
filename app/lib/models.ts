@@ -22,6 +22,10 @@ const screeningSchema: Schema = new mongoose.Schema<Screening>({
   date: String,
 });
 
-const Screening = mongoose.models.Screening || mongoose.model('Screening', screeningSchema, 'screenings');
+const ScreeningModel =
+  mongoose.models.Screening ||
+  mongoose.model('Screening', screeningSchema, 'screenings');
+
+export default ScreeningModel;
 
 export { Movie, Screening };
