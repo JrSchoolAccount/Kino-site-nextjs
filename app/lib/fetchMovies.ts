@@ -1,5 +1,5 @@
-import Movie from '@/app/lib/movieModel';
-import connectMongo from '@/app/lib/connectMongodb';
+import { Movie } from './models';
+import connectMongo from './connectMongodb';
 
 //Fetch all movies from the database
 export async function fetchAllMovies() {
