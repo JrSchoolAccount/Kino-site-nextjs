@@ -16,7 +16,6 @@ import Link from '@mui/material/Link';
 import { Login, Logout } from '@mui/icons-material';
 import { Tooltip } from '@mui/material';
 import { usePathname, useRouter } from 'next/navigation';
-import { NextResponse } from 'next/server';
 
 const links = [
   { name: 'Om oss', href: '/om-oss' },
