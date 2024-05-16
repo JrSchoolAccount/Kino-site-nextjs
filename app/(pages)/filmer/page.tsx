@@ -1,10 +1,6 @@
-import MovieList from './MovieList';
-import connectMongo from '@/app/lib/connectMongodb';
+import MovieList from '../../components/filmer/MovieList';
 
-export default async function MovieListPage() {
-  const testConnect = await connectMongo();
-  console.log(testConnect);
-
+export default function MovieListPage() {
   return (
     <div>
       <h2>Filmer</h2>

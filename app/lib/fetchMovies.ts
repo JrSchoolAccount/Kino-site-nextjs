@@ -1,38 +1,23 @@
-import { notFound } from 'next/navigation';
+import Movie from '@/app/lib/movieModel';
+import connectMongo from '@/app/lib/connectMongodb';
 
-const API_BASE = 'https://plankton-app-xhkom.ondigitalocean.app/api';
-
-// Fetch all movies
-export default async function fetchMovies() {
-  const res = await fetch(API_BASE + '/movies/', {
-    next: {
-      revalidate: 60 * 10,
-    },
-  });
-  const payload = await res.json();
-  if (!res.ok) {
-    notFound();
+//Fetch all movies from the database
+export async function fetchAllMovies() {
+  try {
+    await connectMongo();
+    const movies = await Movie.find({});
+    return movies;
+  } catch {
+    throw new Error('Failed to fetch current movies.');
   }
-  const movieList = payload.data.map((obj: any) => {
-    return {
-      id: obj.id,
-      ...obj.attributes,
-    };
-  });
-  //console.log(movieList);
-  return movieList;
 }
-
-// Fetch a specific movie
-export async function fetchMovie(id: number) {
-  const res = await fetch(API_BASE + '/movies/' + id);
-  const movie = await res.json();
-  //console.log(movie);
-  if (!res.ok) {
-    notFound();
+//Fetch a specific movie from the database
+export async function fetchMovie(id: string) {
+  try {
+    await connectMongo();
+    const movie = Movie.findById(id);
+    return movie;
+  } catch (error) {
+    throw new Error('Failed to fetch movie with id.');
   }
-  return {
-    id: movie.data.id,
-    ...movie.data.attributes,
-  };
 }
