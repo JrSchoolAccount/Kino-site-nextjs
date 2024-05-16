@@ -1,5 +1,15 @@
+'use client';
+
 import React from 'react';
-import { Modal, Button } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 interface BookingModalProps {
   open: boolean;
@@ -7,15 +17,23 @@ interface BookingModalProps {
 }
 
 const BookingModal: React.FC<BookingModalProps> = ({ open, onClose }) => {
+  const router = useRouter();
+
+  const handleCloseAndRedirect = () => {
+    onClose();
+    router.push('/');
+  };
+
   return (
-    <Modal open={open} onClose={onClose}>
-      <div>
-        <h2>Bokingsbekräftelse</h2>
-        <p>Din bokning var lyckad</p>
-        <Button onClick={onClose}>Stäng</Button>
-      </div>
-    </Modal>
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Bokingsbekräftelse</DialogTitle>
+      <DialogContent>
+        <DialogContentText>Din bokning var lyckad</DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCloseAndRedirect}>Stäng</Button>
+      </DialogActions>
+    </Dialog>
   );
 };
-
 export default BookingModal;

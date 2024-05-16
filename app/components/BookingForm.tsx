@@ -1,7 +1,11 @@
+'use client';
+
 import React, { useState } from 'react';
 import { TextField, Typography, Button, Box, Stack } from '@mui/material';
 import { styled } from '@mui/system';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import BookingModal from './modals/BookingModal';
 
 interface BookingFormProps {
   movieTitle: string;
@@ -18,9 +22,18 @@ const BookingForm: React.FC<BookingFormProps> = ({
   movieTime,
   screeningId,
 }) => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
-  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const formattedTime = () => {
+    const dayOfMonth = movieTime.getDate().toString().padStart(2, '0');
+    const month = (movieTime.getMonth() + 1).toString().padStart(2, '');
+    const hours = movieTime.getHours().toString().padStart(2, '0');
+    const minutes = movieTime.getMinutes().toString().padStart(2, '0');
+    return `${dayOfMonth}/${month} ${hours}:${minutes}`;
+  };
 
   const isValidEmail = (email: string) => {
     const re = /\S+@\S+\.\S+/;
@@ -40,10 +53,6 @@ const BookingForm: React.FC<BookingFormProps> = ({
     setFullName(e.target.value);
   };
 
-  const handleCancel = () => {
-    router.push('/');
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -58,7 +67,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
     }
 
     try {
-      const response = await fetch('/api/booking', {
+      const response = await fetch('/api/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -76,24 +85,29 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
       setEmail('');
       setFullName('');
-      alert('Booking submitted successfully');
-      router.push('/');
+      setIsModalOpen(true);
     } catch (error) {
       console.error('Error submitting booking:');
       alert('Failed to submit booking. Please try again.');
     }
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    router.push('/');
+  };
+
   return (
     <Box
       component='form'
       onSubmit={handleSubmit}
-      sx={{ mt: 2, maxWidth: 500, mx: 'auto' }}
+      height={'60vh'}
+      sx={{ mt: 30, maxWidth: 500, mx: 'auto' }}
     >
       <Typography variant='h6' gutterBottom>
-        Boka biljetter för {movieTitle}
+        Boka biljetter för: {movieTitle}
       </Typography>
-      <Typography>Datum: {movieTime.toString()}</Typography>
+      <Typography marginBottom={4}>Datum: {formattedTime()}</Typography>
       <Stack spacing={2}>
         <TextField
           label='Email'
@@ -120,16 +134,18 @@ const BookingForm: React.FC<BookingFormProps> = ({
           >
             Boka
           </SubmitButton>
+
           <Button
             variant='contained'
             color='secondary'
-            onClick={handleCancel}
             sx={{ mt: 2, ml: 2, width: '30%' }}
+            onClick={() => router.push('/')}
           >
             Cancel
           </Button>
         </Box>
       </Stack>
+      <BookingModal open={isModalOpen} onClose={handleCloseModal} />
     </Box>
   );
 };

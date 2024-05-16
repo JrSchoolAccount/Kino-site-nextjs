@@ -4,7 +4,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Box, Button, Typography, Link } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
+import Link from 'next/link';
 import * as React from 'react';
 import { useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -13,8 +14,10 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/de';
 import { Screening } from '../lib/definitions';
+import { useSearchParams } from 'next/navigation';
 
 export default function ScreeningsTableStartpage() {
+  const searchParams = useSearchParams();
   const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(
     dayjs(new Date())
   );
@@ -56,7 +59,7 @@ export default function ScreeningsTableStartpage() {
         >
           Kommande visningar
         </Typography>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='sv'>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='de'>
           <DatePicker
             disablePast
             label={'Välj ett datum'}
@@ -103,11 +106,14 @@ export default function ScreeningsTableStartpage() {
               <TableCell align='left'>{screening.runtime} min</TableCell>
               <TableCell align='left'>
                 <Link
-                  href={`/boka-film/page?screeningId=${encodeURIComponent(
-                    screening._id
-                  )}&movieTitle=${encodeURIComponent(
-                    screening.movie
-                  )}&movieTime=${encodeURIComponent(screening.date)}`}
+                  href={{
+                    pathname: '/boka-film/',
+                    query: {
+                      screeningId: screening._id,
+                      movieTitle: screening.movie,
+                      movieTime: screening.date,
+                    },
+                  }}
                 >
                   <Button size='small' variant='outlined'>
                     boka
