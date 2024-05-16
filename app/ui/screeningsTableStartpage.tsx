@@ -27,7 +27,7 @@ export default function ScreeningsTableStartpage() {
   const fetchScreenings = async (URL: string) => {
     const res = await fetch(URL);
     const screenings = await res.json();
-    console.log('screenings' + screenings);
+    console.log('Screenings:', screenings);
     return screenings;
   };
   React.useEffect(() => {
@@ -112,6 +112,7 @@ export default function ScreeningsTableStartpage() {
                       screeningId: screening._id,
                       movieTitle: screening.movie,
                       movieTime: screening.date,
+                      poster: screening.poster,
                     },
                   }}
                 >

@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { TextField, Typography, Button, Box, Stack } from '@mui/material';
 import { styled } from '@mui/system';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import BookingModal from './modals/BookingModal';
 
@@ -11,6 +10,7 @@ interface BookingFormProps {
   movieTitle: string;
   movieTime: Date;
   screeningId: string;
+  poster: string;
 }
 
 const SubmitButton = styled(Button)(({ theme }) => ({
@@ -21,6 +21,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
   movieTitle,
   movieTime,
   screeningId,
+  poster,
 }) => {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -101,16 +102,47 @@ const BookingForm: React.FC<BookingFormProps> = ({
     <Box
       component='form'
       onSubmit={handleSubmit}
-      height={'60vh'}
-      sx={{ mt: 30, maxWidth: 500, mx: 'auto' }}
+      height={'70vh'}
+      sx={{
+        mt: 15,
+        maxWidth: 500,
+        mx: 'auto',
+        mb: 10,
+      }}
     >
-      <Typography variant='h6' gutterBottom>
+      <Typography variant='h4' gutterBottom>
         Boka biljetter för: {movieTitle}
       </Typography>
-      <Typography marginBottom={4}>Datum: {formattedTime()}</Typography>
+
+      <Typography variant='h6' marginBottom={4}>
+        Datum och tid: {formattedTime()}
+      </Typography>
+      <Box
+        sx={{
+          width: '100%',
+          height: 0,
+          paddingBottom: '75%',
+          position: 'relative',
+          overflow: 'hidden',
+          borderRadius: '12px',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          mb: 5,
+        }}
+      >
+        <img
+          src={poster}
+          alt={movieTitle}
+          style={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+          }}
+        />
+      </Box>
       <Stack spacing={2}>
         <TextField
-          label='Email'
+          label='E-post'
           variant='outlined'
           fullWidth
           value={email}
@@ -118,7 +150,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
           sx={{ mt: 50 }}
         />
         <TextField
-          label='Full Name'
+          label='Ditt namn'
           variant='outlined'
           fullWidth
           value={fullName}
@@ -141,7 +173,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
             sx={{ mt: 2, ml: 2, width: '30%' }}
             onClick={() => router.push('/')}
           >
-            Cancel
+            Avbryt
           </Button>
         </Box>
       </Stack>

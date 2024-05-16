@@ -24,4 +24,5 @@ export type Screening = {
   saloon: string;
   date: string;
   runtime?: string;
+  poster: string;
 };

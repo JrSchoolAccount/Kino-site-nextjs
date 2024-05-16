@@ -9,6 +9,7 @@ const BookMoviePage: React.FC = () => {
   const screeningId = searchParams.get('screeningId');
   const movieTitle = searchParams.get('movieTitle');
   const movieTime = searchParams.get('movieTime');
+  const poster = searchParams.get('poster');
 
   if (!screeningId || !movieTitle || !movieTime) {
     return <div>Loading...</div>;
@@ -20,6 +21,7 @@ const BookMoviePage: React.FC = () => {
         movieTitle={movieTitle}
         movieTime={new Date(movieTime)}
         screeningId={screeningId}
+        poster={poster ?? ''}
       />
     </div>
   ) as React.ReactElement;
