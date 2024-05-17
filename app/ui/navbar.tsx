@@ -88,22 +88,22 @@ export default function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
+    <AppBar position='static'>
+      <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color='inherit'
             >
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
@@ -130,10 +130,10 @@ export default function ResponsiveAppBar() {
             </Menu>
           </Box>
           <Typography
-            variant="h5"
+            variant='h5'
             noWrap
-            component="a"
-            href="/"
+            component='a'
+            href='/'
             sx={{
               mr: 2,
               display: 'flex',
@@ -198,14 +198,14 @@ export default function ResponsiveAppBar() {
             />
           </Stack>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Jon Doe" src="/2.jpg" />
+                <Avatar alt='Jon Doe' src='/2.jpg' />
               </IconButton>
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
-              id="menu-appbar"
+              id='menu-appbar'
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: 'top',
@@ -221,7 +221,7 @@ export default function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography textAlign='center'>{setting}</Typography>
                 </MenuItem>
               ))}
             </Menu>
