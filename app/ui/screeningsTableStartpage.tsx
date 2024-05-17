@@ -108,9 +108,9 @@ export default function ScreeningsTableStartpage() {
                     pathname: '/boka-film/',
                     query: {
                       screeningId: screening._id,
-                      //movieTitle: screening.movie,
-                      //movieTime: new Date(screening.date).toISOString(),
-                      //poster: screening.poster,
+                      movieTitle: screening.movie,
+                      movieTime: new Date(screening.date).toISOString(),
+                      poster: screening.poster,
                     },
                   }}
                 >
