@@ -17,12 +17,16 @@ export default Screening;
 // Define an interface that matches the schema of Review model and prevents errors
 // import Review from "@/Model/review" in pages/api/data.ts
 interface IReview extends Document{
+  movieId: string;  
+  movieTitle: string; 
   name: string;
   rating: number;
   comment: string;
 }
 
 const reviewSchema = new mongoose.Schema<IReview>({
+  movieTitle: { type: String, required: true }, 
+  movieId: { type: String, required: true },
   name: { type: String, required: true },
   rating: { type: Number, required: true },
   comment: { type: String, required: true },
