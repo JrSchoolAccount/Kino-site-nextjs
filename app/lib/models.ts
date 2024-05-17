@@ -1,5 +1,20 @@
 import mongoose, { Document, Schema, Model } from 'mongoose';
-import type { Screening } from './definitions';
+import type { Movie, Screening } from './definitions';
+
+const movieSchema: Schema = new mongoose.Schema<Movie>({
+  fullplot: String,
+  imdb: {
+    rating: Number,
+  },
+  year: Number,
+  plot: String,
+  title: String,
+  poster: String,
+  released: Date,
+  runtime: Number,
+});
+
+const Movie = mongoose.models.Movie || mongoose.model('Movie', movieSchema, 'movies');
 
 const screeningSchema: Schema = new mongoose.Schema<Screening>({
   movie: String,
@@ -7,11 +22,11 @@ const screeningSchema: Schema = new mongoose.Schema<Screening>({
   date: String,
 });
 
-const Screening =
+const ScreeningModel =
   mongoose.models.Screening ||
   mongoose.model('Screening', screeningSchema, 'screenings');
 
-export default Screening;
+export default ScreeningModel;
 
 // ----------moved from Model/rerview.ts----------
 // Define an interface that matches the schema of Review model and prevents errors
@@ -38,4 +53,5 @@ if (mongoose.models.Review) {
   // This is done only once to avoid duplication and errors on hot reloads or multiple compilations.
   Review = mongoose.model<IReview>('Review', reviewSchema, 'reviews');
 }
-export { Review };
+
+export { Movie, Screening, Review };

@@ -7,6 +7,20 @@ export type SpecificScreeningsResponse = {
   data: Screenings[];
 };
 
+export type Movie = {
+  id: string;
+  fullplot: string;
+  imdb: {
+    rating: number;
+  };
+  year: number;
+  plot: string;
+  title: string;
+  poster: string;
+  released: Date;
+  runtime: number;
+};
+
 export type carouselSettings = {
   dots: boolean;
   speed: number;
@@ -23,4 +37,5 @@ export type Screening = {
   saloon: string;
   date: string;
   runtime?: string;
+  movie_id?: string;
 };
