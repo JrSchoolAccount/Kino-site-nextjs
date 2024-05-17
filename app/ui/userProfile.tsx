@@ -46,7 +46,7 @@ export default function UserProfile() {
   return (
     <Box>
       <Typography component="p" sx={{ m: 2 }}>
-        Inloggad som: jonas.svesson@placeholder.com
+        Inloggad som: jonas.svensson@placeholder.com
       </Typography>
 
       <TableContainer component={Paper}>
