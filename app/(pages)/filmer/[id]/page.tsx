@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Movie from '@/app/components/filmer/MovieDetails';
 import ScreeningsTableSpecificMovie from '@/app/ui/screeningsTableSpecificMovie';
 
-export default function Page({
+export default async function Page({
   params,
 }: {
   params: {
