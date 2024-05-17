@@ -14,7 +14,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/sv';
 import { Screening } from '../lib/definitions';
-import Link from 'next/link';
 
 export default function ScreeningsTableStartpage() {
   const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(
