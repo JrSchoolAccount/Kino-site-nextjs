@@ -136,7 +136,6 @@ export default function ScreeningsTableStartpage() {
                     boka
                   </Button>
                 </Link>
-                  }
                 </TableCell>
               </TableRow>
             ))
