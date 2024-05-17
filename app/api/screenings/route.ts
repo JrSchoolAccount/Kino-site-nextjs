@@ -62,9 +62,7 @@ export async function GET(request: NextRequest) {
         },
       ]);
     }
-
-    console.log(screenings);
-
+    
     return NextResponse.json(screenings);
   } catch (err: any) {
     return NextResponse.json({ error: err.message });
