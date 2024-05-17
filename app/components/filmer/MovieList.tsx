@@ -1,8 +1,20 @@
-import { fetchAllMovies } from '../../lib/fetchMovies';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { Movie } from '@/app/lib/definitions';
 
-export default async function MovieList() {
-  const movies = await fetchAllMovies();
+export default function MovieList() {
+  const [movies, setMovies] = useState<Movie[]>([]);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const res = await fetch('/api/movies');
+      const data = await res.json();
+      setMovies(data.movies);
+    };
+
+    fetchMovies();
+  }, []);
+
   return (
     <>
       <div>

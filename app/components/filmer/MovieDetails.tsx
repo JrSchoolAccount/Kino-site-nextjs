@@ -1,12 +1,25 @@
-import { fetchMovie } from '../../lib/fetchMovies';
+import { Movie } from '@/app/lib/definitions';
+import { useEffect, useState } from 'react';
 
-export default async function Movie({ movieId }: { movieId: string }) {
-  const movie = await fetchMovie(movieId);
+export default function MovieDetails({ movieId }: { movieId: string }) {
+  const [movie, setMovie] = useState<Movie | null>(null);
+
+  useEffect(() => {
+    const fetchMovie = async () => {
+      if (movieId) {
+        const res = await fetch(`/api/movies?_id=${movieId}`);
+        const data = await res.json();
+        setMovie(data.movie);
+      }
+    };
+
+    fetchMovie();
+  }, [movieId]);
 
   if (!movie) {
-    return <h2>Movie not found</h2>;
+    return <h3>Failed to find movie details</h3>;
   }
-  console.log('Fetched Movie:', movie?.title, movie?.year);
+
   return (
     <>
       <h2>{movie?.title}</h2>

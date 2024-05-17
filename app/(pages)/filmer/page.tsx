@@ -1,4 +1,5 @@
-import MovieList from '../../components/filmer/MovieList';
+'use client';
+import MovieList from '@/app/components/filmer/MovieList';
 
 export default function MovieListPage() {
   return (
