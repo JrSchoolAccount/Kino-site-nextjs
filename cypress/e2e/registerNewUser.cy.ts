@@ -2,9 +2,7 @@ describe('Signup Form Test', () => {
   it('should fill out the signup form', () => {
     cy.visit('http://localhost:3000/');
 
-    cy.get(
-      'a.MuiButton-root[href="/registrera"][aria-label="Registrera"]',
-    ).click();
+    cy.get('a[href="/registrera"]').click();
 
     cy.get('input[name="name"]').should('be.visible');
 
