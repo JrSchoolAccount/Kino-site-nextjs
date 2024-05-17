@@ -36,12 +36,14 @@ export default function ScreeningsTableStartpage() {
   return (
     <TableContainer
       sx={{
-        width: { xs: 9 / 10, sm: 9.1 / 10, md: 8 / 10 },
+        width: { xs: 10 / 10, sm: 9.1 / 10, md: 8 / 10 },
+        maxWidth: 800,
         borderRadius: 2,
         boxShadow: 1,
-        marginLeft: { sm: 0.2, md: 10, lg: 10 },
+        margin: 'auto',
         marginTop: 5,
-        padding: 4,
+        paddingX: { xs: 1, sm: 4},
+        paddingTop: 4
       }}
       component={Paper}
     >
