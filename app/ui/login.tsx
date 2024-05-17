@@ -11,16 +11,19 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useFormStatus } from 'react-dom';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SendIcon from '@mui/icons-material/Send';
 
 export default function SignIn() {
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(false);
   const [password, setPassword] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
     setEmailError(false);
     setPasswordError(false);
 
@@ -43,8 +46,10 @@ export default function SignIn() {
         const data = await response.json();
 
         if (response.status === 404) {
+          setLoading(false);
           setEmailError(true);
         } else if (response.status === 400) {
+          setLoading(false);
           setPasswordError(true);
         }
 
@@ -113,7 +118,27 @@ export default function SignIn() {
               title: 'Minst 6 tecken krävs.',
             }}
           />
-          <LoginButton />
+          {loading ? (
+            <LoadingButton
+              endIcon={<SendIcon />}
+              loading={loading}
+              fullWidth
+              loadingPosition="end"
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Loggar in...
+            </LoadingButton>
+          ) : (
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Logga in
+            </Button>
+          )}
           <Grid container>
             <Grid item sx={{ mb: 2 }}>
               <Link href="/registrera" variant="body2">
@@ -124,21 +149,5 @@ export default function SignIn() {
         </Box>
       </Box>
     </Container>
-  );
-}
-
-function LoginButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button
-      aria-disabled={pending}
-      type="submit"
-      fullWidth
-      variant="contained"
-      sx={{ mt: 3, mb: 2 }}
-    >
-      Logga in
-    </Button>
   );
 }

@@ -11,14 +11,18 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SendIcon from '@mui/icons-material/Send';
 
 export default function SignUp() {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setLoading(true);
 
     try {
       const formData = new FormData(event.currentTarget);
@@ -37,6 +41,7 @@ export default function SignUp() {
       if (response.ok) {
         window.location.href = '/login';
       } else {
+        setLoading(false);
         const data = await response.json();
         console.error('Signup failed:', data.message);
       }
@@ -119,14 +124,27 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Registrera
-          </Button>
+          {loading ? (
+            <LoadingButton
+              endIcon={<SendIcon />}
+              loading={loading}
+              fullWidth
+              loadingPosition="end"
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Registrerar...
+            </LoadingButton>
+          ) : (
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Registrera
+            </Button>
+          )}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">
