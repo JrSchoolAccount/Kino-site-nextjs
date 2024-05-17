@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { fetchMovie } from '../../lib/fetchMovies';
 
 export default async function Movie({ movieId }: { movieId: string }) {
@@ -10,7 +11,7 @@ export default async function Movie({ movieId }: { movieId: string }) {
   return (
     <>
       <h2>{movie?.title}</h2>
-      <img src={movie?.poster} width='200'></img>
+      <Image alt="poster" src={movie?.poster} width="200" />
       <p>{movie?.fullplot.slice(0, 300) + '...'}</p>
       <p>Year: {movie?.year}</p>
       <p>Imdb rating: {movie?.imdb.rating}</p>
