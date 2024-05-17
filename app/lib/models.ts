@@ -26,8 +26,6 @@ const ScreeningModel =
   mongoose.models.Screening ||
   mongoose.model('Screening', screeningSchema, 'screenings');
 
-export default ScreeningModel;
-
 // ----------moved from Model/rerview.ts----------
 // Define an interface that matches the schema of Review model and prevents errors
 // import Review from "@/Model/review" in pages/api/data.ts
@@ -58,4 +56,4 @@ if (mongoose.models.Review) {
   Review = mongoose.model<IReview>('Review', reviewSchema, 'reviews');
 }
 
-export { Movie, Screening, Review };
+export { Movie, Screeningodel, Review };
