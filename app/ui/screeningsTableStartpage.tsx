@@ -17,7 +17,6 @@ import { Screening } from '../lib/definitions';
 import { useSearchParams } from 'next/navigation';
 
 export default function ScreeningsTableStartpage() {
-  const searchParams = useSearchParams();
   const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(
     dayjs(new Date())
   );
@@ -27,7 +26,6 @@ export default function ScreeningsTableStartpage() {
   const fetchScreenings = async (URL: string) => {
     const res = await fetch(URL);
     const screenings = await res.json();
-    console.log('Screenings:', screenings);
     return screenings;
   };
   React.useEffect(() => {
@@ -110,9 +108,9 @@ export default function ScreeningsTableStartpage() {
                     pathname: '/boka-film/',
                     query: {
                       screeningId: screening._id,
-                      movieTitle: screening.movie,
-                      movieTime: new Date(screening.date).toISOString(),
-                      poster: screening.poster,
+                      //movieTitle: screening.movie,
+                      //movieTime: new Date(screening.date).toISOString(),
+                      //poster: screening.poster,
                     },
                   }}
                 >

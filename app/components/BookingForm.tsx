@@ -106,12 +106,12 @@ const BookingForm: React.FC<BookingFormProps> = ({
     <Box
       component='form'
       onSubmit={handleSubmit}
-      height={'70vh'}
+      height={''}
       sx={{
         mt: 15,
         maxWidth: 500,
         mx: 'auto',
-        mb: 10,
+        mb: 30,
       }}
     >
       <Typography variant='h4' gutterBottom>
