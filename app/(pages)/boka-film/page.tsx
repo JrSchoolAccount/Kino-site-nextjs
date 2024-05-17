@@ -2,6 +2,7 @@
 
 import BookingForm from '@/app/components/BookingForm';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 import React from 'react';
 
 const BookMoviePage: React.FC = () => {
@@ -18,13 +19,15 @@ const BookMoviePage: React.FC = () => {
 
   return (
     <div>
-      <BookingForm
-        movieTitle={movieTitle}
-        movieTime={new Date(movieTime)}
-        screeningId={screeningId}
-        poster={poster ?? ''}
-        saloon={saloon ?? ''}
-      />
+      <Suspense>
+        <BookingForm
+          movieTitle={movieTitle}
+          movieTime={new Date(movieTime)}
+          screeningId={screeningId}
+          poster={poster ?? ''}
+          saloon={saloon ?? ''}
+        />
+      </Suspense>
     </div>
   ) as React.ReactElement;
 };

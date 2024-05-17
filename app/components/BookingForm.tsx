@@ -5,6 +5,7 @@ import { TextField, Typography, Button, Box, Stack } from '@mui/material';
 import { styled } from '@mui/system';
 import { useRouter } from 'next/navigation';
 import BookingModal from './modals/BookingModal';
+import Image from 'next/image';
 
 interface BookingFormProps {
   movieTitle: string;
@@ -106,7 +107,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
 
   return (
     <Box
-      component='form'
+      component="form"
       onSubmit={handleSubmit}
       height={''}
       sx={{
@@ -116,11 +117,11 @@ const BookingForm: React.FC<BookingFormProps> = ({
         mb: 30,
       }}
     >
-      <Typography variant='h4' gutterBottom>
+      <Typography variant="h4" gutterBottom>
         Boka biljetter för: {movieTitle}
       </Typography>
-      <Typography variant='h6'>Salong: {saloon}</Typography>
-      <Typography variant='h6' marginBottom={4}>
+      <Typography variant="h6">Salong: {saloon}</Typography>
+      <Typography variant="h6" marginBottom={4}>
         Datum och tid: {formattedTime()}
       </Typography>
 
@@ -136,7 +137,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
           mb: 5,
         }}
       >
-        <img
+        <Image
           src={poster}
           alt={movieTitle}
           style={{
@@ -149,34 +150,34 @@ const BookingForm: React.FC<BookingFormProps> = ({
       </Box>
       <Stack spacing={2}>
         <TextField
-          label='E-post'
-          variant='outlined'
+          label="E-post"
+          variant="outlined"
           fullWidth
           value={email}
           onChange={handleEmailChange}
           sx={{ mt: 50 }}
         />
         <TextField
-          label='För- och efternamn'
-          variant='outlined'
+          label="För- och efternamn"
+          variant="outlined"
           fullWidth
           value={fullName}
           onChange={handleFullNameChange}
         />
-        <input type='hidden' name='screeningId' value={screeningId} />
-        <Box display='flex' justifyContent='center'>
+        <input type="hidden" name="screeningId" value={screeningId} />
+        <Box display="flex" justifyContent="center">
           <SubmitButton
-            type='submit'
-            variant='contained'
-            color='primary'
+            type="submit"
+            variant="contained"
+            color="primary"
             sx={{ mt: 2, width: '30%' }}
           >
             Boka
           </SubmitButton>
 
           <Button
-            variant='contained'
-            color='secondary'
+            variant="contained"
+            color="secondary"
             sx={{ mt: 2, ml: 2, width: '30%' }}
             onClick={() => router.push('/')}
           >
