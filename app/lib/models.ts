@@ -28,4 +28,4 @@ const ScreeningModel =
 
 export default ScreeningModel;
 
-export { Movie, Screening };
+export { Movie, ScreeningModel };
