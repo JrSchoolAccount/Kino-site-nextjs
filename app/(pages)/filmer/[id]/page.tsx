@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import Movie from '@/app/components/filmer/MovieDetails';
+import Reviews from '@/app/ui/reviews';
+import { fetchMovie } from '@/app/lib/fetchMovies';
 
 export default async function Page({
   params,
@@ -8,6 +10,9 @@ export default async function Page({
     id: string;
   };
 }) {
+  const movieId = params.id;
+  const movie = await fetchMovie(movieId);
+
   return (
     <>
       <Link href='/filmer'>
@@ -16,6 +21,7 @@ export default async function Page({
       <div>
         <Movie movieId={params.id} />
       </div>
+      <Reviews  movieId ={movie._id.toString()} movieTitle={movie.title}/>
     </>
   );
 }
