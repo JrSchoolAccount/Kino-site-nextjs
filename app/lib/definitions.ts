@@ -1,3 +1,8 @@
+export type SessionPayload = {
+  userId: string;
+  expiresAt: Date;
+  email: string;
+};
 export type Screenings = {
   id: number;
   start_time: string;

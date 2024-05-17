@@ -11,7 +11,7 @@ const SlideContainer = styled('div')({
 });
 
 // get movieposters here
-// this typing should be done in definitions and imported here, my bad i missed it. 
+// this typing should be done in definitions and imported here, my bad i missed it.
 const posters: string[] = [''];
 
 const HeroBanner = () => {
