@@ -11,6 +11,7 @@ interface BookingFormProps {
   movieTime: Date;
   screeningId: string;
   poster: string;
+  saloon: string;
 }
 
 const SubmitButton = styled(Button)(({ theme }) => ({
@@ -22,6 +23,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
   movieTime,
   screeningId,
   poster,
+  saloon,
 }) => {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -117,10 +119,11 @@ const BookingForm: React.FC<BookingFormProps> = ({
       <Typography variant='h4' gutterBottom>
         Boka biljetter för: {movieTitle}
       </Typography>
-
+      <Typography variant='h6'>Salong: {saloon}</Typography>
       <Typography variant='h6' marginBottom={4}>
         Datum och tid: {formattedTime()}
       </Typography>
+
       <Box
         sx={{
           width: '100%',

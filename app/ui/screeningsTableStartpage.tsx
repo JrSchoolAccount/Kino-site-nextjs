@@ -111,6 +111,7 @@ export default function ScreeningsTableStartpage() {
                       movieTitle: screening.movie,
                       movieTime: new Date(screening.date).toISOString(),
                       poster: screening.poster,
+                      saloon: screening.saloon,
                     },
                   }}
                 >
