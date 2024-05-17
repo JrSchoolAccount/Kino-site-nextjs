@@ -13,7 +13,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useFormStatus } from 'react-dom';
 
-export default function SignIn() {
+export interface LoginProps {
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
+  onClose: () => void;
+}
+
+export default function SignIn({ setIsLoggedIn, onClose }: LoginProps) {
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(false);
   const [password, setPassword] = React.useState('');
@@ -38,7 +43,8 @@ export default function SignIn() {
       });
 
       if (response.ok) {
-        window.location.href = '/profil';
+        setIsLoggedIn(true);
+        onClose();
       } else {
         const data = await response.json();
 

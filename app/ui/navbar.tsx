@@ -18,9 +18,10 @@ import { Stack } from '@mui/material';
 import { Autocomplete } from '@mui/material';
 import { useState } from 'react';
 import { Movie } from '../lib/definitions';
-import { Login, Logout } from '@mui/icons-material';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Tooltip } from '@mui/material';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import LoginModal from './loginModal';
 
 const links = [
   { name: 'Om oss', href: '/om-oss' },
@@ -31,12 +32,21 @@ const links = [
 ];
 
 export default function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null,
-  );
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
   const [isFocused, setIsFocused] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleSearchInputChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -90,8 +100,14 @@ export default function ResponsiveAppBar() {
   };
 
   const router = useRouter();
-  const pathname: string = usePathname();
-  const isProfilePage = pathname === '/profil';
+
+  const handleAvatarMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleAvatarClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleLogout = async () => {
     try {
@@ -100,7 +116,8 @@ export default function ResponsiveAppBar() {
       });
 
       if (response.ok) {
-        await router.push('/');
+        setIsLoggedIn(false);
+        setAnchorEl(null);
       } else {
         console.error('Failed to logout:', response.statusText);
       }
@@ -115,8 +132,8 @@ export default function ResponsiveAppBar() {
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
-              aria-label="account of current user"
+              size="small"
+              aria-label="menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -235,37 +252,58 @@ export default function ResponsiveAppBar() {
             />
           </Stack>
           <Box sx={{ flexGrow: 0 }}>
-            {!isProfilePage ? (
+            {!isLoggedIn ? (
               <Box>
                 <Tooltip title="Logga in">
-                  <Button
-                    size="small"
-                    color="secondary"
-                    variant="outlined"
-                    href="/login"
-                    startIcon={<Login />}
-                  >
+                  <Button size="small" variant="text" onClick={handleOpenModal}>
                     Logga in
                   </Button>
                 </Tooltip>
-                <Tooltip title="Registrera">
+                <Tooltip title="Registrera ny användare">
                   <Button size="small" variant="outlined" href="/registrera">
                     Registrera
                   </Button>
                 </Tooltip>
               </Box>
             ) : (
-              <Tooltip title="Logga ut">
-                <Button
-                  color="secondary"
-                  variant="outlined"
-                  onClick={handleLogout}
-                  startIcon={<Logout />}
+              <div>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleAvatarMenu}
+                  color="inherit"
                 >
-                  Logga ut
-                </Button>
-              </Tooltip>
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleAvatarClose}
+                >
+                  <MenuItem onClick={handleAvatarClose}>Profil</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logga ut</MenuItem>
+                </Menu>
+              </div>
             )}
+          </Box>
+          <Box>
+            <LoginModal
+              open={isModalOpen}
+              onClose={handleCloseModal}
+              setIsLoggedIn={setIsLoggedIn}
+            />
           </Box>
         </Toolbar>
       </Container>
