@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Movie from '@/app/components/filmer/MovieDetails';
+import ScreeningsTableSpecificMovie from '@/app/ui/screeningsTableSpecificMovie';
 
-export default async function Page({
+export default function Page({
   params,
 }: {
   params: {
@@ -15,6 +16,7 @@ export default async function Page({
       </Link>
       <div>
         <Movie movieId={params.id} />
+        <ScreeningsTableSpecificMovie movie_id={params.id} />
       </div>
     </>
   );
