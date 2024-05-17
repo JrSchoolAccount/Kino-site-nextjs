@@ -56,4 +56,4 @@ if (mongoose.models.Review) {
   Review = mongoose.model<IReview>('Review', reviewSchema, 'reviews');
 }
 
-export { Movie, Screeningodel, Review };
+export { Movie, ScreeningModel, Review };
