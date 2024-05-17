@@ -12,13 +12,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from 'dayjs';
-import 'dayjs/locale/de';
+import 'dayjs/locale/sv';
 import { Screening } from '../lib/definitions';
-import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 export default function ScreeningsTableStartpage() {
   const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(
-    dayjs(new Date())
+    dayjs(new Date()),
   );
 
   const [screenings, setScreenings] = useState<Screening[]>([]);
@@ -41,12 +41,14 @@ export default function ScreeningsTableStartpage() {
   return (
     <TableContainer
       sx={{
-        width: 8 / 10,
+        width: { xs: 10 / 10, sm: 9.1 / 10, md: 8 / 10 },
+        maxWidth: 800,
         borderRadius: 2,
         boxShadow: 1,
-        marginLeft: 10,
+        margin: 'auto',
         marginTop: 5,
-        padding: 4,
+        paddingX: { xs: 1, sm: 4},
+        paddingTop: 4
       }}
       component={Paper}
     >
@@ -57,7 +59,7 @@ export default function ScreeningsTableStartpage() {
         >
           Kommande visningar
         </Typography>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='de'>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="sv">
           <DatePicker
             disablePast
             label={'Välj ett datum'}
@@ -87,22 +89,37 @@ export default function ScreeningsTableStartpage() {
         </LocalizationProvider>
       </Box>
 
-      <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+      <Table sx={{ minWidth: 50 }} aria-label="simple table">
         <TableBody>
-          {screenings.map((screening, index) => (
-            <TableRow
-              key={index}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component='th' scope='row' sx={{ fontSize: 17 }}>
-                {screening.date.slice(11, 16)}
-              </TableCell>
-              <TableCell align='left' sx={{ fontSize: 17, maxWidth: 200 }}>
-                {screening.movie}
-              </TableCell>
-              <TableCell align='left'>{screening.saloon}</TableCell>
-              <TableCell align='left'>{screening.runtime} min</TableCell>
-              <TableCell align='left'>
+          {screenings[0] ? (
+            screenings.map((screening, index) => (
+              <TableRow
+                key={index}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell
+                  component="th"
+                  scope="row"
+                  sx={{ fontSize: 17, maxWidth: { xs: 13, sm: 200 } }}
+                >
+                  {screening.date.slice(11, 16)}
+                </TableCell>
+                <TableCell align="left">
+                  <Button
+                    href={`/filmer/${screening.movie_id}`}
+                    component={Link}
+                    sx={{ fontSize: 16 }}
+                  >
+                    {screening.movie}
+                  </Button>
+                </TableCell>
+                <TableCell align="left" sx={{ maxWidth: { xs: 14, sm: 200 } }}>
+                  {screening.saloon}
+                </TableCell>
+                <TableCell align="left" sx={{ maxWidth: { xs: 5, sm: 200 } }}>
+                  {screening.runtime} min
+                </TableCell>
+               <TableCell align='left'>
                 <Link
                   href={{
                     pathname: '/boka-film/',
@@ -119,9 +136,22 @@ export default function ScreeningsTableStartpage() {
                     boka
                   </Button>
                 </Link>
+                  }
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell>
+                <Typography align="center" sx={{ my: 4 }}>
+                  Inga visningar finns inlagda för detta datum. Var god välj ett
+                  annat datum!
+                </Typography>
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </TableContainer>

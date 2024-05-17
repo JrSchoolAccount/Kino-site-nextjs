@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,38 +9,78 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import Image from "next/image";
+import Image from 'next/image';
 import Link from '@mui/material/Link';
+import { TextField } from '@mui/material';
+import { Stack } from '@mui/material';
+import { Autocomplete } from '@mui/material';
+import { useState } from 'react';
+import { Movie } from '../lib/definitions';
 
 const links = [
-  { name: 'Om oss', href: '/om-oss'},
-  { name: 'Aktuella visningar', href: '/aktuella-vinsningar'},
-  { name: 'Filmer', href: '/filmer'},
-  { name: 'Biljetter', href: '/biljetter'},
+  { name: 'Om oss', href: '/om-oss' },
+  { name: 'Bli medlem', href: '/registrera' },
+  { name: 'Min profil', href: '/profil' },
+  { name: 'Filmer', href: '/filmer' },
 ];
-const settings = ['Mina biljetter', 'inställningar', 'Logout'];
 
 export default function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleSearchInputChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const { value } = event.target;
+    const trimmedValue = value.trim();
+    if (trimmedValue === '') {
+      setFilteredMovies([]);
+      return;
+    }
+
+    const filtered = movies.filter((movie) =>
+      movie.title.toLowerCase().includes(value.toLowerCase()),
+    );
+    setFilteredMovies(filtered);
+    if (value.trim() !== '') {
+      try {
+        const response = await fetch('/api/movies');
+        const data = await response.json();
+        if (Array.isArray(data.movies)) {
+          const movieData = data.movies.map((movie: any) => ({
+            title: movie.title,
+            id: movie._id,
+          }));
+          setMovies(movieData);
+        } else {
+          console.error(
+            'Data received from API does not contain an array of movies:',
+            data,
+          );
+        }
+      } catch (error) {
+        console.error('Error fetching movies:', error);
+      }
+    }
+  };
+
+  const handleSearchSelect = (value: Movie | string | null) => {
+    if (value && typeof value !== 'string') {
+      return `/filmer/${value.id}`;
+    }
+    return '';
+  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
@@ -49,8 +89,8 @@ export default function ResponsiveAppBar() {
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
-              aria-label="account of current user"
+              size="small"
+              aria-label="menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
@@ -77,8 +117,18 @@ export default function ResponsiveAppBar() {
               }}
             >
               {links.map((link) => (
-                <MenuItem key={`${link.name}-${link.href}`} onClick={handleCloseNavMenu}>
-                  <Link underline="none" color='inherit' key={link.name} href={link.href} >{link.name}</Link>
+                <MenuItem
+                  key={`${link.name}-${link.href}`}
+                  onClick={handleCloseNavMenu}
+                >
+                  <Link
+                    underline="none"
+                    color="inherit"
+                    key={link.name}
+                    href={link.href}
+                  >
+                    {link.name}
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -94,7 +144,12 @@ export default function ResponsiveAppBar() {
               flexGrow: 1,
             }}
           >
-            <Image width='140' height='50' src='/logo.png' alt='Biograf Regna' />
+            <Image
+              width="140"
+              height="50"
+              src="/logo.png"
+              alt="Biograf Regna"
+            />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {links.map((link) => (
@@ -108,36 +163,51 @@ export default function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Jon Doe" src="/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+          <Stack spacing={5} sx={{ width: 300, marginRight: 5 }}>
+            <Autocomplete
+              key="movieSearchAutocomplete"
+              freeSolo
+              id="movieSearch"
+              disableClearable
+              options={isFocused ? filteredMovies : []}
+              getOptionLabel={(option) => {
+                if (typeof option === 'string') {
+                  return option;
+                }
+                return option.title;
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+              onInputChange={(event, newInputValue) => {
+                if (newInputValue === '') {
+                  setFilteredMovies([]);
+                } else {
+                  const filtered = movies.filter((movie) =>
+                    movie.title
+                      .toLowerCase()
+                      .includes(newInputValue.toLowerCase()),
+                  );
+                  setFilteredMovies(filtered);
+                }
               }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+              onFocus={() => setIsFocused(true)}
+              onChange={(event, value) => {
+                const movieUrl = handleSearchSelect(value);
+                if (movieUrl) {
+                  window.location.href = movieUrl;
+                }
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Sök film.."
+                  InputProps={{
+                    ...params.InputProps,
+                    type: 'search',
+                    onChange: handleSearchInputChange,
+                  }}
+                />
+              )}
+            />
+          </Stack>
         </Toolbar>
       </Container>
     </AppBar>

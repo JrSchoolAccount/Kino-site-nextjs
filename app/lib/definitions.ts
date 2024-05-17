@@ -1,3 +1,8 @@
+export type SessionPayload = {
+  userId: string;
+  expiresAt: Date;
+  email: string;
+};
 export type Screenings = {
   id: number;
   start_time: string;
@@ -5,6 +10,20 @@ export type Screenings = {
 
 export type SpecificScreeningsResponse = {
   data: Screenings[];
+};
+
+export type Movie = {
+  id: string;
+  fullplot: string;
+  imdb: {
+    rating: number;
+  };
+  year: number;
+  plot: string;
+  title: string;
+  poster: string;
+  released: Date;
+  runtime: number;
 };
 
 export type carouselSettings = {
@@ -25,4 +44,5 @@ export type Screening = {
   date: string;
   runtime?: string;
   poster?: string;
+  movie_id?: string;
 };

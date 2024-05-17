@@ -16,45 +16,45 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 
 export default function Footer() {
   return (
-    <Box bgcolor='background.default' py={4} px={2} width='100%' mt={5}>
-      <Container maxWidth='lg'>
+    <Box bgcolor="background.default" py={4} px={2} width="100%" mt={5}>
+      <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
             <Grid container spacing={4}>
               <Grid item xs={12} md={4}>
-                <Typography variant='h6' color='' gutterBottom>
+                <Typography variant="h6" color="" gutterBottom>
                   Öppettider
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant="body2" color="text.secondary">
                   Måndag - Fredag: xx - xx
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant="body2" color="text.secondary">
                   Lördag: xx - xx
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant="body2" color="text.secondary">
                   Söndag: xx - xx
                 </Typography>
               </Grid>
               <Grid item xs={12} md={4}>
-                <Typography variant='h6' color='' gutterBottom>
+                <Typography variant="h6" color="" gutterBottom>
                   Adress
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant="body2" color="text.secondary">
                   Regnagården 47
                 </Typography>
               </Grid>
 
               <Grid item xs={12} md={4}>
-                <Typography variant='h6' color='' gutterBottom>
+                <Typography variant="h6" color="" gutterBottom>
                   Kontakt
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant="body2" color="text.secondary">
                   Email:{' '}
-                  <Link href='mailto:regna@folketsbio.se'>
+                  <Link href="mailto:regna@folketsbio.se">
                     regna@folketsbio.se
                   </Link>
                 </Typography>
-                <Typography variant='body2' color='text.secondary'>
+                <Typography variant="body2" color="text.secondary">
                   Tel: 0101010
                 </Typography>
               </Grid>
@@ -62,24 +62,24 @@ export default function Footer() {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Box display='flex' flexDirection='column' alignItems='center'>
+            <Box display="flex" flexDirection="column" alignItems="center">
               <Box mb={2}>
                 <IconButton
-                  href='https://github.com/JrSchoolAccount/Kino-site-nextjs'
-                  target='_blank'
-                  rel='noopener noreferrer'
+                  href="https://github.com/JrSchoolAccount/Kino-site-nextjs"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <GitHubIcon sx={{ color: 'text.primary' }} />
                 </IconButton>
-                <IconButton href='#' target='_blank' rel='noopener noreferrer'>
+                <IconButton href="#" target="_blank" rel="noopener noreferrer">
                   <FacebookIcon sx={{ color: 'text.primary' }} />
                 </IconButton>
-                <IconButton href='#' target='_blank' rel='noopener noreferrer'>
+                <IconButton href="#" target="_blank" rel="noopener noreferrer">
                   <InstagramIcon sx={{ color: 'text.primary' }} />
                 </IconButton>
               </Box>
-              <Box textAlign='center'>
-                <Typography variant='body2' color='text.secondary'>
+              <Box textAlign="center">
+                <Typography variant="body2" color="text.secondary">
                   © {new Date().getFullYear()} Biograf Regna AB.
                 </Typography>
               </Box>
