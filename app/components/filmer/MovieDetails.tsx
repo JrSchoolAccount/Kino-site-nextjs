@@ -1,3 +1,4 @@
+import Reviews from '@/app/ui/reviews';
 import { fetchMovie } from '../../lib/fetchMovies';
 
 export default async function Movie({ movieId }: { movieId: string }) {
@@ -15,6 +16,7 @@ export default async function Movie({ movieId }: { movieId: string }) {
       <p>Year: {movie?.year}</p>
       <p>Imdb rating: {movie?.imdb.rating}</p>
       <p>Runtime: {movie?.runtime} min</p>
+      <Reviews movieId={movie._id.toString()} movieTitle={movie.title}/>
     </>
   );
 }

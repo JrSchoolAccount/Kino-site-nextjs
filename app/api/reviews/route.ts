@@ -8,7 +8,7 @@ export async function POST(req: NextRequest, res:NextResponse) {
   console.log('api/reviews/route.ts: MongoDB connected');
   try {
     const body = await req.json();    
-    const { name, rating, comment } = body;
+    const { movieId, movieTitle, name, rating, comment } = body;
     const numericRating = parseInt(rating, 10);
     // console.log('Received data:', body);
 
@@ -17,6 +17,8 @@ export async function POST(req: NextRequest, res:NextResponse) {
      }
 
     const newReview = new Review({
+      movieId, 
+      movieTitle,
       name: name,
       rating: numericRating,
       comment: comment,

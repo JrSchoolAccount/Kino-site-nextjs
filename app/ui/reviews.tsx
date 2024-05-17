@@ -2,7 +2,12 @@
 import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useState } from 'react';
 
-export default function Reviews() {
+interface ReviewsProps{
+    movieId: string;
+    movieTitle: string;
+}  
+
+export default function Reviews({movieId, movieTitle}:ReviewsProps) {
     const [formData, setFormData] = useState({
         name: '',
         rating: '',
@@ -25,7 +30,7 @@ export default function Reviews() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({ movieId, movieTitle, ...formData}),
         });
         if (response.ok) {
             setFormData({ name: '', rating: '', comment: '' });
