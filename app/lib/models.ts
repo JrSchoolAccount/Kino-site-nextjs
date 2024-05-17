@@ -14,7 +14,8 @@ const movieSchema: Schema = new mongoose.Schema<Movie>({
   runtime: Number,
 });
 
-const Movie = mongoose.models.Movie || mongoose.model('Movie', movieSchema, 'movies');
+const Movie =
+  mongoose.models.Movie || mongoose.model('Movie', movieSchema, 'movies');
 
 const screeningSchema: Schema = new mongoose.Schema<Screening>({
   movie: String,

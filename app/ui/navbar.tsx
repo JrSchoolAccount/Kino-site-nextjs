@@ -9,9 +9,7 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Image from 'next/image';
 import Link from '@mui/material/Link';
@@ -23,20 +21,20 @@ import { Movie } from '../lib/definitions';
 
 const links = [
   { name: 'Om oss', href: '/om-oss' },
-  { name: 'Aktuella visningar', href: '/aktuella-vinsningar' },
+  { name: 'Bli medlem', href: '/registrera' },
+  { name: 'Min profil', href: '/profil' },
   { name: 'Filmer', href: '/filmer' },
-  { name: 'Biljetter', href: '/biljetter' },
 ];
-const settings = ['Mina biljetter', 'inställningar', 'Logout'];
 
 export default function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
   const [isFocused, setIsFocused] = useState(false);
 
-  const handleSearchInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchInputChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const { value } = event.target;
     const trimmedValue = value.trim();
     if (trimmedValue === '') {
@@ -44,7 +42,9 @@ export default function ResponsiveAppBar() {
       return;
     }
 
-    const filtered = movies.filter((movie) => movie.title.toLowerCase().includes(value.toLowerCase()));
+    const filtered = movies.filter((movie) =>
+      movie.title.toLowerCase().includes(value.toLowerCase()),
+    );
     setFilteredMovies(filtered);
     if (value.trim() !== '') {
       try {
@@ -57,7 +57,10 @@ export default function ResponsiveAppBar() {
           }));
           setMovies(movieData);
         } else {
-          console.error('Data received from API does not contain an array of movies:', data);
+          console.error(
+            'Data received from API does not contain an array of movies:',
+            data,
+          );
         }
       } catch (error) {
         console.error('Error fetching movies:', error);
@@ -75,35 +78,28 @@ export default function ResponsiveAppBar() {
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
-    <AppBar position='static'>
-      <Container maxWidth='xl'>
+    <AppBar position="static">
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size='large'
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
+              size="small"
+              aria-label="menu"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color='inherit'
+              color="inherit"
             >
               <MenuIcon />
             </IconButton>
             <Menu
-              id='menu-appbar'
+              id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
                 vertical: 'bottom',
@@ -121,8 +117,16 @@ export default function ResponsiveAppBar() {
               }}
             >
               {links.map((link) => (
-                <MenuItem key={`${link.name}-${link.href}`} onClick={handleCloseNavMenu}>
-                  <Link underline="none" color="inherit" key={link.name} href={link.href}>
+                <MenuItem
+                  key={`${link.name}-${link.href}`}
+                  onClick={handleCloseNavMenu}
+                >
+                  <Link
+                    underline="none"
+                    color="inherit"
+                    key={link.name}
+                    href={link.href}
+                  >
                     {link.name}
                   </Link>
                 </MenuItem>
@@ -130,17 +134,22 @@ export default function ResponsiveAppBar() {
             </Menu>
           </Box>
           <Typography
-            variant='h5'
+            variant="h5"
             noWrap
-            component='a'
-            href='/'
+            component="a"
+            href="/"
             sx={{
               mr: 2,
               display: 'flex',
               flexGrow: 1,
             }}
           >
-            <Image width="140" height="50" src="/logo.png" alt="Biograf Regna" />
+            <Image
+              width="140"
+              height="50"
+              src="/logo.png"
+              alt="Biograf Regna"
+            />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {links.map((link) => (
@@ -172,7 +181,9 @@ export default function ResponsiveAppBar() {
                   setFilteredMovies([]);
                 } else {
                   const filtered = movies.filter((movie) =>
-                    movie.title.toLowerCase().includes(newInputValue.toLowerCase())
+                    movie.title
+                      .toLowerCase()
+                      .includes(newInputValue.toLowerCase()),
                   );
                   setFilteredMovies(filtered);
                 }
@@ -197,35 +208,6 @@ export default function ResponsiveAppBar() {
               )}
             />
           </Stack>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title='Open settings'>
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt='Jon Doe' src='/2.jpg' />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id='menu-appbar'
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign='center'>{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
         </Toolbar>
       </Container>
     </AppBar>
