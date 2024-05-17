@@ -77,7 +77,7 @@ export default function SignUp() {
                 autoFocus
                 onChange={(e) => setName(e.target.value)}
                 inputProps={{
-                  pattern: '^[a-zA-Z]{2,}\\s+[a-zA-Z]{2,}$',
+                  pattern: '^[a-öA-Ö]{2,}\\s+[a-öA-Ö]{2,}$',
                   title:
                     'Ange för- & efternamn (minst 2 tecken för varje namn, separerade med ett mellanslag).',
                 }}

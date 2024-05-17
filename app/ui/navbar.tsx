@@ -22,7 +22,7 @@ import { Movie } from '../lib/definitions';
 const links = [
   { name: 'Om oss', href: '/om-oss' },
   { name: 'Bli medlem', href: '/registrera' },
-  { name: 'Mina bokningar', href: '/profil' },
+  { name: 'Mina profil', href: '/profil' },
   { name: 'Filmer', href: '/filmer' },
 ];
 
