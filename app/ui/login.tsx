@@ -43,6 +43,7 @@ export default function SignIn({ setIsLoggedIn, onClose }: LoginProps) {
       });
 
       if (response.ok) {
+        window.location.href = '/profil';
         setIsLoggedIn(true);
         onClose();
       } else {

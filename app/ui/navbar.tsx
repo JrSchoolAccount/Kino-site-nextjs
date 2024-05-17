@@ -18,17 +18,13 @@ import { Stack } from '@mui/material';
 import { Autocomplete } from '@mui/material';
 import { useState } from 'react';
 import { Movie } from '../lib/definitions';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Tooltip } from '@mui/material';
-import { useRouter } from 'next/navigation';
-import LoginModal from './loginModal';
 
 const links = [
   { name: 'Om oss', href: '/om-oss' },
+  { name: 'Mina bokningar', href: '/profil' },
   { name: 'Aktuella visningar', href: '/aktuella-vinsningar' },
   { name: 'Filmer', href: '/filmer' },
   { name: 'Biljetter', href: '/biljetter' },
-  { name: 'Mina bokningar', href: '/profil' },
 ];
 
 export default function ResponsiveAppBar() {
@@ -36,17 +32,6 @@ export default function ResponsiveAppBar() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
   const [isFocused, setIsFocused] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
 
   const handleSearchInputChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -97,33 +82,6 @@ export default function ResponsiveAppBar() {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const router = useRouter();
-
-  const handleAvatarMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleAvatarClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogout = async () => {
-    try {
-      const response = await fetch('/api/logout', {
-        method: 'POST',
-      });
-
-      if (response.ok) {
-        setIsLoggedIn(false);
-        setAnchorEl(null);
-      } else {
-        console.error('Failed to logout:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error occurred during logout:', error);
-    }
   };
 
   return (
@@ -251,60 +209,6 @@ export default function ResponsiveAppBar() {
               )}
             />
           </Stack>
-          <Box sx={{ flexGrow: 0 }}>
-            {!isLoggedIn ? (
-              <Box>
-                <Tooltip title="Logga in">
-                  <Button size="small" variant="text" onClick={handleOpenModal}>
-                    Logga in
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Registrera ny användare">
-                  <Button size="small" variant="outlined" href="/registrera">
-                    Registrera
-                  </Button>
-                </Tooltip>
-              </Box>
-            ) : (
-              <div>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleAvatarMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleAvatarClose}
-                >
-                  <MenuItem onClick={handleAvatarClose}>Profil</MenuItem>
-                  <MenuItem onClick={handleLogout}>Logga ut</MenuItem>
-                </Menu>
-              </div>
-            )}
-          </Box>
-          <Box>
-            <LoginModal
-              open={isModalOpen}
-              onClose={handleCloseModal}
-              setIsLoggedIn={setIsLoggedIn}
-            />
-          </Box>
         </Toolbar>
       </Container>
     </AppBar>

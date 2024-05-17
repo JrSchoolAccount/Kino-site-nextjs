@@ -1,7 +1,5 @@
-export default function Profile() {
-  return (
-    <div>
-      <h1>Profile page!</h1>
-    </div>
-  );
+import UserProfile from '../ui/userProfile';
+
+export default function ProfilePage() {
+  return <UserProfile />;
 }
