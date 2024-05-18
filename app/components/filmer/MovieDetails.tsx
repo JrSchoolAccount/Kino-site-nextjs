@@ -24,7 +24,7 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
   return (
     <>
       <h2>{movie?.title}</h2>
-      <Image alt="poster" src={movie?.poster} width="200" />
+      <Image alt="poster" src={movie?.poster} width={400} height={600} />
       <p>{movie?.fullplot.slice(0, 300) + '...'}</p>
       <p>Year: {movie?.year}</p>
       <p>Imdb rating: {movie?.imdb.rating}</p>
