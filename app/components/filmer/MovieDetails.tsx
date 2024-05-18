@@ -1,5 +1,6 @@
 import { Movie } from '@/app/lib/definitions';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export default function MovieDetails({ movieId }: { movieId: string }) {
   const [movie, setMovie] = useState<Movie | null>(null);
@@ -23,7 +24,7 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
   return (
     <>
       <h2>{movie?.title}</h2>
-      <img src={movie?.poster} width='200'></img>
+      <Image alt="poster" src={movie?.poster} width="200" />
       <p>{movie?.fullplot.slice(0, 300) + '...'}</p>
       <p>Year: {movie?.year}</p>
       <p>Imdb rating: {movie?.imdb.rating}</p>

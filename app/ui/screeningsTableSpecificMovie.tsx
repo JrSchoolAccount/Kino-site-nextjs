@@ -11,8 +11,11 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Screening } from '../lib/definitions';
 
-export default function ScreeningsTableSpecificMovie({ movie_id }: { movie_id: string }) {
-
+export default function ScreeningsTableSpecificMovie({
+  movie_id,
+}: {
+  movie_id: string;
+}) {
   const [screenings, setScreenings] = useState<Screening[]>([]);
 
   const fetchScreenings = async (URL: string) => {
@@ -23,11 +26,11 @@ export default function ScreeningsTableSpecificMovie({ movie_id }: { movie_id: s
 
   React.useEffect(() => {
     fetchScreenings(
-      `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date().toLocaleTimeString().slice(0, 5)}&movie_id=${movie_id}`
+      `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date().toLocaleTimeString().slice(0, 5)}&movie_id=${movie_id}`,
     ).then((screenings) => {
       setScreenings(screenings);
     });
-  }, []);
+  }, [movie_id]);
 
   return (
     <TableContainer
@@ -43,31 +46,49 @@ export default function ScreeningsTableSpecificMovie({ movie_id }: { movie_id: s
       }}
       component={Paper}
     >
-        <Typography variant='h3' sx={{ fontSize: 25, marginRight: 10, marginBottom: 2, textAlign: 'center' }}>
-          Kommande visningar av filmen
-        </Typography>
-      <Table sx={{ minWidth: 50 }} aria-label='simple table'>
+      <Typography
+        variant="h3"
+        sx={{
+          fontSize: 25,
+          marginRight: 10,
+          marginBottom: 2,
+          textAlign: 'center',
+        }}
+      >
+        Kommande visningar av filmen
+      </Typography>
+      <Table sx={{ minWidth: 50 }} aria-label="simple table">
         <TableBody>
           {screenings[0] ? (
             screenings.map((screening, index) => (
-              <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell align='left' sx={{ maxWidth: { xs: 5, sm: 200 } }}>
-                  {new Date(screening.date.slice(0, 10)).toLocaleDateString('sv-SE', {
-                    weekday: 'long',
-                    year: undefined,
-                    month: 'short',
-                    day: 'numeric',
-                  })}
+              <TableRow
+                key={index}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell align="left" sx={{ maxWidth: { xs: 5, sm: 200 } }}>
+                  {new Date(screening.date.slice(0, 10)).toLocaleDateString(
+                    'sv-SE',
+                    {
+                      weekday: 'long',
+                      year: undefined,
+                      month: 'short',
+                      day: 'numeric',
+                    },
+                  )}
                 </TableCell>
-                <TableCell component='th' scope='row' sx={{ fontSize: 17, maxWidth: { xs: 13, sm: 200 } }}>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  sx={{ fontSize: 17, maxWidth: { xs: 13, sm: 200 } }}
+                >
                   {screening.date.slice(11, 16)}
                 </TableCell>
-                <TableCell align='left' sx={{ maxWidth: { xs: 14, sm: 200 } }}>
+                <TableCell align="left" sx={{ maxWidth: { xs: 14, sm: 200 } }}>
                   {screening.saloon}
                 </TableCell>
-                <TableCell align='left'>
+                <TableCell align="left">
                   {
-                    <Button size='small' variant='outlined'>
+                    <Button size="small" variant="outlined">
                       boka
                     </Button>
                   }
@@ -75,10 +96,13 @@ export default function ScreeningsTableSpecificMovie({ movie_id }: { movie_id: s
               </TableRow>
             ))
           ) : (
-            <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            <TableRow
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
               <TableCell>
-                <Typography align='center' sx={{ my: 4 }}>
-                  Inga visningar finns av denna film just nu, var god välj en annan film!
+                <Typography align="center" sx={{ my: 4 }}>
+                  Inga visningar finns av denna film just nu, var god välj en
+                  annan film!
                 </Typography>
               </TableCell>
             </TableRow>
