@@ -1,7 +1,7 @@
 import { Movie } from '@/app/lib/definitions';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Container, Typography, Box } from '@mui/material';
+import { Container, Typography, Box, typographyClasses } from '@mui/material';
 
 export default function MovieDetails({ movieId }: { movieId: string }) {
   const [movie, setMovie] = useState<Movie | null>(null);
@@ -19,7 +19,13 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
   }, [movieId]);
 
   if (!movie) {
-    return <h3>Failed to find movie details</h3>;
+    return (
+      <>
+        <Typography variant="h4" align="center" margin={4}>
+          Failed to load movie...
+        </Typography>
+      </>
+    );
   }
 
   return (
