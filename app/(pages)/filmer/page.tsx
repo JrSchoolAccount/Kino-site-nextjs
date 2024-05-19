@@ -1,11 +1,14 @@
 'use client';
 import MovieList from '@/app/components/filmer/MovieList';
+import { Typography } from '@mui/material';
 
 export default function MovieListPage() {
   return (
-    <div>
-      <h2>Filmer</h2>
+    <>
+      <Typography variant="h4" component="h1" align="center" margin={3}>
+        Filmer
+      </Typography>
       <MovieList />
-    </div>
+    </>
   );
 }

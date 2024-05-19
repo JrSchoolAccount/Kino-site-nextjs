@@ -1,6 +1,7 @@
 import { Movie } from '@/app/lib/definitions';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { Container, Typography, Box } from '@mui/material';
 
 export default function MovieDetails({ movieId }: { movieId: string }) {
   const [movie, setMovie] = useState<Movie | null>(null);
@@ -23,12 +24,41 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
 
   return (
     <>
-      <h2>{movie?.title}</h2>
-      <Image alt="poster" src={movie?.poster} width={400} height={600} />
-      <p>{movie?.fullplot.slice(0, 300) + '...'}</p>
-      <p>Year: {movie?.year}</p>
-      <p>Imdb rating: {movie?.imdb.rating}</p>
-      <p>Runtime: {movie?.runtime} min</p>
+      <Container
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          maxWidth={400}
+        >
+          <Typography variant="h4" component="h2" align="center" margin={3}>
+            {movie?.title}
+          </Typography>
+          <Image
+            alt="poster"
+            src={movie?.poster}
+            max-height={800}
+            width={400}
+            height={600}
+          />
+          <Typography variant="subtitle2" margin={1}>
+            {movie?.plot.slice(0, 200) + '...'}
+          </Typography>
+          <Box>
+            <Typography variant="subtitle1" margin={1}>
+              <p>År: {movie?.year}</p>
+              <p>Imdb Betyg: {movie?.imdb.rating}</p>
+              <p>Speltid: {movie?.runtime} minuter</p>
+            </Typography>
+          </Box>
+        </Box>
+      </Container>
     </>
   );
 }
