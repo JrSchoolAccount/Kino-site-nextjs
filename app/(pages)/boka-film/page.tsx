@@ -5,7 +5,9 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import React from 'react';
 
-const BookMoviePage: React.FC = () => {
+const Loading = () => <div>Loading...</div>;
+
+const BookMoviePageContent: React.FC = () => {
   const searchParams = useSearchParams();
   const screeningId = searchParams.get('screeningId');
   const movieTitle = searchParams.get('movieTitle');
@@ -14,22 +16,26 @@ const BookMoviePage: React.FC = () => {
   const saloon = searchParams.get('saloon');
 
   if (!screeningId || !movieTitle || !movieTime) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
-    <div>
-      <Suspense>
-        <BookingForm
-          movieTitle={movieTitle}
-          movieTime={new Date(movieTime)}
-          screeningId={screeningId}
-          poster={poster ?? ''}
-          saloon={saloon ?? ''}
-        />
-      </Suspense>
-    </div>
-  ) as React.ReactElement;
+    <BookingForm
+      movieTitle={movieTitle}
+      movieTime={new Date(movieTime)}
+      screeningId={screeningId}
+      poster={poster ?? ''}
+      saloon={saloon ?? ''}
+    />
+  );
+};
+
+const BookMoviePage: React.FC = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <BookMoviePageContent />
+    </Suspense>
+  );
 };
 
 export default BookMoviePage;
