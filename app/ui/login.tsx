@@ -19,7 +19,7 @@ export default function SignIn() {
   const [emailError, setEmailError] = React.useState(false);
   const [password, setPassword] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
