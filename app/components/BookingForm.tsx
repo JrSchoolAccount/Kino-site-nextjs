@@ -140,6 +140,8 @@ const BookingForm: React.FC<BookingFormProps> = ({
         <Image
           src={poster}
           alt={movieTitle}
+          width={100}
+          height={100}
           style={{
             position: 'absolute',
             width: '100%',

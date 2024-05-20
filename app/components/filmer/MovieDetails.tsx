@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { fetchMovie } from '../../lib/fetchMovies';
-import Image from 'next/image';
 
 export default async function Movie({ movieId }: { movieId: string }) {
   const movie = await fetchMovie(movieId);
