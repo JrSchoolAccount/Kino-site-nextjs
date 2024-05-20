@@ -2,7 +2,6 @@ import { Movie } from '@/app/lib/definitions';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Container, Typography, Box, typographyClasses } from '@mui/material';
-import { VIEW_HEIGHT } from '@mui/x-date-pickers/internals';
 
 export default function MovieDetails({ movieId }: { movieId: string }) {
   const [movie, setMovie] = useState<Movie | null>(null);
@@ -43,6 +42,7 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
           flexDirection="column"
           alignItems="center"
           maxWidth={800}
+          padding={2}
         >
           <Typography variant="h4" component="h2" align="center" margin={3}>
             {movie?.title}

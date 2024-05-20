@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Movie } from '@/app/lib/definitions';
-import { List, ListItem, ListItemText, Button } from '@mui/material';
+import { ListItem } from '@mui/material';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Image from 'next/image';
@@ -24,28 +24,49 @@ export default function MovieList() {
   return (
     <>
       <Container>
-        <Grid container spacing={10}>
+        <Grid
+          container
+          spacing={8}
+          justifyContent={'center'}
+          alignContent={'center'}
+        >
           {movies &&
             movies.map((movie: any) => (
-              <Grid item xs={12} sm={6} md={3} lg={2} key={movie._id}>
+              <Grid
+                item
+                xs={14}
+                sm={6}
+                md={4}
+                lg={3}
+                key={movie._id}
+                justifyContent="center"
+              >
                 <ListItem>
                   <Box
                     display="flex"
                     flexDirection="column"
-                    alignItems="center"
+                    justifyContent="center"
+                    alignContent="center"
                   >
-                    <Link href={`/filmer/${movie._id}`}>
+                    <Link
+                      href={`/filmer/${movie._id}`}
+                      style={{ textDecoration: 'none' }}
+                    >
                       <Image
                         src={movie.poster}
                         alt={movie.title}
-                        height={250}
-                        width={180}
+                        height={650}
+                        width={400}
+                        layout="intrinsic"
                       />
-                      <Button size="medium">
-                        <Typography align="center">
-                          <ListItemText primary={movie.title} />
-                        </Typography>
-                      </Button>
+                      <Typography
+                        textAlign="center"
+                        variant="h5"
+                        color="white"
+                        margin={1}
+                      >
+                        {movie.title}
+                      </Typography>
                     </Link>
                   </Box>
                 </ListItem>
