@@ -2,6 +2,7 @@ import { Movie } from '@/app/lib/definitions';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Container, Typography, Box, typographyClasses } from '@mui/material';
+import { VIEW_HEIGHT } from '@mui/x-date-pickers/internals';
 
 export default function MovieDetails({ movieId }: { movieId: string }) {
   const [movie, setMovie] = useState<Movie | null>(null);
@@ -22,7 +23,7 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
     return (
       <>
         <Typography variant="h4" align="center" margin={4}>
-          Failed to load movie...
+          Laddar...
         </Typography>
       </>
     );
@@ -40,27 +41,30 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
         <Box
           display="flex"
           flexDirection="column"
-          alignItems="flex-start"
-          maxWidth={400}
+          alignItems="center"
+          maxWidth={800}
         >
           <Typography variant="h4" component="h2" align="center" margin={3}>
             {movie?.title}
           </Typography>
           <Image
-            alt="poster"
             src={movie?.poster}
-            max-height={800}
-            width={400}
-            height={600}
+            alt="poster"
+            layout="intrinsic"
+            width={800}
+            height={1200}
           />
           <Typography variant="subtitle2" margin={1}>
-            {movie?.plot.slice(0, 200) + '...'}
+            {movie?.fullplot}
           </Typography>
-          <Box>
-            <Typography variant="subtitle1" margin={1}>
+          <Box alignSelf={'start'}>
+            <Typography variant="subtitle1" fontWeight="bold" margin={1}>
               <p>År: {movie?.year}</p>
-              <p>Imdb Betyg: {movie?.imdb.rating}</p>
-              <p>Speltid: {movie?.runtime} minuter</p>
+              <p>Imdb-Betyg: {movie?.imdb.rating}</p>
+              <p>
+                Speltid: {movie?.runtime} min (
+                {(movie?.runtime / 60).toFixed(1)} h)
+              </p>
             </Typography>
           </Box>
         </Box>
