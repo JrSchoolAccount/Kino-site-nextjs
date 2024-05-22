@@ -1,5 +1,3 @@
-'use client';
-import Link from 'next/link';
 import MovieDetails from '@/app/components/filmer/MovieDetails';
 import Reviews from '@/app/ui/reviews';
 import ScreeningsTableSpecificMovie from '@/app/ui/screeningsTableSpecificMovie';

@@ -1,3 +1,4 @@
+'use client';
 import { Movie } from '@/app/lib/definitions';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -41,7 +42,7 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
           display="flex"
           flexDirection="column"
           alignItems="center"
-          maxWidth={800}
+          maxWidth={600}
           padding={2}
         >
           <Typography variant="h4" component="h2" align="center" margin={3}>
@@ -51,7 +52,7 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
             src={movie?.poster}
             alt="poster"
             layout="intrinsic"
-            width={800}
+            width={600}
             height={1200}
           />
           <Typography variant="subtitle2" margin={1}>

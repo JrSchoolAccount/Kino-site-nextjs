@@ -1,5 +1,6 @@
+'use client';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Movie } from '@/app/lib/definitions';
 import { ListItem } from '@mui/material';
 import Container from '@mui/material/Container';
@@ -7,20 +8,20 @@ import Grid from '@mui/material/Grid';
 import Image from 'next/image';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { fetchMovies } from '@/app/lib/fetchMovies';
 
 export default function MovieList() {
   const [movies, setMovies] = useState<Movie[]>([]);
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const res = await fetch('/api/movies');
-      const data = await res.json();
-      setMovies(data.movies);
-    };
-
-    fetchMovies();
-  }, []);
-
+  if (movies.length === 0) {
+    fetchMovies()
+      .then((data) => {
+        setMovies(data.movies);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   return (
     <>
       <Container>
