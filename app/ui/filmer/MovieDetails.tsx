@@ -49,6 +49,7 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
             {movie?.title}
           </Typography>
           <Image
+            priority={true}
             src={movie?.poster}
             alt="poster"
             width={800}
@@ -56,6 +57,7 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
             style={{
               maxWidth: '100%',
               height: 'auto',
+              width: 'auto',
             }}
           />
           <Typography variant="subtitle2" margin={1}>
