@@ -39,7 +39,10 @@ const MovieCarousel = () => {
         }));
         setMovies(movieData);
       } else {
-        console.error('Data received from API does not contain an array of movies:', data);
+        console.error(
+          'Data received from API does not contain an array of movies:',
+          data,
+        );
       }
     } catch (error) {
       console.error('Error fetching movies:', error);
@@ -51,7 +54,10 @@ const MovieCarousel = () => {
   }
 
   return (
-    <Container maxWidth="lg" style={{ marginTop: '100px', marginBottom: '100px' }}>
+    <Container
+      maxWidth="lg"
+      style={{ marginTop: '100px', marginBottom: '100px' }}
+    >
       <Typography
         sx={{
           fontSize: '45px',
@@ -85,9 +91,19 @@ const MovieCarousel = () => {
                 boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)',
               }}
             >
-              <Image src={movie.poster} alt={movie.title} layout="responsive" width={200} height={100} />
+              <Image
+                src={movie.poster}
+                alt={movie.title}
+                layout="responsive"
+                width={200}
+                height={100}
+              />
             </Box>
-            <Typography variant="h3" align="center" sx={{ fontSize: 20, marginTop: 2 }}>
+            <Typography
+              variant="h3"
+              align="center"
+              sx={{ fontSize: 20, marginTop: 2 }}
+            >
               {movie.title}
             </Typography>
           </Box>

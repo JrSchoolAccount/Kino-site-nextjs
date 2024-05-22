@@ -1,4 +1,4 @@
-import MovieList from '@/app/components/filmer/MovieList';
+import MovieList from '@/app/ui/filmer/MovieList';
 import { Typography } from '@mui/material';
 
 export default function MovieListPage() {

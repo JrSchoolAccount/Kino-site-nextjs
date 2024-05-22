@@ -1,32 +1,22 @@
 'use client';
 import { Movie } from '@/app/lib/definitions';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import { Container, Typography, Box, typographyClasses } from '@mui/material';
+import { Container, Typography, Box } from '@mui/material';
+import { fetchMovieById } from '@/app/lib/fetchMovies';
 
 export default function MovieDetails({ movieId }: { movieId: string }) {
   const [movie, setMovie] = useState<Movie | null>(null);
 
-  useEffect(() => {
-    const fetchMovie = async () => {
-      if (movieId) {
-        const res = await fetch(`/api/movies?_id=${movieId}`);
-        const data = await res.json();
+  if (movie === null) {
+    (async () => {
+      try {
+        const data = await fetchMovieById(movieId);
         setMovie(data.movie);
+      } catch (error) {
+        console.error(error);
       }
-    };
-
-    fetchMovie();
-  }, [movieId]);
-
-  if (!movie) {
-    return (
-      <>
-        <Typography variant="h4" align="center" margin={4}>
-          Laddar...
-        </Typography>
-      </>
-    );
+    })();
   }
 
   return (
@@ -49,7 +39,7 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
             {movie?.title}
           </Typography>
           <Image
-            src={movie?.poster}
+            src={movie?.poster ?? ''}
             alt="poster"
             layout="intrinsic"
             width={600}
@@ -62,10 +52,7 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
             <Typography variant="subtitle1" fontWeight="bold" margin={1}>
               <p>År: {movie?.year}</p>
               <p>Imdb-Betyg: {movie?.imdb.rating}</p>
-              <p>
-                Speltid: {movie?.runtime} min (
-                {(movie?.runtime / 60).toFixed(1)} h)
-              </p>
+              <p>Speltid: {movie?.runtime ?? 0}</p>
             </Typography>
           </Box>
         </Box>

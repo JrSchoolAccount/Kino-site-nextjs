@@ -1,16 +1,10 @@
-import MovieDetails from '@/app/components/filmer/MovieDetails';
+import MovieDetails from '@/app/ui/filmer/MovieDetails';
 import Reviews from '@/app/ui/reviews';
-import ScreeningsTableSpecificMovie from '@/app/ui/screeningsTableSpecificMovie';
+import ScreeningsTableSpecificMovie from '@/app/ui/filmer/screeningsTableSpecificMovie';
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 
-export default async function Page({
-  params,
-}: {
-  params: {
-    id: string;
-  };
-}) {
+export default function Page({ params }: { params: { id: string } }) {
   const movieId = params.id;
 
   return (

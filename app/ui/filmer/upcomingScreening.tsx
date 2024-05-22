@@ -1,4 +1,4 @@
-import { getSpecificScreenings } from '../../lib/data';
+import { getSpecificScreenings } from '@/app/lib/data';
 
 const UpcomingScreening = () => {
   const specificScreenings = getSpecificScreenings(1).data;
