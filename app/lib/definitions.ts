@@ -35,3 +35,11 @@ export type Screening = {
   runtime?: string;
   id?: string;
 };
+
+export interface IReview extends Document {
+  movieId: string;
+  movieTitle: string;
+  name: string;
+  rating: number;
+  comment: string;
+}
