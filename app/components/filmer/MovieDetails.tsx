@@ -1,3 +1,4 @@
+'use client';
 import { Movie } from '@/app/lib/definitions';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
