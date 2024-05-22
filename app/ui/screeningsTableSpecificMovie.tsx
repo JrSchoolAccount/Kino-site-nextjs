@@ -6,10 +6,12 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Link from 'next/link';
 import { Box, Button, Typography } from '@mui/material';
 import * as React from 'react';
 import { useState } from 'react';
 import { Screening } from '../lib/definitions';
+import next from 'next';
 
 export default function ScreeningsTableSpecificMovie({
   movie_id,
@@ -87,11 +89,22 @@ export default function ScreeningsTableSpecificMovie({
                   {screening.saloon}
                 </TableCell>
                 <TableCell align="left">
-                  {
+                  <Link
+                    href={{
+                      pathname: '/boka-film/',
+                      query: {
+                        screeningId: screening._id,
+                        movieTitle: screening.movie,
+                        movieTime: new Date(screening.date).toISOString(),
+                        poster: screening.poster,
+                        saloon: screening.saloon,
+                      },
+                    }}
+                  >
                     <Button size="small" variant="outlined">
                       boka
                     </Button>
-                  }
+                  </Link>
                 </TableCell>
               </TableRow>
             ))
