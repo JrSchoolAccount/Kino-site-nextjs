@@ -29,10 +29,13 @@ export type carouselSettings = {
 };
 
 export type Screening = {
+  _id: number;
   movie: string;
   saloon: string;
   date: string;
   runtime?: string;
+  poster?: string;
+  movie_id?: string;
   id?: string;
 };
 

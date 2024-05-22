@@ -59,6 +59,9 @@ export async function GET(request: NextRequest) {
             runtime: {
               $first: '$Without_array.runtime',
             },
+            poster: {
+              $first: '$Without_array.poster',
+            },
             id: {
               $first: '$Without_array._id',
             },
