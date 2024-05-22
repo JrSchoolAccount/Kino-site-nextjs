@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { TextField, Typography, Button, Box, Stack } from '@mui/material';
 import { styled } from '@mui/system';
 import { useRouter } from 'next/navigation';
-import BookingModal from './modals/BookingModal';
+import BookingModal from './BookingModal';
 import Image from 'next/image';
 
 interface BookingFormProps {

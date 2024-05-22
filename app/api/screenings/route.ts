@@ -1,5 +1,6 @@
 import connectMongo from '@/app/lib/connectMongodb';
-import { ScreeningModel, Movie } from '@/app/lib/models';
+import { ScreeningModel } from '@/app/lib/models/screenings';
+import { MovieModel } from '@/app/lib/models/movies';
 import { NextResponse, NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -11,7 +12,7 @@ export async function GET(request: NextRequest) {
     let screenings = [];
 
     if (movie_id && date) {
-      const title = await Movie.findById(movie_id);
+      const title = await MovieModel.findById(movie_id);
 
       screenings = await ScreeningModel.aggregate([
         {

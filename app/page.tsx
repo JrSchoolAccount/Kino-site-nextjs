@@ -1,7 +1,6 @@
 'use client';
-
-import ScreeningsTableStartpage from './ui/screeningsTableStartpage';
-import MovieCarousel from './components/movieCarousel';
+import ScreeningsTableStartpage from './ui/landing/screeningsTableStartpage';
+import MovieCarousel from './ui/landing/movieCarousel';
 
 export default function Home() {
   return (

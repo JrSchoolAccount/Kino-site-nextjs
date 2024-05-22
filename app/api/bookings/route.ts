@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import connectMongo from '@/app/lib/connectMongodb';
-import Booking from '@/app/models/Booking';
+import Booking from '@/app/lib/models/booking';
 
 export async function POST(req: Request) {
   await connectMongo();
@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     if (!email || !fullName || !movieTitle || !movieTime || !screeningId) {
       return NextResponse.json(
         { message: 'Email, Full Name, Title and time required' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 

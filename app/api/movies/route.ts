@@ -1,5 +1,5 @@
 import connectMongo from '@/app/lib/connectMongodb';
-import { Movie } from '@/app/lib/models';
+import { MovieModel } from '@/app/lib/models/movies';
 import { NextResponse, NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -7,13 +7,13 @@ export async function GET(request: NextRequest) {
   const id = request.nextUrl.searchParams.get('_id');
   try {
     if (id) {
-      const movie = await Movie.findById(id);
+      const movie = await MovieModel.findById(id);
       if (!movie) {
         return NextResponse.json({ error: 'Movie not found.' });
       }
       return NextResponse.json({ movie });
     } else {
-      const allMovies = await Movie.find();
+      const allMovies = await MovieModel.find();
       return NextResponse.json({ movies: allMovies });
     }
   } catch (err: any) {

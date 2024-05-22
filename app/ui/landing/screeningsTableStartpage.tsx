@@ -1,23 +1,25 @@
-'use client';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Link from 'next/link';
 import { Box, Button, Typography } from '@mui/material';
+import Link from 'next/link';
 import * as React from 'react';
 import { useState } from 'react';
-import { Screening } from '../lib/definitions';
-import next from 'next';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs, { Dayjs } from 'dayjs';
+import 'dayjs/locale/sv';
+import { Screening } from '../../lib/definitions';
 
-export default function ScreeningsTableSpecificMovie({
-  movie_id,
-}: {
-  movie_id: string;
-}) {
+export default function ScreeningsTableStartpage() {
+  const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(
+    dayjs(new Date()),
+  );
+
   const [screenings, setScreenings] = useState<Screening[]>([]);
 
   const fetchScreenings = async (URL: string) => {
@@ -25,14 +27,15 @@ export default function ScreeningsTableSpecificMovie({
     const screenings = await res.json();
     return screenings;
   };
-
   React.useEffect(() => {
     fetchScreenings(
-      `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date().toLocaleTimeString().slice(0, 5)}&movie_id=${movie_id}`,
+      `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date()
+        .toLocaleTimeString()
+        .slice(0, 5)}`,
     ).then((screenings) => {
       setScreenings(screenings);
     });
-  }, [movie_id]);
+  }, []);
 
   return (
     <TableContainer
@@ -48,17 +51,43 @@ export default function ScreeningsTableSpecificMovie({
       }}
       component={Paper}
     >
-      <Typography
-        variant="h3"
-        sx={{
-          fontSize: 25,
-          marginRight: 10,
-          marginBottom: 2,
-          textAlign: 'center',
-        }}
-      >
-        Kommande visningar av filmen
-      </Typography>
+      <Box sx={{ display: 'flex' }}>
+        <Typography
+          variant="h3"
+          sx={{ fontSize: 25, marginRight: 10, marginTop: 3 }}
+        >
+          Kommande visningar
+        </Typography>
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="sv">
+          <DatePicker
+            disablePast
+            label={'Välj ett datum'}
+            views={['year', 'month', 'day']}
+            value={selectedDate}
+            onChange={(newValue) => {
+              if (newValue) {
+                setSelectedDate(newValue);
+                const newDate = newValue!.format().slice(0, 10);
+                if (newDate == new Date().toISOString().slice(0, 10)) {
+                  fetchScreenings(
+                    `/api/screenings?date=${newValue.format().slice(0, 16)}`,
+                  ).then((screenings) => {
+                    setScreenings(screenings);
+                  });
+                } else {
+                  fetchScreenings(
+                    `/api/screenings?date=${newValue.format().slice(0, 10)}`,
+                  ).then((screenings) => {
+                    setScreenings(screenings);
+                  });
+                }
+              }
+            }}
+            sx={{ marginBottom: 2 }}
+          />
+        </LocalizationProvider>
+      </Box>
+
       <Table sx={{ minWidth: 50 }} aria-label="simple table">
         <TableBody>
           {screenings[0] ? (
@@ -67,17 +96,6 @@ export default function ScreeningsTableSpecificMovie({
                 key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell align="left" sx={{ maxWidth: { xs: 5, sm: 200 } }}>
-                  {new Date(screening.date.slice(0, 10)).toLocaleDateString(
-                    'sv-SE',
-                    {
-                      weekday: 'long',
-                      year: undefined,
-                      month: 'short',
-                      day: 'numeric',
-                    },
-                  )}
-                </TableCell>
                 <TableCell
                   component="th"
                   scope="row"
@@ -85,8 +103,20 @@ export default function ScreeningsTableSpecificMovie({
                 >
                   {screening.date.slice(11, 16)}
                 </TableCell>
+                <TableCell align="left">
+                  <Button
+                    href={`/filmer/${screening.id!.toString()}`}
+                    component={Link}
+                    sx={{ fontSize: 16 }}
+                  >
+                    {screening.movie}
+                  </Button>
+                </TableCell>
                 <TableCell align="left" sx={{ maxWidth: { xs: 14, sm: 200 } }}>
                   {screening.saloon}
+                </TableCell>
+                <TableCell align="left" sx={{ maxWidth: { xs: 5, sm: 200 } }}>
+                  {screening.runtime} min
                 </TableCell>
                 <TableCell align="left">
                   <Link
@@ -114,8 +144,8 @@ export default function ScreeningsTableSpecificMovie({
             >
               <TableCell>
                 <Typography align="center" sx={{ my: 4 }}>
-                  Inga visningar finns av denna film just nu, var god välj en
-                  annan film!
+                  Inga visningar finns inlagda för detta datum. Var god välj ett
+                  annat datum!
                 </Typography>
               </TableCell>
             </TableRow>

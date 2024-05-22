@@ -1,6 +1,6 @@
-import MovieDetails from '@/app/components/filmer/MovieDetails';
-import Reviews from '@/app/ui/reviews';
-import ScreeningsTableSpecificMovie from '@/app/ui/screeningsTableSpecificMovie';
+import MovieDetails from '@/app/ui/filmer/MovieDetails';
+import Reviews from '@/app/ui/filmer/reviews';
+import ScreeningsTableSpecificMovie from '@/app/ui/filmer/screeningsTableSpecificMovie';
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 
