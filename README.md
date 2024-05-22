@@ -35,4 +35,8 @@ Personally, I find using MUI extremely convenient due to the abundance of ready-
 **[simonpizevski](https://github.com/simonpizevski)**
 <br> Jag tyckte att lära sig och använda MUI var en rolig och spännande upplevelse. I början hade jag lite problem med att sätta mig in i vilka komponenter man skulle använda sig av i olika situationer men efter ett tag kom jag in i det och blev mer och mer van. Det är alltid roligt att lära sig något nytt och jag är glad att vi inte använda oss av vanlig html. Det jag tyckte mest om var hur smidigt det var att använda sig av färdiga komponenter och minska hur mycket styling som kan behövas till vanlig html i jämförelse.
 
+**[Richard Lindberg](https://github.com/rl-86)**
+<br> Jag upplevde att det var en viss inlärningströskel för att komma igång och arbeta med MUI, samt att det var ganska annourlunda mot vanlig css stylng och att man hela tiden får läsa och söka i dokumentationen för MUI. 
+Men när man väl kommit igång med MUI är det ett mycket effektivt bibliotek för att få en modern och stilren design och där möjligheten att skapa en enhetlig design över hela websida är mycket god.
+
 ---
