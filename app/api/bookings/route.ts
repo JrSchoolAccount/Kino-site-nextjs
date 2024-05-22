@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import connectMongo from '@/app/lib/connectMongodb';
-import Booking from '@/app/models/Booking';
+import Booking from '@/app/lib/models/booking';
 
 export async function POST(req: Request) {
   await connectMongo();

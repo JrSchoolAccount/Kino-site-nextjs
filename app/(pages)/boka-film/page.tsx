@@ -1,6 +1,6 @@
 'use client';
 
-import BookingForm from '@/app/components/BookingForm';
+import BookingForm from '@/app/ui/bokning/BookingForm';
 import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 import React from 'react';

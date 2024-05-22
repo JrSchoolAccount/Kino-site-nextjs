@@ -5,6 +5,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Box, Button, Typography } from '@mui/material';
+import Link from 'next/link';
 import * as React from 'react';
 import { useState } from 'react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -13,7 +14,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/sv';
 import { Screening } from '../../lib/definitions';
-import Link from 'next/link';
 
 export default function ScreeningsTableStartpage() {
   const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(
@@ -29,7 +29,9 @@ export default function ScreeningsTableStartpage() {
   };
   React.useEffect(() => {
     fetchScreenings(
-      `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date().toLocaleTimeString().slice(0, 5)}`,
+      `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date()
+        .toLocaleTimeString()
+        .slice(0, 5)}`,
     ).then((screenings) => {
       setScreenings(screenings);
     });
@@ -117,11 +119,22 @@ export default function ScreeningsTableStartpage() {
                   {screening.runtime} min
                 </TableCell>
                 <TableCell align="left">
-                  {
+                  <Link
+                    href={{
+                      pathname: '/boka-film/',
+                      query: {
+                        screeningId: screening._id,
+                        movieTitle: screening.movie,
+                        movieTime: new Date(screening.date).toISOString(),
+                        poster: screening.poster,
+                        saloon: screening.saloon,
+                      },
+                    }}
+                  >
                     <Button size="small" variant="outlined">
                       boka
                     </Button>
-                  }
+                  </Link>
                 </TableCell>
               </TableRow>
             ))
