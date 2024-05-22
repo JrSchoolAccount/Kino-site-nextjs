@@ -23,7 +23,7 @@ export default function Page() {
         Om oss
       </Typography>
       <Typography
-        variant="h5"
+        variant='h5'
         sx={{
           mt: 6,
           mb: 4,
@@ -164,7 +164,8 @@ export default function Page() {
         kunna ta emot även internetpost, så kallat E-mejl. Håll koll på hemsidan för senaste infon om hur det går! I
         övrigt rekommenderas att dyka upp vid receptionen, Birgitta brukar vara där ibland och kan även teckenspråk!
         Oftast är dock biografen obemannad, då våra anställda alltjämt sjukskriver sig för nedstämdhet. Känn er fria att
-        bara kliva in i biosalongen under öppettider och prata med någon i publiken därinne, ingen bryr sig ändå egentligen om filmen som pågår.
+        bara kliva in i biosalongen under öppettider och prata med någon i publiken därinne, ingen bryr sig ändå
+        egentligen om filmen som pågår.
       </Typography>
     </Box>
   );

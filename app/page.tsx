@@ -1,4 +1,5 @@
 'use client';
+
 import ScreeningsTableStartpage from './ui/screeningsTableStartpage';
 import MovieCarousel from './components/movieCarousel';
 
