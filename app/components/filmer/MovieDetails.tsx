@@ -51,9 +51,12 @@ export default function MovieDetails({ movieId }: { movieId: string }) {
           <Image
             src={movie?.poster}
             alt="poster"
-            layout="intrinsic"
             width={800}
             height={1200}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
           />
           <Typography variant="subtitle2" margin={1}>
             {movie?.fullplot}
