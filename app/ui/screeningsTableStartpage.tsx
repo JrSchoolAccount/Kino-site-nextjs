@@ -46,8 +46,8 @@ export default function ScreeningsTableStartpage() {
         boxShadow: 1,
         margin: 'auto',
         marginTop: 5,
-        paddingX: { xs: 1, sm: 4},
-        paddingTop: 4
+        paddingX: { xs: 1, sm: 4 },
+        paddingTop: 4,
       }}
       component={Paper}
     >
@@ -105,7 +105,7 @@ export default function ScreeningsTableStartpage() {
                 </TableCell>
                 <TableCell align="left">
                   <Button
-                    href={`/filmer/${screening.movie_id}`}
+                    href={`/filmer/${screening.id!.toString()}`}
                     component={Link}
                     sx={{ fontSize: 16 }}
                   >

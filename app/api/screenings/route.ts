@@ -63,6 +63,13 @@ export async function GET(request: NextRequest) {
         },
       ]);
     }
+            id: {
+              $first: '$Without_array._id',
+            },
+          },
+        },
+      ]);
+    }
     return NextResponse.json(screenings);
   } catch (err: any) {
     return NextResponse.json({ error: err.message });

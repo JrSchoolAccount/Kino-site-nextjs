@@ -45,4 +45,5 @@ export type Screening = {
   runtime?: string;
   poster?: string;
   movie_id?: string;
+  id?: string;
 };
