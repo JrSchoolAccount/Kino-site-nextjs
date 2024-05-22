@@ -58,11 +58,9 @@ export async function GET(request: NextRequest) {
             runtime: {
               $first: '$Without_array.runtime',
             },
-            poster: { $first: '$Without_array.poster' },
-          },
-        },
-      ]);
-    }
+            poster: {
+              $first: '$Without_array.poster',
+            },
             id: {
               $first: '$Without_array._id',
             },
@@ -70,6 +68,7 @@ export async function GET(request: NextRequest) {
         },
       ]);
     }
+
     return NextResponse.json(screenings);
   } catch (err: any) {
     return NextResponse.json({ error: err.message });
