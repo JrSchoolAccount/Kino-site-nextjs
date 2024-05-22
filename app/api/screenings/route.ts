@@ -24,10 +24,21 @@ export async function GET(request: NextRequest) {
         },
         { $sort: { date: 1 } },
         {
+          $lookup: {
+            from: 'movies',
+            localField: 'movie',
+            foreignField: 'title',
+            as: 'Without_array',
+          },
+        },
+        {
           $project: {
             movie: 1,
             saloon: 1,
             date: 1,
+            poster: {
+              $first: '$Without_array.poster',
+            },
           },
         },
       ]);

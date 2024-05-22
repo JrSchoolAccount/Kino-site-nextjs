@@ -31,7 +31,7 @@ export default function ScreeningsTableStartpage() {
     fetchScreenings(
       `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date()
         .toLocaleTimeString()
-        .slice(0, 5)}`
+        .slice(0, 5)}`,
     ).then((screenings) => {
       setScreenings(screenings);
     });
@@ -53,7 +53,7 @@ export default function ScreeningsTableStartpage() {
     >
       <Box sx={{ display: 'flex' }}>
         <Typography
-          variant='h3'
+          variant="h3"
           sx={{ fontSize: 25, marginRight: 10, marginTop: 3 }}
         >
           Kommande visningar
@@ -70,13 +70,13 @@ export default function ScreeningsTableStartpage() {
                 const newDate = newValue!.format().slice(0, 10);
                 if (newDate == new Date().toISOString().slice(0, 10)) {
                   fetchScreenings(
-                    `/api/screenings?date=${newValue.format().slice(0, 16)}`
+                    `/api/screenings?date=${newValue.format().slice(0, 16)}`,
                   ).then((screenings) => {
                     setScreenings(screenings);
                   });
                 } else {
                   fetchScreenings(
-                    `/api/screenings?date=${newValue.format().slice(0, 10)}`
+                    `/api/screenings?date=${newValue.format().slice(0, 10)}`,
                   ).then((screenings) => {
                     setScreenings(screenings);
                   });
@@ -118,23 +118,23 @@ export default function ScreeningsTableStartpage() {
                 <TableCell align="left" sx={{ maxWidth: { xs: 5, sm: 200 } }}>
                   {screening.runtime} min
                 </TableCell>
-               <TableCell align='left'>
-                <Link
-                  href={{
-                    pathname: '/boka-film/',
-                    query: {
-                      screeningId: screening._id,
-                      movieTitle: screening.movie,
-                      movieTime: new Date(screening.date).toISOString(),
-                      poster: screening.poster,
-                      saloon: screening.saloon,
-                    },
-                  }}
-                >
-                  <Button size='small' variant='outlined'>
-                    boka
-                  </Button>
-                </Link>
+                <TableCell align="left">
+                  <Link
+                    href={{
+                      pathname: '/boka-film/',
+                      query: {
+                        screeningId: screening._id,
+                        movieTitle: screening.movie,
+                        movieTime: new Date(screening.date).toISOString(),
+                        poster: screening.poster,
+                        saloon: screening.saloon,
+                      },
+                    }}
+                  >
+                    <Button size="small" variant="outlined">
+                      boka
+                    </Button>
+                  </Link>
                 </TableCell>
               </TableRow>
             ))
