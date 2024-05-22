@@ -27,7 +27,7 @@ export default function ScreeningsTableSpecificMovie({
 
   React.useEffect(() => {
     fetchScreenings(
-      `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date().toLocaleTimeString().slice(0, 5)}&movie_id=${movie_id}`,
+      `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date().toLocaleTimeString().slice(0, 5)}&movie_id=${movie_id}`,
     ).then((screenings) => {
       setScreenings(screenings);
     });

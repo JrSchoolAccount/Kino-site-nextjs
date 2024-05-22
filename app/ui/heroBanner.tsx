@@ -1,3 +1,6 @@
+/* This component is not used at the moment, but might be implemented in a later update
+
+
 'use client';
 import { useState, useEffect } from 'react';
 import { styled } from '@mui/system';
@@ -49,3 +52,4 @@ const HeroBanner = () => {
 };
 
 export default HeroBanner;
+ */

@@ -32,13 +32,16 @@ export default function Reviews({ movieId, movieTitle }: ReviewsProps) {
   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
-    const response = await fetch('/api/reviews', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/reviews`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ movieId, movieTitle, ...formData }),
       },
-      body: JSON.stringify({ movieId, movieTitle, ...formData }),
-    });
+    );
     if (response.ok) {
       setFormData({ name: '', rating: '', comment: '' });
       setTimeout(() => {

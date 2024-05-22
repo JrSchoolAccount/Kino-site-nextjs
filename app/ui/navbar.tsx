@@ -48,7 +48,9 @@ export default function ResponsiveAppBar() {
     setFilteredMovies(filtered);
     if (value.trim() !== '') {
       try {
-        const response = await fetch('/api/movies');
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/movies`,
+        );
         const data = await response.json();
         if (Array.isArray(data.movies)) {
           const movieData = data.movies.map((movie: any) => ({

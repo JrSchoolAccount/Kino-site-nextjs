@@ -75,17 +75,20 @@ const BookingForm: React.FC<BookingFormProps> = ({
     }
 
     try {
-      const response = await fetch('/api/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          fullName,
-          movieTitle,
-          movieTime,
-          screeningId,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/bookings`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email,
+            fullName,
+            movieTitle,
+            movieTime,
+            screeningId,
+          }),
+        },
+      );
 
       if (!response.ok) {
         throw new Error('Failed to submit booking');

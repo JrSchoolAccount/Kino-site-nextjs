@@ -54,6 +54,7 @@ export default function MovieList() {
                       style={{ textDecoration: 'none' }}
                     >
                       <Image
+                        priority={true}
                         src={movie.poster}
                         alt={movie.title}
                         height={650}

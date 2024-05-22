@@ -29,7 +29,7 @@ export default function ScreeningsTableStartpage() {
   };
   React.useEffect(() => {
     fetchScreenings(
-      `/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date()
+      `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/screenings?date=${new Date().toISOString().slice(0, 11)}${new Date()
         .toLocaleTimeString()
         .slice(0, 5)}`,
     ).then((screenings) => {
@@ -70,13 +70,13 @@ export default function ScreeningsTableStartpage() {
                 const newDate = newValue!.format().slice(0, 10);
                 if (newDate == new Date().toISOString().slice(0, 10)) {
                   fetchScreenings(
-                    `/api/screenings?date=${newValue.format().slice(0, 16)}`,
+                    `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/screenings?date=${newValue.format().slice(0, 16)}`,
                   ).then((screenings) => {
                     setScreenings(screenings);
                   });
                 } else {
                   fetchScreenings(
-                    `/api/screenings?date=${newValue.format().slice(0, 10)}`,
+                    `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/screenings?date=${newValue.format().slice(0, 10)}`,
                   ).then((screenings) => {
                     setScreenings(screenings);
                   });

@@ -32,13 +32,16 @@ export default function SignIn() {
       const email = formData.get('email') as string;
       const password = formData.get('password') as string;
 
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/login`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
         },
-        body: JSON.stringify({ email, password }),
-      });
+      );
 
       if (response.ok) {
         window.location.href = '/profil';

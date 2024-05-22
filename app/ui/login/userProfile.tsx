@@ -17,9 +17,12 @@ export default function UserProfile() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('/api/logout', {
-        method: 'GET',
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/logout`,
+        {
+          method: 'GET',
+        },
+      );
 
       if (response.ok) {
         await router.push('/');

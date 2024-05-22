@@ -30,13 +30,16 @@ export default function SignUp() {
       const email = formData.get('email') as string;
       const password = formData.get('password') as string;
 
-      const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_LOCAL_URL}/api/signup`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, password }),
         },
-        body: JSON.stringify({ name, email, password }),
-      });
+      );
 
       if (response.ok) {
         window.location.href = '/login';
