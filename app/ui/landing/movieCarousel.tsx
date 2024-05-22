@@ -4,9 +4,9 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Container, Typography, Box } from '@mui/material';
-import { carouselSettings } from '../lib/definitions';
+import { carouselSettings } from '../../lib/definitions';
 import Image from 'next/image';
-import { Movie } from '../lib/definitions';
+import { Movie } from '../../lib/definitions';
 import { useRouter } from 'next/navigation';
 
 const MovieCarousel = () => {

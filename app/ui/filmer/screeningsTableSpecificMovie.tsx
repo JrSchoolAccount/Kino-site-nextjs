@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import { Box, Button, Typography } from '@mui/material';
 import * as React from 'react';
 import { useState } from 'react';
-import { Screening } from '../lib/definitions';
+import { Screening } from '../../lib/definitions';
 
 export default function ScreeningsTableSpecificMovie({
   movie_id,
