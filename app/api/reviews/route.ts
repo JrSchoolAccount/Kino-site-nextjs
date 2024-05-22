@@ -1,23 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {Review} from '@/app/lib/models';
+import { Review } from '@/app/lib/models/reviews';
 import connectMongo from '@/app/lib/connectMongodb';
-export async function POST(req: NextRequest, res:NextResponse) {
+export async function POST(req: NextRequest, res: NextResponse) {
   console.log('API Endpoint Hit');
-  
+
   await connectMongo();
   console.log('api/reviews/route.ts: MongoDB connected');
   try {
-    const body = await req.json();    
+    const body = await req.json();
     const { movieId, movieTitle, name, rating, comment } = body;
     const numericRating = parseInt(rating, 10);
     // console.log('Received data:', body);
 
-    if (!name || typeof name !== 'string' || isNaN(numericRating) || !comment || typeof comment !== 'string') {
-      return new NextResponse(JSON.stringify({ message: 'Invalid input' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
-     }
+    if (
+      !name ||
+      typeof name !== 'string' ||
+      isNaN(numericRating) ||
+      !comment ||
+      typeof comment !== 'string'
+    ) {
+      return new NextResponse(JSON.stringify({ message: 'Invalid input' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
 
     const newReview = new Review({
-      movieId, 
+      movieId,
       movieTitle,
       name: name,
       rating: numericRating,
@@ -28,10 +37,15 @@ export async function POST(req: NextRequest, res:NextResponse) {
 
     const headers = new Headers();
     headers.append('Location', '/sendReview');
-    return new NextResponse('Redirecting to /sendReview...', { status: 302, headers: headers });
+    return new NextResponse('Redirecting to /sendReview...', {
+      status: 302,
+      headers: headers,
+    });
   } catch (error) {
     console.error('Error creating user:', error);
-    return new NextResponse(JSON.stringify({ message: 'Internal Server Error' }), { status: 500, headers: { 'Content-Type': 'application/json' } });
+    return new NextResponse(
+      JSON.stringify({ message: 'Internal Server Error' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } },
+    );
   }
 }
-

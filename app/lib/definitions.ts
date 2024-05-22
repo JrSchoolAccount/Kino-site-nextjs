@@ -3,14 +3,6 @@ export type SessionPayload = {
   expiresAt: Date;
   email: string;
 };
-export type Screenings = {
-  id: number;
-  start_time: string;
-};
-
-export type SpecificScreeningsResponse = {
-  data: Screenings[];
-};
 
 export type Movie = {
   id: string;
@@ -36,11 +28,21 @@ export type carouselSettings = {
   autoplaySpeed: number;
 };
 
-//This type is based on the info in our database, at some point we should fix so we don't have both Screenings and Screening as types if it doesn't fill a purpose
 export type Screening = {
+  _id: number;
   movie: string;
   saloon: string;
   date: string;
   runtime?: string;
+  poster?: string;
+  movie_id?: string;
   id?: string;
 };
+
+export interface IReview extends Document {
+  movieId: string;
+  movieTitle: string;
+  name: string;
+  rating: number;
+  comment: string;
+}

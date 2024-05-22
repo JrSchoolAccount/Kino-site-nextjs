@@ -58,7 +58,10 @@ export default function MovieList() {
                         alt={movie.title}
                         height={650}
                         width={400}
-                        layout="intrinsic"
+                        style={{
+                          maxWidth: '100%',
+                          height: 'auto',
+                        }}
                       />
                       <Typography
                         textAlign="center"

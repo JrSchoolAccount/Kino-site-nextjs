@@ -145,10 +145,16 @@ export default function ResponsiveAppBar() {
             }}
           >
             <Image
+              priority={true}
               width="140"
               height="50"
               src="/logo.png"
               alt="Biograf Regna"
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                width: 'auto',
+              }}
             />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>

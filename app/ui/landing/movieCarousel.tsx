@@ -4,9 +4,9 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Container, Typography, Box } from '@mui/material';
-import { carouselSettings } from '../lib/definitions';
+import { carouselSettings } from '@/app/lib/definitions';
 import Image from 'next/image';
-import { Movie } from '../lib/definitions';
+import { Movie } from '@/app/lib/definitions';
 import { useRouter } from 'next/navigation';
 
 const MovieCarousel = () => {
@@ -94,9 +94,13 @@ const MovieCarousel = () => {
               <Image
                 src={movie.poster}
                 alt={movie.title}
-                layout="responsive"
                 width={200}
                 height={100}
+                sizes="100vw"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                }}
               />
             </Box>
             <Typography

@@ -1,5 +1,6 @@
 import connectMongo from '@/app/lib/connectMongodb';
-import { ScreeningModel, Movie } from '@/app/lib/models';
+import { ScreeningModel } from '@/app/lib/models/screenings';
+import { MovieModel } from '@/app/lib/models/movies';
 import { NextResponse, NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -11,7 +12,7 @@ export async function GET(request: NextRequest) {
     let screenings = [];
 
     if (movie_id && date) {
-      const title = await Movie.findById(movie_id);
+      const title = await MovieModel.findById(movie_id);
 
       screenings = await ScreeningModel.aggregate([
         {
@@ -24,10 +25,21 @@ export async function GET(request: NextRequest) {
         },
         { $sort: { date: 1 } },
         {
+          $lookup: {
+            from: 'movies',
+            localField: 'movie',
+            foreignField: 'title',
+            as: 'Without_array',
+          },
+        },
+        {
           $project: {
             movie: 1,
             saloon: 1,
             date: 1,
+            poster: {
+              $first: '$Without_array.poster',
+            },
           },
         },
       ]);
@@ -57,6 +69,9 @@ export async function GET(request: NextRequest) {
             date: 1,
             runtime: {
               $first: '$Without_array.runtime',
+            },
+            poster: {
+              $first: '$Without_array.poster',
             },
             id: {
               $first: '$Without_array._id',

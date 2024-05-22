@@ -37,6 +37,10 @@ const HeroBanner = () => {
             height={500}
             src={posters}
             alt={`Movieposter of ${index}`}
+            style={{
+              maxWidth: '100%',
+              height: 'auto',
+            }}
           />
         </SlideContainer>
       ))}
