@@ -1,4 +1,3 @@
-'use client';
 import MovieList from '@/app/ui/filmer/MovieList';
 import { Typography } from '@mui/material';
 
