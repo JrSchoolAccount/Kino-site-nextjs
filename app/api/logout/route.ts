@@ -1,5 +1,4 @@
 import { deleteSession } from '@/app/lib/session';
-import { Message } from '@mui/icons-material';
 import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
