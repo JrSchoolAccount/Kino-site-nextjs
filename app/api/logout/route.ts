@@ -5,13 +5,11 @@ export async function POST(req: Request) {
   try {
     deleteSession();
 
-    const url = new URL('/', req.url);
-
-    return NextResponse.redirect(url);
+    return NextResponse.json({ status: 200 });
   } catch (error) {
-    console.log('Failed to delete session');
+    console.error('Failed to delete session:', error);
     return NextResponse.json(
-      { message: 'internal server error' },
+      { message: 'Internal server error' },
       { status: 500 },
     );
   }
