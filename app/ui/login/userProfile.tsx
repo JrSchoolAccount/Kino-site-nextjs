@@ -18,7 +18,7 @@ export default function UserProfile() {
   const handleLogout = async () => {
     try {
       const response = await fetch('/api/logout', {
-        method: 'GET',
+        method: 'POST',
       });
 
       if (response.ok) {
