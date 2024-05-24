@@ -1,10 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Container, Typography, Box } from '@mui/material';
-import { carouselSettings } from '../../lib/definitions';
 import Image from 'next/image';
 import { Movie } from '../../lib/definitions';
 import { useRouter } from 'next/navigation';
@@ -17,7 +16,7 @@ const MovieCarousel = () => {
     router.push(`/filmer/${movieId}`);
   };
 
-  const settings: carouselSettings = {
+  const settings = {
     dots: false,
     speed: 700,
     slidesToShow: 4,
@@ -27,31 +26,31 @@ const MovieCarousel = () => {
     autoplaySpeed: 1000,
   };
 
-  const fetchMovies = async () => {
-    try {
-      const response = await fetch('/api/movies');
-      const data = await response.json();
-      if (Array.isArray(data.movies)) {
-        const movieData = data.movies.map((movie: any) => ({
-          title: movie.title,
-          id: movie._id,
-          poster: movie.poster,
-        }));
-        setMovies(movieData);
-      } else {
-        console.error(
-          'Data received from API does not contain an array of movies:',
-          data,
-        );
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch('/api/movies');
+        const data = await response.json();
+        if (Array.isArray(data.movies)) {
+          const movieData = data.movies.map((movie: any) => ({
+            title: movie.title,
+            id: movie._id,
+            poster: movie.poster,
+          }));
+          setMovies(movieData);
+        } else {
+          console.error(
+            'Data received from API does not contain an array of movies:',
+            data,
+          );
+        }
+      } catch (error) {
+        console.error('Error fetching movies:', error);
       }
-    } catch (error) {
-      console.error('Error fetching movies:', error);
-    }
-  };
+    };
 
-  if (movies.length === 0) {
     fetchMovies();
-  }
+  }, []);
 
   return (
     <Container
@@ -95,7 +94,7 @@ const MovieCarousel = () => {
                 src={movie.poster}
                 alt={movie.title}
                 width={200}
-                height={100}
+                height={300}
                 sizes="100vw"
                 style={{
                   width: '100%',
