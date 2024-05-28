@@ -24,9 +24,10 @@ export async function POST(req: Request) {
 
     await newUser.save();
 
-    const profileUrl = new URL('/profil', req.url);
-
-    return NextResponse.redirect(profileUrl);
+    return NextResponse.json({
+      message: 'User created successfully',
+      status: 200,
+    });
   } catch (error) {
     return NextResponse.json(
       { message: 'Internal server error' },
