@@ -2,6 +2,7 @@ import connectMongo from '@/app/lib/connectMongodb';
 import { ScreeningModel } from '@/app/lib/models/screenings';
 import { MovieModel } from '@/app/lib/models/movies';
 import { NextResponse, NextRequest } from 'next/server';
+import { isDynamicServerError } from 'next/dist/client/components/hooks-server-context';
 
 export async function GET(request: NextRequest) {
   await connectMongo();
@@ -82,7 +83,10 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json(screenings);
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message });
+  } catch (error: any) {
+    if (isDynamicServerError(error)) {
+      throw error;
+    }
+    return NextResponse.json({ error: error.message });
   }
 }
